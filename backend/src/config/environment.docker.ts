@@ -1,28 +1,24 @@
-// THIS IS THE VERBOSE VERSION OF THE ENVIRONMENT
+// THIS IS THE DOCKER VERSION OF THE ENVIRONMENT
 export const config = {
 
   // application environment mode
-  environment: "dev",
+  environment: process.env.ENVIRONMENT || "production",
 
   // host domain options
-  protocol: 'http',
-  host: 'localhost',
-  exposedPort: 8080,
-  port: 8080,
+  protocol: process.env.PROTOCOL || 'http',
+  host: process.env.HOST || "localhost",
+  exposedPort: process.env.EXPOSED_PORT,
+  port: process.env.PORT, // !Do NOT change this option, because it is used by reverse-proxy
 
   // MongoDB connection options
   mongo: {
-    uri: "mongodb://localhost:27017/?authSource=admin",
+    uri: `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/?authSource=admin`,
     options: {
-      dbName: "ami-fullstack-database",
+      dbName: process.env.DB_NAME,
+      user: process.env.DB_ROOT_USERNAME,
+      pass: process.env.DB_ROOT_PASSWORD,
     }
   },
-
-  // sockets options
-  sockets: {
-    path: '/socket.io-client'
-  }
-
 };
 
 
