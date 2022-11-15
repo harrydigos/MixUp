@@ -1,5 +1,5 @@
 # MixUp
-Music player made by Team 13 in course HY469
+Music player made by Team 13 in course CS469
 
 ## Docker Variant
 
