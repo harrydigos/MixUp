@@ -24,7 +24,7 @@ const routes: Routes = [
       import('./pages/home/home.module').then((m) => m.HomeModule),
   },
   { path: 'item-shop', component: ItemShopComponent },
-  { path: '**', redirectTo: 'home', pathMatch: 'full' },
+  { path: '**', redirectTo: 'tv', pathMatch: 'full' },
 ];
 
 @NgModule({
