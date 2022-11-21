@@ -8,3 +8,7 @@ html,
 body {
   font-family: "Poppins", sans-serif;
 }
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}

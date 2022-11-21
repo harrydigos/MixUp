@@ -1,1 +1,49 @@
-<div class="w-screen h-screen bg-slate-700"></div>
+<div class="w-screen h-screen bg-blue-dark overflow-x-hidden hide-scrollbar">
+  <div class="flex w-full h-full">
+    <app-tv-navbar></app-tv-navbar>
+    <div class="ml-[280px] h-full pt-[100px]">
+      <div>
+        <div class="font-bold text-[28px] text-blue-light">STUDIO ALBUM</div>
+        <div class="my-2 font-bold text-5xl text-white">The Car</div>
+        <div class="font-semibold text-[32px] text-blue-extra-light mb-3">
+          Arctic Monkeys
+        </div>
+        <div class="w-1/2 text-xl text-white">
+          The Car is the forthcoming seventh studio album by English rock band
+          Arctic Monkeys. It was announced on 24 August 2022, and scheduled for
+          release on 21 October 2022.
+        </div>
+        <button
+          class="flex items-center justify-center mt-8 py-2 px-8 bg-blue-extra-light rounded-xl text-blue-dark font-medium text-[32px]"
+        >
+          Listen
+        </button>
+      </div>
+      <div>
+        <div class="font-semibold text-[40px] text-white mt-10 mb-6">
+          Latest Releases
+        </div>
+        <div class="w-[1640px] overflow-x-auto flex gap-10 hide-scrollbar">
+          <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
+          <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
+          <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
+          <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
+          <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
+        </div>
+
+        <div>
+          <div class="font-semibold text-[40px] text-white mt-10 mb-6">
+            Recently Listened
+          </div>
+          <div class="w-[1640px] overflow-x-auto flex gap-10 hide-scrollbar">
+            <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
+            <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
+            <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
+            <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
+            <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
