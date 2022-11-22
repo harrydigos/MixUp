@@ -12,3 +12,18 @@ body {
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+@mixin colors {
+  .blue-dark {
+    color: "#2C3333";
+  }
+  .blue {
+    color: "#395B64";
+  }
+  .blue-light {
+    color: "#A5C9CA";
+  }
+  .blue-extra-light {
+    color: "#E7F6F2";
+  }
+}

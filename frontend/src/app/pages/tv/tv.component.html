@@ -1,9 +1,19 @@
 <div class="w-screen h-screen bg-blue-dark overflow-x-hidden hide-scrollbar">
-  <div class="flex w-full h-full">
+  <div class="relative flex w-full h-full">
     <app-tv-navbar></app-tv-navbar>
-    <div class="ml-[280px] h-full pt-[100px]">
+    <div class="absolute top-0 right-0 h-[60%] min-w-1/2">
+      <img class="w-full h-full object-cover" src="\assets\theCar.jpg" />
+      <div
+        class="absolute w-full h-full top-0 right-0 bg-gradient-to-r from-blue-dark to-transparent"
+      ></div>
+      <div
+        class="absolute w-full h-1/2 bottom-0 right-0 bg-gradient-to-t from-blue-dark to-transparent"
+      ></div>
+    </div>
+
+    <div class="relative ml-[280px] h-full pt-[100px]">
       <div>
-        <div class="font-bold text-[28px] text-blue-light">STUDIO ALBUM</div>
+        <div class="font-bold text-xl text-blue-light">STUDIO ALBUM</div>
         <div class="my-2 font-bold text-5xl text-white">The Car</div>
         <div class="font-semibold text-[32px] text-blue-extra-light mb-3">
           Arctic Monkeys
