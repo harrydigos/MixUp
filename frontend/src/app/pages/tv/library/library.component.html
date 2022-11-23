@@ -1,1 +1,35 @@
-<p>library works!</p>
+<div
+  class="relative w-screen h-screen bg-blue-dark overflow-x-hidden hide-scrollbar"
+>
+  <div class="relative w-full ml-[280px] py-[100px]">
+    <div class="flex items-center gap-[100px]">
+      <div class="font-semibold text-[56px] text-white">Library</div>
+      <div class="w-[400px] h-[60px] rounded-full bg-blue"></div>
+    </div>
+    <div class="w-3/4 text-white mt-10 mb-6 flex justify-between items-center">
+      <div class="font-semibold text-[40px]">Saved Playlists</div>
+      <div class="font-medium text-[28px]">Sort by</div>
+    </div>
+    <div class="w-[1640px] overflow-x-auto flex gap-10 hide-scrollbar">
+      <app-tv-lib-card playlistName="Rockies" tracks="7"></app-tv-lib-card>
+      <app-tv-lib-card playlistName="Rockies" tracks="7"></app-tv-lib-card>
+      <app-tv-lib-card playlistName="Rockies" tracks="7"></app-tv-lib-card>
+      <app-tv-lib-card playlistName="Rockies" tracks="7"></app-tv-lib-card>
+      <app-tv-lib-card playlistName="Rockies" tracks="7"></app-tv-lib-card>
+      <app-tv-lib-card playlistName="Rockies" tracks="7"></app-tv-lib-card>
+    </div>
+    <div>
+      <div class="font-semibold text-[40px] text-white mt-10 mb-6">
+        Playlists that you may like
+      </div>
+      <div class="w-[1640px] overflow-x-auto flex gap-10 hide-scrollbar">
+        <app-tv-lib-card playlistName="Rockies" tracks="7"></app-tv-lib-card>
+        <app-tv-lib-card playlistName="Rockies" tracks="7"></app-tv-lib-card>
+        <app-tv-lib-card playlistName="Rockies" tracks="7"></app-tv-lib-card>
+        <app-tv-lib-card playlistName="Rockies" tracks="7"></app-tv-lib-card>
+        <app-tv-lib-card playlistName="Rockies" tracks="7"></app-tv-lib-card>
+        <app-tv-lib-card playlistName="Rockies" tracks="7"></app-tv-lib-card>
+      </div>
+    </div>
+  </div>
+</div>

@@ -7,6 +7,7 @@ import { HomeComponent } from 'src/app/pages/tv/home/home.component';
 import { SearchComponent } from './search/search.component';
 import { LibraryComponent } from './library/library.component';
 import { TvGenreCardComponent } from 'src/app/components/tv/tv-genre-card/tv-genre-card.component';
+import { TvLibCardComponent } from 'src/app/components/tv/tv-lib-card/tv-lib-card.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { TvGenreCardComponent } from 'src/app/components/tv/tv-genre-card/tv-gen
     LibraryComponent,
     TvCardComponent,
     TvGenreCardComponent,
+    TvLibCardComponent,
   ],
   imports: [CommonModule, TvRoutingModule],
 })
