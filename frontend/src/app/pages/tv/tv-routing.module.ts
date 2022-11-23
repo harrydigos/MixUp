@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SearchComponent } from './search/search.component';
 import { TVComponent } from './tv.component';
 import { HomeComponent } from 'src/app/pages/tv/home/home.component';
+import { LibraryComponent } from './library/library.component';
 
 const routes: Routes = [
   {
@@ -11,6 +12,7 @@ const routes: Routes = [
     children: [
       { path: 'home', component: HomeComponent },
       { path: 'search', component: SearchComponent },
+      { path: 'library', component: LibraryComponent },
       { path: '**', redirectTo: 'home', pathMatch: 'full' },
     ],
   },

@@ -1,4 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { TvNavbarState } from 'src/app/models/tvNavbarState';
+import { TvService } from 'src/app/services/tv.service';
 
 @Component({
   selector: 'app-tv-navbar',
@@ -6,11 +8,13 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./tv-navbar.component.scss'],
 })
 export class TvNavbarComponent implements OnInit {
-  @Input() page: 'home' | 'search' | 'library' | 'hide' = 'home';
+  @Input() page: TvNavbarState = 'home';
 
-  constructor() {}
+  constructor(private tvService: TvService) {}
 
-  ngOnInit(): void {
-    console.log(this.page);
+  ngOnInit(): void {}
+
+  reRenderNavState(state: TvNavbarState): void {
+    this.tvService.setNavState(state);
   }
 }
