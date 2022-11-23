@@ -1,0 +1,249 @@
+<nav *ngIf="page !== 'hide'" class="relative h-full w-full top-0 left-0 z-50">
+  <div class="fixed top-0 p-[100px] h-full flex flex-col justify-between">
+    <button (click)="reRenderNavState('home')" routerLink="/tv/home">
+      <svg
+        width="82"
+        height="67"
+        viewBox="0 0 82 67"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M20.225 53.44C15.165 53.44 11.1867 51.9917 8.29 49.095C5.39333 46.1983 3.945 41.9633 3.945 36.39V14.5H9.445V36.17C9.445 40.46 10.38 43.595 12.25 45.575C14.1567 47.555 16.8333 48.545 20.28 48.545C23.7633 48.545 26.44 47.555 28.31 45.575C30.2167 43.595 31.17 40.46 31.17 36.17V14.5H36.505V36.39C36.505 41.9633 35.0567 46.1983 32.16 49.095C29.3 51.9917 25.3217 53.44 20.225 53.44Z"
+          fill="white"
+        />
+        <path d="M48.5 53.5L48.5 28.5" stroke="#6CAFC0" stroke-width="5.5" />
+        <path
+          d="M62 42.5C69.4561 42.5 75.5 36.4561 75.5 29C75.5 21.5439 69.4561 15.5 62 15.5C54.5439 15.5 48.5 21.5439 48.5 29C48.5 36.4561 54.5439 42.5 62 42.5Z"
+          stroke="#6CAFC0"
+          stroke-width="5.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M62 31.5C62.663 31.5 63.2989 31.2366 63.7678 30.7678C64.2366 30.2989 64.5 29.663 64.5 29C64.5 28.337 64.2366 27.7011 63.7678 27.2322C63.2989 26.7634 62.663 26.5 62 26.5C61.337 26.5 60.7011 26.7634 60.2322 27.2322C59.7634 27.7011 59.5 28.337 59.5 29C59.5 29.663 59.7634 30.2989 60.2322 30.7678C60.7011 31.2366 61.337 31.5 62 31.5Z"
+          stroke="#6CAFC0"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </button>
+    <div class="flex flex-col gap-6">
+      <button
+        *ngIf="page === 'home'; else elseHome"
+        routerLink="/tv/home"
+        class="w-20 h-20 flex items-center justify-center p-4 bg-blue rounded-xl"
+      >
+        <svg
+          width="48"
+          height="48"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            opacity="0.4"
+            d="M20.83 8.01002L14.28 2.77002C13 1.75002 11 1.74002 9.72996 2.76002L3.17996 8.01002C2.23996 8.76002 1.66996 10.26 1.86996 11.44L3.12996 18.98C3.41996 20.67 4.98996 22 6.69996 22H17.3C18.99 22 20.59 20.64 20.88 18.97L22.14 11.43C22.32 10.26 21.75 8.76002 20.83 8.01002Z"
+            fill="#ffffff"
+          />
+          <path
+            d="M12 18.75C11.59 18.75 11.25 18.41 11.25 18V15C11.25 14.59 11.59 14.25 12 14.25C12.41 14.25 12.75 14.59 12.75 15V18C12.75 18.41 12.41 18.75 12 18.75Z"
+            fill="#ffffff"
+          />
+        </svg>
+      </button>
+      <ng-template #elseHome>
+        <button
+          (click)="reRenderNavState('home')"
+          routerLink="/tv"
+          class="w-20 h-20 flex items-center justify-center p-4 bg-blue rounded-xl"
+        >
+          <svg
+            width="48"
+            height="48"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              opacity="0.34"
+              d="M12 18V15"
+              stroke="#ffffff"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M10.0693 2.81985L3.13929 8.36985C2.35929 8.98985 1.85929 10.2998 2.02929 11.2798L3.35929 19.2398C3.59929 20.6598 4.95929 21.8098 6.39929 21.8098H17.5993C19.0293 21.8098 20.3993 20.6498 20.6393 19.2398L21.9693 11.2798C22.1293 10.2998 21.6293 8.98985 20.8593 8.36985L13.9293 2.82985C12.8593 1.96985 11.1293 1.96985 10.0693 2.81985Z"
+              stroke="#ffffff"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+      </ng-template>
+
+      <button
+        *ngIf="page === 'search'; else elseSearch"
+        routerLink="/tv/search"
+        class="w-20 h-20 flex items-center justify-center p-4 bg-blue rounded-xl"
+      >
+        <svg
+          width="48"
+          height="48"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            opacity="0.4"
+            d="M11.5 21C16.7467 21 21 16.7467 21 11.5C21 6.25329 16.7467 2 11.5 2C6.25329 2 2 6.25329 2 11.5C2 16.7467 6.25329 21 11.5 21Z"
+            fill="#ffffff"
+          />
+          <path
+            d="M21.3005 22.0001C21.1205 22.0001 20.9405 21.9301 20.8105 21.8001L18.9505 19.9401C18.6805 19.6701 18.6805 19.2301 18.9505 18.9501C19.2205 18.6801 19.6605 18.6801 19.9405 18.9501L21.8005 20.8101C22.0705 21.0801 22.0705 21.5201 21.8005 21.8001C21.6605 21.9301 21.4805 22.0001 21.3005 22.0001Z"
+            fill="#ffffff"
+          />
+        </svg>
+      </button>
+      <ng-template #elseSearch>
+        <button
+          (click)="reRenderNavState('search')"
+          routerLink="/tv/search"
+          class="w-20 h-20 flex items-center justify-center p-4 bg-blue rounded-xl"
+        >
+          <svg
+            width="48"
+            height="48"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M11.5 21C16.7467 21 21 16.7467 21 11.5C21 6.25329 16.7467 2 11.5 2C6.25329 2 2 6.25329 2 11.5C2 16.7467 6.25329 21 11.5 21Z"
+              stroke="#ffffff"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              opacity="0.4"
+              d="M22 22L20 20"
+              stroke="#ffffff"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+      </ng-template>
+      <button
+        *ngIf="page === 'library'; else elseLibrary"
+        routerLink="/tv/library"
+        class="w-20 h-20 flex items-center justify-center p-4 bg-blue rounded-xl"
+      >
+        <svg
+          width="48"
+          height="48"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M19 7V8.13C18.68 8.04 18.35 8 18 8H6C5.65 8 5.32 8.04 5 8.13V7C5 5.9 5.9 5 7 5H17C18.1 5 19 5.9 19 7Z"
+            fill="#ffffff"
+          />
+          <path
+            opacity="0.4"
+            d="M16 3.51001V5H8V3.51001C8 2.68001 8.68001 2 9.51001 2H14.49C15.32 2 16 2.68001 16 3.51001Z"
+            fill="#ffffff"
+          />
+          <path
+            opacity="0.4"
+            d="M22 12V18C22 20.2 20.2 22 18 22H6C3.8 22 2 20.2 2 18V12C2 10.15 3.28 8.58 5 8.13C5.32 8.04 5.65 8 6 8H18C18.35 8 18.68 8.04 19 8.13C20.72 8.58 22 10.15 22 12Z"
+            fill="#ffffff"
+          />
+          <path
+            d="M15.35 10.5098C15.05 10.2798 14.51 10.0598 13.66 10.2898L11.01 11.0198C10.18 11.2398 9.65002 11.9398 9.65002 12.7998V14.3498V16.1498C9.47002 16.0998 9.27001 16.0598 9.07001 16.0598C7.93001 16.0598 7 16.9898 7 18.1298C7 19.2698 7.93001 20.1998 9.07001 20.1998C10.21 20.1998 11.13 19.2798 11.14 18.1498C11.14 18.1398 11.15 18.1298 11.15 18.1198V14.9098L14.5 13.9998V15.2598C14.32 15.2098 14.13 15.1698 13.93 15.1698C12.79 15.1698 11.86 16.0998 11.86 17.2398C11.86 18.3798 12.79 19.3098 13.93 19.3098C15.07 19.3098 16 18.3798 16 17.2398V13.0198V12.0698C16 11.1998 15.64 10.7398 15.35 10.5098ZM9.07001 18.7098C8.75001 18.7098 8.5 18.4498 8.5 18.1398C8.5 17.8298 8.76001 17.5698 9.07001 17.5698C9.38001 17.5698 9.64001 17.8298 9.64001 18.1398C9.64001 18.4498 9.39001 18.7098 9.07001 18.7098ZM13.93 17.8198C13.61 17.8198 13.36 17.5598 13.36 17.2498C13.36 16.9398 13.62 16.6798 13.93 16.6798C14.24 16.6798 14.5 16.9398 14.5 17.2498C14.5 17.5598 14.24 17.8198 13.93 17.8198Z"
+            fill="#ffffff"
+          />
+        </svg>
+      </button>
+      <ng-template #elseLibrary>
+        <button
+          (click)="reRenderNavState('library')"
+          routerLink="/tv/library"
+          class="w-20 h-20 flex items-center justify-center p-4 bg-blue rounded-xl"
+        >
+          <svg
+            width="48"
+            height="48"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M22 13V17C22 20.5 20 22 17 22H7C4 22 2 20.5 2 17V13C2 10.35 3.15 8.85003 5 8.28003C5.6 8.09003 6.27 8 7 8H17C17.73 8 18.4 8.09003 19 8.28003C20.85 8.85003 22 10.35 22 13Z"
+              stroke="#ffffff"
+              stroke-width="1.5"
+              stroke-miterlimit="10"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M19 7V8.28003C18.4 8.09003 17.73 8 17 8H7C6.27 8 5.6 8.09003 5 8.28003V7C5 5.9 5.9 5 7 5H17C18.1 5 19 5.9 19 7Z"
+              stroke="#ffffff"
+              stroke-width="1.5"
+              stroke-miterlimit="10"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M16 3.51001V5H8V3.51001C8 2.68001 8.68001 2 9.51001 2H14.49C15.32 2 16 2.68001 16 3.51001Z"
+              stroke="#ffffff"
+              stroke-width="1.5"
+              stroke-miterlimit="10"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <g opacity="0.4">
+              <path
+                d="M9.07001 19.4501C9.79902 19.4501 10.39 18.8591 10.39 18.1301C10.39 17.4011 9.79902 16.8101 9.07001 16.8101C8.34099 16.8101 7.75 17.4011 7.75 18.1301C7.75 18.8591 8.34099 19.4501 9.07001 19.4501Z"
+                stroke="#ffffff"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M15.2504 17.2501V12.0801C15.2504 10.9801 14.5604 10.8201 13.8604 11.0201L11.2104 11.7401C10.7304 11.8701 10.4004 12.2501 10.4004 12.8001V13.7201V14.3401V18.1301"
+                stroke="#ffffff"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M13.9294 18.5702C14.6584 18.5702 15.2494 17.9792 15.2494 17.2502C15.2494 16.5212 14.6584 15.9302 13.9294 15.9302C13.2004 15.9302 12.6094 16.5212 12.6094 17.2502C12.6094 17.9792 13.2004 18.5702 13.9294 18.5702Z"
+                stroke="#ffffff"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M10.4004 14.3502L15.2504 13.0303"
+                stroke="#ffffff"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </g>
+          </svg>
+        </button>
+      </ng-template>
+    </div>
+    <div
+      class="w-20 h-20 flex items-center justify-center p-4 bg-blue rounded-full cursor-pointer"
+    ></div>
+  </div>
+</nav>

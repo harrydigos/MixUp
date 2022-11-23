@@ -1,1 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+html,
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@mixin colors {
+  .blue-dark {
+    color: "#2C3333";
+  }
+  .blue {
+    color: "#395B64";
+  }
+  .blue-light {
+    color: "#A5C9CA";
+  }
+  .blue-extra-light {
+    color: "#E7F6F2";
+  }
+}
