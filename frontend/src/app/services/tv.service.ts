@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { TvNavbarState } from '../models/tvNavbarState';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TvService {
-  navState: 'home' | 'search' | 'library' | 'hide' = 'home';
+  navState = new BehaviorSubject<TvNavbarState>('home');
+  readonly navState$ = this.navState.asObservable();
 
   constructor() {}
 
-  setNavState(state: 'home' | 'search' | 'library' | 'hide') {
-    this.navState = state;
+  setNavState(state: TvNavbarState): void {
+    this.navState.next(state);
   }
 
-  getNavState(): 'home' | 'search' | 'library' | 'hide' {
-    return this.navState;
+  getNavState(): TvNavbarState {
+    return this.navState.getValue();
   }
 }

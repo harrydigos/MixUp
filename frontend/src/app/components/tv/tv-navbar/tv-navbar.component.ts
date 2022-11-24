@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { TvNavbarState } from 'src/app/models/tvNavbarState';
 import { TvService } from 'src/app/services/tv.service';
 
