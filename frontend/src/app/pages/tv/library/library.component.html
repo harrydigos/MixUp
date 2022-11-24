@@ -1,1 +1,32 @@
-<p>library works!</p>
+<div
+  class="relative w-screen h-screen bg-blue-dark overflow-x-hidden hide-scrollbar"
+>
+  <div class="relative w-full pl-[280px] py-[100px]">
+    <div class="flex items-center gap-[100px]">
+      <div class="font-semibold text-[56px] text-white">Library</div>
+      <div
+        class="flex items-center w-[400px] h-[60px] rounded-full bg-blue/25 text-[32px] font-medium"
+      >
+        <button
+          [style.background-color]="
+            libraryNavState === 'favorites' ? 'rgb(57 91 100)' : 'transparent'
+          "
+          routerLink="/tv/library/favorites"
+          class="w-1/2 h-full flex items-center justify-center rounded-full text-blue-extra-light"
+        >
+          Favorites
+        </button>
+        <button
+          [style.background-color]="
+            libraryNavState === 'playlists' ? 'rgb(57 91 100)' : 'transparent'
+          "
+          routerLink="/tv/library/playlists"
+          class="w-1/2 h-full flex items-center justify-center rounded-full text-blue-extra-light"
+        >
+          Playlists
+        </button>
+      </div>
+    </div>
+    <router-outlet></router-outlet>
+  </div>
+</div>

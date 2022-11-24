@@ -12,9 +12,7 @@ export class TVComponent implements OnInit {
 
   constructor(private tvService: TvService) {}
 
-  ngOnInit(): void {}
-
-  ngAfterContentChecked(): void {
-    this.navState = this.tvService.getNavState();
+  ngOnInit(): void {
+    this.tvService.navState$.subscribe((event) => (this.navState = event));
   }
 }
