@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SearchComponent } from './search/search.component';
 import { TVComponent } from './tv.component';
 import { HomeComponent } from 'src/app/pages/tv/home/home.component';
+import { AlbumComponent } from './album/album.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,10 @@ const routes: Routes = [
         path: 'library',
         loadChildren: () =>
           import('./library/library.module').then((m) => m.LibraryModule),
+      },
+      {
+        path: 'album',
+        component: AlbumComponent, // This will need an ID
       },
       { path: '**', redirectTo: 'home', pathMatch: 'full' },
     ],
