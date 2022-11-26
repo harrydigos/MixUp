@@ -1,1 +1,32 @@
-<p>table works!</p>
+<div
+  #table
+  class="overflow-hidden hide-scrollbar"
+  (click)="toggleMenu()"
+  (mousemove)="getMousePosition($event)"
+>
+  <div
+    class="relative w-screen h-screen bg-blue-dark flex flex-col justify-between items-center py-20"
+  >
+    <div class="text-center">
+      <h1 class="font-semibold text-[64px] text-white">Blinding Lights</h1>
+      <h2 class="font-medium text-[32px] text-white">The Weeknd</h2>
+    </div>
+    <div class="relative z-50">
+      <div class="w-[500px] h-[500px] rounded-full bg-blue"></div>
+      <div
+        class="absolute top-0 -right-1/4 w-20 h-20 rounded-full bg-blue"
+      ></div>
+      <img
+        class="absolute bottom-0 -right-1/4"
+        src="assets/Icons/VolumeHigh.svg"
+        width="64px"
+        height="64px"
+      />
+    </div>
+    <div class="flex gap-16">
+      <img src="assets/Icons/Previous.svg" width="64px" height="64px" />
+      <img src="assets/Icons/Pause.svg" width="100px" height="100px" />
+      <img src="assets/Icons/Next.svg" width="64px" height="64px" />
+    </div>
+  </div>
+</div>
