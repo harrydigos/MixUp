@@ -2,18 +2,16 @@
   class="relative w-screen h-screen bg-blue-dark overflow-x-hidden hide-scrollbar"
 >
   <!-- Search button -->
-  <div
-    class="fixed z-10 top-14 left-1/2 -translate-x-1/2 flex justify-center items-center gap-4 py-3 px-8 rounded-full bg-blue cursor-pointer"
+  <button
+    class="fixed z-10 top-14 left-1/2 -translate-x-1/2 flex justify-center items-center gap-4 py-3 px-8 rounded-full bg-blue/60 transition hover:bg-blue focus:outline-none focus:ring focus:ring-blue-light"
   >
     <img src="assets/Icons/Microphone.svg" width="48px" height="48px" />
-    <div class="font-medium text-2xl text-white">
-      Search by using your voice
-    </div>
-  </div>
+    <div class="font-medium text-2xl text-white">Search</div>
+  </button>
 
   <div class="relative w-full pl-[280px] py-[100px]">
-    <div class="font-semibold text-[40px] text-white mb-6">Genres</div>
-    <div class="w-full pr-5 overflow-x-auto flex gap-6 hide-scrollbar">
+    <div class="font-semibold text-[40px] text-white mb-4">Genres</div>
+    <div class="w-full pt-2 pr-5 overflow-x-auto flex gap-6 hide-scrollbar">
       <app-tv-genre-card genre="Pop"></app-tv-genre-card>
       <app-tv-genre-card genre="Pop"></app-tv-genre-card>
       <app-tv-genre-card genre="Pop"></app-tv-genre-card>
@@ -23,10 +21,10 @@
       <app-tv-genre-card genre="Pop"></app-tv-genre-card>
     </div>
     <div>
-      <div class="font-semibold text-[40px] text-white mt-10 mb-6">
+      <div class="font-semibold text-[40px] text-white mt-10 mb-3">
         Recent Searches
       </div>
-      <div class="w-full pr-5 overflow-x-auto flex gap-10 hide-scrollbar">
+      <div class="w-full pr-5 overflow-x-auto flex gap-7 hide-scrollbar">
         <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
         <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
         <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
@@ -35,10 +33,10 @@
       </div>
 
       <div>
-        <div class="font-semibold text-[40px] text-white mt-10 mb-6">
+        <div class="font-semibold text-[40px] text-white mt-10 mb-3">
           Based On What You Like
         </div>
-        <div class="w-full pr-5 overflow-x-auto flex gap-10 hide-scrollbar">
+        <div class="w-full pr-5 overflow-x-auto flex gap-7 hide-scrollbar">
           <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
           <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
           <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>

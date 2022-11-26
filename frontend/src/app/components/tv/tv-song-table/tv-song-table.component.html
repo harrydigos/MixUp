@@ -1,6 +1,6 @@
 <table class="w-full table-fixed border-separate border-spacing-y-4">
   <thead>
-    <tr class="text-left text-blue-light font-semibold text-xl">
+    <tr class="text-left text-blue-light font-semibold text-xl select-none">
       <th class="w-20"></th>
       <th class="pl-6">Title</th>
       <th>Artist</th>
@@ -9,14 +9,19 @@
       <th class="w-8 h-8"></th>
     </tr>
   </thead>
-  <tbody *ngFor="let song of songs">
-    <tr class="h-20 text-white font-medium text-2xl">
-      <td class="w-20 h-full bg-blue rounded-[10px]"></td>
-      <td class="pl-6">{{ song.title }}</td>
+  <tbody>
+    <tr
+      *ngFor="let song of songs"
+      class="h-full text-white font-medium text-2xl cursor-pointer hover:bg-blue/20 duration-100"
+    >
+      <td class="h-full rounded-l-xl">
+        <div class="w-20 h-20 bg-blue rounded-[10px]"></div>
+      </td>
+      <td class="pl-6 group-hover:bg-blue/30 duration-100">{{ song.title }}</td>
       <td>{{ song.artist }}</td>
       <td>{{ song.album }}</td>
       <td>{{ song.duration }}</td>
-      <td><img src="assets/Icons/Heart.svg" width="32px" height="32px" /></td>
+      <td class="rounded-r-xl"><img src="assets/Icons/Heart.svg" width="32px" height="32px" /></td>
     </tr>
   </tbody>
 </table>

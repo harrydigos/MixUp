@@ -7,32 +7,48 @@
       <button
         *ngIf="page === 'home'; else elseHome"
         routerLink="/tv/home"
-        class="w-20 h-20 flex items-center justify-center p-4 bg-blue rounded-xl"
+        class="group w-20 h-20 flex items-center justify-center p-4 bg-blue rounded-xl"
       >
-        <img src="assets/Icons/HomeBulk.svg" width="48px" height="48px" />
+        <img
+          class="group-hover:rotate-12 duration-100"
+          src="assets/Icons/HomeBulk.svg"
+          width="48px"
+          height="48px"
+        />
       </button>
       <ng-template #elseHome>
         <button
           routerLink="/tv"
-          class="w-20 h-20 flex items-center justify-center p-4 bg-blue rounded-xl"
+          class="group w-20 h-20 flex items-center justify-center p-4 bg-blue rounded-xl"
         >
-          <img src="assets/Icons/HomeTwotone.svg" width="48px" height="48px" />
+          <img
+            class="group-hover:rotate-12 duration-100"
+            src="assets/Icons/HomeTwotone.svg"
+            width="48px"
+            height="48px"
+          />
         </button>
       </ng-template>
 
       <button
         *ngIf="page === 'search'; else elseSearch"
         routerLink="/tv/search"
-        class="w-20 h-20 flex items-center justify-center p-4 bg-blue rounded-xl"
+        class="group w-20 h-20 flex items-center justify-center p-4 bg-blue rounded-xl"
       >
-        <img src="assets/Icons/SearchBulk.svg" width="48px" height="48px" />
+        <img
+          class="group-hover:rotate-12 duration-100"
+          src="assets/Icons/SearchBulk.svg"
+          width="48px"
+          height="48px"
+        />
       </button>
       <ng-template #elseSearch>
         <button
           routerLink="/tv/search"
-          class="w-20 h-20 flex items-center justify-center p-4 bg-blue rounded-xl"
+          class="group w-20 h-20 flex items-center justify-center p-4 bg-blue rounded-xl"
         >
           <img
+            class="group-hover:rotate-12 duration-100"
             src="assets/Icons/SearchTwotone.svg"
             width="48px"
             height="48px"
@@ -42,16 +58,22 @@
       <button
         *ngIf="page === 'library'; else elseLibrary"
         routerLink="/tv/library"
-        class="w-20 h-20 flex items-center justify-center p-4 bg-blue rounded-xl"
+        class="group w-20 h-20 flex items-center justify-center p-4 bg-blue rounded-xl"
       >
-        <img src="assets/Icons/LibraryBulk.svg" width="48px" height="48px" />
+        <img
+          class="group-hover:rotate-12 duration-100"
+          src="assets/Icons/LibraryBulk.svg"
+          width="48px"
+          height="48px"
+        />
       </button>
       <ng-template #elseLibrary>
         <button
           routerLink="/tv/library"
-          class="w-20 h-20 flex items-center justify-center p-4 bg-blue rounded-xl"
+          class="group w-20 h-20 flex items-center justify-center p-4 bg-blue rounded-xl"
         >
           <img
+            class="group-hover:rotate-12 duration-100"
             src="assets/Icons/LibraryTwotone.svg"
             width="48px"
             height="48px"
