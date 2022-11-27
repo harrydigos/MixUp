@@ -1,5 +1,3 @@
-// @use 'src/styles' as styles;
-
 .menu {
   position: absolute;
   top: -100%;
@@ -8,7 +6,6 @@
   height: 245px;
   z-index: 10;
   transform: translate(-50%, -60%);
-  //   background: styles.$blue-dark;
   opacity: 0;
   visibility: hidden;
   transition: visibility 300ms, opacity 300ms ease-in-out;
@@ -25,7 +22,7 @@
       padding: 1rem;
       border-radius: 100%;
       aspect-ratio: 1/1;
-      background: #395b64; //styles.$blue-dark;
+      background: #395b64;
       opacity: 0;
       display: inline-block;
       cursor: pointer;
