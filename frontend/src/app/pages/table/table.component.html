@@ -1,11 +1,46 @@
 <div
   #table
-  class="overflow-hidden hide-scrollbar"
-  (click)="toggleMenu()"
+  class="w-screen h-screen bg-blue-dark overflow-hidden hide-scrollbar"
+  (click)="toggleMenu($event)"
   (mousemove)="getMousePosition($event)"
 >
+  <div class="menu" #menu>
+    <div class="bubble-wrapper">
+      <img
+        class="absolute bottom-0 left-1/2 -translate-x-1/2 cursor-pointer z-5"
+        src="assets/Icons/Table/CloseCircle.svg"
+        width="150px"
+        height="150px"
+        (click)="closeMenu()"
+        #close
+      />
+      <div class="bubble">
+        <img src="assets/Icons/Table/Shuffle.svg" width="48px" height="48px" />
+      </div>
+      <div class="bubble">
+        <img src="assets/Icons/Table/Repeat.svg" width="48px" height="48px" />
+      </div>
+      <div class="bubble">
+        <img
+          src="assets/Icons/Table/FolderFavorite.svg"
+          width="48px"
+          height="48px"
+        />
+      </div>
+      <div class="bubble">
+        <img
+          src="assets/Icons/Table/MirroringScreen.svg"
+          width="48px"
+          height="48px"
+        />
+      </div>
+      <div class="bubble">
+        <img src="assets/Icons/Table/Queue.svg" width="48px" height="48px" />
+      </div>
+    </div>
+  </div>
   <div
-    class="relative w-screen h-screen bg-blue-dark flex flex-col justify-between items-center py-20"
+    class="relative w-1/2 mx-auto h-full flex flex-col justify-between items-center py-20"
   >
     <div class="text-center">
       <h1 class="font-semibold text-[64px] text-white">Blinding Lights</h1>
