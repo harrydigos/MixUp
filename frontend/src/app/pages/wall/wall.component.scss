@@ -1,5 +1,7 @@
+$bgcolor: #2C3333;
+
 #SurroundWall{
-    background-color: #2C3333;
+    background-color: $bgcolor;
     height: 655px;
     width: 1920px;
 }
@@ -31,7 +33,7 @@
 }
 
 #SurroundWall-Video{
-    background-color: #2C3333;
+    background-color: $bgcolor;
     position: absolute;
     width: 1296px;
     height: 655px;

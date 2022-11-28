@@ -1,0 +1,166 @@
+$widthAll: 360px;
+$widthAll-with-padding:324px;
+$white: #ffffff;
+
+
+.header-text{
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 30px;
+    color: #FFFFFF;
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+
+.view-all-text-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0px;
+    gap: 2px;
+    width: 60px;
+    height: 18px;
+    border-radius: 6px;
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+
+
+.view-all-text{
+    width: 50px;
+    height: 18px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+
+    color: rgba(231, 246, 242, 0.75);
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+#home-top{ 
+    //gap: 220px;
+    position: absolute;
+    left: 16px;
+    top: 48px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    width: auto;
+    height: 36px;
+}
+
+
+#Mixes-for-you{
+    position: absolute;
+    width: 400px;
+    height: 247px;
+    left: 0px;
+    top: 108px;
+}
+
+
+
+#header-mixesforyou{
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    position: absolute;
+    width: 328px;
+    height: 30px;
+    left: 16px;
+    top: 0px;
+}
+
+#albums-mixesforyou{
+    
+    gap:0px;
+    padding-right: 16px;
+
+    position: absolute;
+    height: 205px;
+    left: 16px;
+    top: 42px;
+
+}
+
+/*********/
+
+
+#Recently-listened{
+    background-color:#2C3333;
+    position: absolute;
+    width: auto;
+    height: 254px;
+    left: 0px;
+    top: 709px;
+    
+}
+
+#header-recently-listened{
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    gap: 92px;
+    position: absolute;
+    width: 328px;
+    height: 30px;
+    left: 16px;
+    top: 0px;
+}
+
+#albums-recently-listened{
+    
+    gap:0px;
+    padding-right: 16px;
+    position: absolute;
+    height: 205px;
+    left: 16px;
+    top: 42px;
+
+}
+
+/*************/
+
+#New-tracks{
+    
+    position: absolute;
+    
+    height: 306px;
+    left: 0px;
+    top: 379px;
+}
+
+#header-new-tracks{
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px;
+    
+    position: absolute;
+    width: auto;
+    height: 30px;
+    left: 16px;
+    top: 0px;
+}
+
+#new-tracks-list{
+    position: absolute;
+    width: 328px;
+    height: 264px;
+    left: 16px;
+    top: 42px;
+}

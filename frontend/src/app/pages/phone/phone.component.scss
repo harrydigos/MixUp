@@ -1,0 +1,11 @@
+$bgcolor: #2C3333;
+$heightAll: 980px;
+$widthAll:360px;
+
+#all{
+    width: auto;
+    height: $heightAll;
+    background-color: $bgcolor;
+    position: relative;
+}
+

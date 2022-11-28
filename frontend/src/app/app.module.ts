@@ -13,6 +13,9 @@ import { WallComponent } from './pages/wall/wall.component';
 import { PhoneComponent } from './pages/phone/phone.component';
 import { TVComponent } from './pages/tv/tv.component';
 import { TvNavbarComponent } from './components/tv/tv-navbar/tv-navbar.component';
+import { HomeComponent } from './pages/phone/home/home.component';
+import { PhoneCardComponent } from './components/phone/phone-card/phone-card.component';
+import { NewTracksComponent } from './components/phone/new-tracks/new-tracks.component';
 
 const socketIoConfig: SocketIoConfig = { url: environment.host, options: {} };
 @NgModule({
@@ -27,6 +30,9 @@ const socketIoConfig: SocketIoConfig = { url: environment.host, options: {} };
     TableComponent,
     WallComponent,
     PhoneComponent,
+    HomeComponent,
+    PhoneCardComponent,
+    NewTracksComponent,
   ],
   providers: [],
   bootstrap: [AppComponent],
