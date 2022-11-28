@@ -12,40 +12,43 @@ import {
   styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit {
-  menuState: boolean = false;
+  @ViewChild('table') table?: ElementRef;
+  @ViewChild('menu') menu?: ElementRef;
+  @ViewChild('close') close?: ElementRef;
   mouseX: number | undefined;
   mouseY: number | undefined;
-  @ViewChild('table') table: ElementRef | undefined;
 
-  constructor(private renderer: Renderer2, private el: ElementRef) {}
+  constructor(private renderer: Renderer2) {}
 
   ngOnInit(): void {}
 
-  toggleMenu(): void {
-    console.log('toggleMenu()');
-    if (this.menuState) {
-      this.renderer.removeChild(
-        this.table?.nativeElement,
-        this.table?.nativeElement.lastChild
-      );
-      this.menuState = false;
+  toggleMenu(event: MouseEvent): void {
+    if (
+      event.target === this.close!.nativeElement ||
+      event.target !== this.table!.nativeElement ||
+      this.menu!.nativeElement.classList.contains('__show')
+    )
       return;
-    }
 
     console.log(this.mouseX, this.mouseY);
-    this.menuState = true;
-    const menu: HTMLElement = this.renderer.createElement('div');
-    menu.id = 'menu';
-    menu.className = 'menu';
-    menu.style.top = `${this.mouseY}px`;
-    menu.style.left = `${this.mouseX}px`;
-    menu.style.transform = `translate(-50%, -50%)`;
+    // Bounds for the menu
+    if (this.mouseX! > 1750 || this.mouseY! > 980) return;
 
-    this.table?.nativeElement.appendChild(menu);
+    this.renderer.setStyle(this.menu!.nativeElement, 'top', `${this.mouseY}px`);
+    this.renderer.setStyle(
+      this.menu!.nativeElement,
+      'left',
+      `${this.mouseX}px`
+    );
+    this.renderer.addClass(this.menu!.nativeElement, '__show');
   }
 
-  getMousePosition = (event: MouseEvent) => {
+  getMousePosition = (event: MouseEvent): void => {
     this.mouseX = event.clientX;
     this.mouseY = event.clientY;
   };
+
+  closeMenu(): void {
+    this.renderer.removeClass(this.menu!.nativeElement, '__show');
+  }
 }
