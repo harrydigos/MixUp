@@ -1,0 +1,85 @@
+<div class="w-screen h-full hide-scrollbar bg-blue-dark">
+  <div class="grid grid-cols-2 p-4 pt-7">
+    <p class="font-medium text-white text-[24px]">Explore</p>
+  </div>
+
+  <!-- Search input-->
+
+  <div class="relative block p-4">
+    <span class="absolute inset-y-0 left-3 flex items-center pl-4">
+      <img
+        src="assets/Icons-geo/search-normal-1.svg"
+        class="h-5 w-5 fill-slate-300"
+        viewBox="0 0 20 20"
+      />
+    </span>
+    <input
+      type="text"
+      placeholder="Albums, songs or playlists"
+      class="w-full rounded-lg h-[40px] placeholder:text-blue-dark text-[14px] block border border-slate-300 pl-12 pr-3 shadow-sm focus:outline-none focus:border-sky"
+    />
+  </div>
+
+  <!-- Recent Searches -->
+
+  <div class="grid grid-cols-2 p-4 pb-3 w-auto">
+    <div>
+      <p class="font-medium text-white text-[20px] w-[220px]">Recent Searches</p>
+    </div>
+
+    <div class="flex justify-end items-center">
+      <p class="view-all-text">View all</p>
+      <img src="assets/Icons-geo/arrow-right-2.svg" alt="" />
+    </div>
+  </div>
+
+  <div>
+    <app-song-list
+      song="Godzilla (feat Juice WRLD)"
+      artist="Eminem, Juice WRLD"
+    ></app-song-list>
+    <app-song-list song="Loising It" artist="FISHER"></app-song-list>
+    <app-song-list song="Take Me To Church" artist="Hozier"></app-song-list>
+    <app-song-list song="Blinding Lights" artist="The Weeknd"></app-song-list>
+    <app-song-list song="Rockies" artist="MyHome"></app-song-list>
+  </div>
+
+  <!-- Genres -->
+
+  <div class="p-4 pb-3 w-auto">
+    <div>
+      <p class="font-medium text-white text-[20px] w-[220px]">Genres</p>
+    </div>
+  </div>
+
+  <div class="grid grid-rows-2 pb-[60px] pt-[0px]">
+    <div class="grid grid-cols-3 gap-4 p-4 pt-[0px]">
+      <div class="w-auto h-[100px] rounded-xl bg-black flex items-end p-3">
+        <p class="font-normal text-white text-[14px]">Rock</p>
+      </div>
+      <div class="w-auto h-[100px] rounded-xl bg-black flex items-end p-3">
+        <p class="font-normal text-white text-[14px]">Hip-Hop</p>
+      </div>
+      <div class="w-auto h-[100px] rounded-xl bg-black flex items-end p-3">
+        <p class="font-normal text-white text-[14px]">Pop</p>
+      </div>
+    </div>
+    <div class="grid grid-cols-3 gap-4 pr-4 pl-4">
+      <div class="w-auto h-[100px] rounded-xl bg-black flex items-end p-3">
+        <p class="font-normal text-white text-[14px]">Jazz</p>
+      </div>
+      <div class="w-auto h-[100px] rounded-xl bg-black flex items-end p-3">
+        <p class="font-normal text-white text-[14px]">Classic</p>
+      </div>
+      <div class="w-auto h-[100px] rounded-xl bg-black flex items-end p-3">
+        <p class="font-normal text-white text-[14px]">EDM</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search button -->
+
+  <div class="w-[60px] h-[60px] rounded-full bg-[#E7F6F2] fixed  bottom-[85px] right-2 flex align-center justify-center">
+    <img class="w-[100%] h-[100%] p-3" src="assets/Icons-geo/microphone-2.svg" >
+  </div>
+</div>
