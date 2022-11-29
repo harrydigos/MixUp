@@ -4,6 +4,7 @@ import { PhoneComponent } from './phone.component';
 
 import { HomeComponent } from './home/home.component';
 import { SearchComponent } from './search/search.component';
+import { PlaylistsComponent } from './playlists/playlists.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
       },
       /* --- */
       { path: 'search', component: SearchComponent },
+      { path: 'playlists', component: PlaylistsComponent },
       { path: '**', redirectTo: 'home', pathMatch: 'full' },
     ],
   },

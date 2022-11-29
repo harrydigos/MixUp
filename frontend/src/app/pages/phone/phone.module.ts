@@ -9,6 +9,7 @@ import { PhoneCardComponent } from 'src/app/components/phone/phone-card/phone-ca
 import { NewTracksComponent } from 'src/app/components/phone/new-tracks/new-tracks.component';
 import { PhNavbarComponent } from 'src/app/components/phone/ph-navbar/ph-navbar.component';
 import { SongListComponent } from 'src/app/components/phone/song-list/song-list.component';
+import { PlaylistsComponent } from './playlists/playlists.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { SongListComponent } from 'src/app/components/phone/song-list/song-list.
     PhoneCardComponent,
     NewTracksComponent,
     PhNavbarComponent,
+    PlaylistsComponent,
   ],
   imports: [CommonModule, PhoneRoutingModule],
 })
