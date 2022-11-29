@@ -15,6 +15,10 @@ export class TableComponent implements OnInit {
   @ViewChild('table') table?: ElementRef;
   @ViewChild('menu') menu?: ElementRef;
   @ViewChild('close') close?: ElementRef;
+
+  @ViewChild('favorites') favorites?: ElementRef;
+  @ViewChild('queue') queue?: ElementRef;
+
   mouseX: number | undefined;
   mouseY: number | undefined;
 
@@ -50,5 +54,25 @@ export class TableComponent implements OnInit {
 
   closeMenu(): void {
     this.renderer.removeClass(this.menu!.nativeElement, '__show');
+  }
+
+  showFavorites(): void {
+    this.renderer.removeClass(this.queue!.nativeElement, '__show');
+    this.renderer.addClass(this.favorites!.nativeElement, '__show');
+    this.renderer.removeClass(this.menu!.nativeElement, '__show');
+  }
+
+  closeFavorites(): void {
+    this.renderer.removeClass(this.favorites!.nativeElement, '__show');
+  }
+
+  showQueue(): void {
+    this.renderer.removeClass(this.favorites!.nativeElement, '__show');
+    this.renderer.addClass(this.queue!.nativeElement, '__show');
+    this.renderer.removeClass(this.menu!.nativeElement, '__show');
+  }
+
+  closeQueue(): void {
+    this.renderer.removeClass(this.queue!.nativeElement, '__show');
   }
 }
