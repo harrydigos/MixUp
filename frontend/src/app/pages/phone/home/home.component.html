@@ -1,76 +1,123 @@
-<div class="hide-scrollbar" id="all">
-    <div  class="grid grid-cols-2 p-4 pt-7">
-        <img src="assets/Icons-geo/MIXUP-logo.svg" alt="logo">
-        <div class="flex justify-end"> <img src="assets/Icons-geo/profile-pic.svg" class="" alt="profile photo"> </div>
-        
+<div class="w-screen h-full hide-scrollbar bg-blue-dark">
+  <div class="grid grid-cols-2 p-4 pt-7">
+    <img src="assets/Icons-geo/MIXUP-logo.svg" alt="logo" />
+    <div class="flex justify-end">
+      <img
+        src="assets/Icons-geo/profile-pic.svg"
+        class=""
+        alt="profile photo"
+      />
+    </div>
+  </div>
+
+  <!-- Mixes for you div -->
+
+  <div>
+    <div class="grid grid-cols-2 p-4 pb-3 w-auto">
+      <div><p class="font-medium text-white text-[20px]">Mixes for you</p></div>
+
+      <div class="flex justify-end items-center">
+        <p class="view-all-text flex justify-center">View all</p>
+        <img src="assets/Icons-geo/arrow-right-2.svg" alt="" />
+      </div>
     </div>
     
-    <div id="Mixes-for-you" >
-    
-        <div class="grid grid-cols-2 p-4 pt-0 w-auto">
-            <div> <p class="font-medium text-white text-[24px]">Mixes for you</p> </div>
-            
-            <div class="flex justify-end items-center "> 
-                <p class="view-all-text flex justify-center ">View all</p> 
-                <img src="assets/Icons-geo/arrow-right-2.svg" alt="">
-            </div>
-
-        </div>
-    
-        <div class="w-full mr-5 overflow-x-auto flex  hide-scrollbar " id="albums-mixesforyou">
-            <app-phone-card album="Welcome Mix" artist="Post Malone, Drake, The Weeknd"></app-phone-card>
-            <app-phone-card album="Welcome Mix" artist="Post Malone, Drake, The Weeknd"></app-phone-card>
-            <app-phone-card album="Welcome Mix" artist="Post Malone, Drake, The Weeknd"></app-phone-card>
-            <app-phone-card album="Welcome Mix" artist="Post Malone, Drake, The Weeknd"></app-phone-card>
-            <app-phone-card album="Welcome Mix" artist="Post Malone, Drake, The Weeknd"></app-phone-card>
-           
-          </div>
+    <div class="w-full pr-5 overflow-x-auto flex hide-scrollbar">
+      <app-phone-card
+        album="Welcome Mix"
+        artist="Post Malone, Drake, The Weeknd"
+      ></app-phone-card>
+      <app-phone-card
+        album="Welcome Mix"
+        artist="Post Malone, Drake, The Weeknd"
+      ></app-phone-card>
+      <app-phone-card
+        album="Welcome Mix"
+        artist="Post Malone, Drake, The Weeknd"
+      ></app-phone-card>
+      <app-phone-card
+        album="Welcome Mix"
+        artist="Post Malone, Drake, The Weeknd"
+      ></app-phone-card>
+      <app-phone-card
+        album="Welcome Mix"
+        artist="Post Malone, Drake, The Weeknd"
+      ></app-phone-card>
     </div>
-    
-    <div id="New-tracks">
+  </div>
 
-        <div class="grid grid-cols-2 p-4 pt-0 w-auto">
+  <!-- New Tracks div -->
 
-            <div> <p class="font-medium text-white text-[24px] w-[220px]">New Tracks</p> </div>
-            
-            <div class="flex justify-end items-center"> 
-                <p class="view-all-text">View all</p> 
-                <img src="assets/Icons-geo/arrow-right-2.svg" alt="">
-            </div>
-        </div>
-               
+  <div>
+    <div class="grid grid-cols-2 p-4 pb-3 w-auto">
+      <div>
+        <p class="font-medium text-white text-[20px] w-[220px]">New Tracks</p>
+      </div>
 
-        <div class=" hide-scrollbar " id="new-tracks-list">
-            <app-new-tracks song="The Drummer" genre="Alternative" artist="Red Hot Chili Peppers"></app-new-tracks>
-            <app-new-tracks song="Celestial" genre="Pop" artist="Ed Sheeran"></app-new-tracks>
-            <app-new-tracks song="I'm Good (Blue)" genre="EDM" artist="Bebe Rexha, David Guetta"></app-new-tracks>
-            
-        </div>
+      <div class="flex justify-end items-center">
+        <p class="view-all-text ">View all</p>
+        <img  src="assets/Icons-geo/arrow-right-2.svg" alt="" />
+      </div>
     </div>
-    
-    <div id="Recently-listened">
 
-        <div class="grid grid-cols-2 p-4 pt-0 w-auto ">
-
-            <div> <p class="font-medium text-white text-[24px] w-[220px]">Recently Listened</p> </div>
-            
-            <div class="flex justify-end items-center"> 
-                <p class="view-all-text">View all</p> 
-                <img src="assets/Icons-geo/arrow-right-2.svg" alt="">
-            </div>
-        </div>
-    
-        <div class="w-full mr-5 overflow-x-auto flex  hide-scrollbar " id="albums-recently-listened">
-            <app-phone-card album="Jazz Classics" artist="My favourite jazz music"></app-phone-card>
-            <app-phone-card album="Jazz Classics" artist="My favourite jazz music"></app-phone-card>
-            <app-phone-card album="Jazz Classics" artist="My favourite jazz music"></app-phone-card>
-            <app-phone-card album="Jazz Classics" artist="My favourite jazz music"></app-phone-card>
-            <app-phone-card album="Jazz Classics" artist="My favourite jazz music"></app-phone-card>
-           
-        </div>
+    <div class="hide-scrollbar">
+      <app-new-tracks
+        song="The Drummer"
+        genre="Alternative"
+        artist="Red Hot Chili Peppers"
+      ></app-new-tracks>
+      <app-new-tracks
+        song="Celestial"
+        genre="Pop"
+        artist="Ed Sheeran"
+      ></app-new-tracks>
+      <app-new-tracks
+        song="I'm Good (Blue)"
+        genre="EDM"
+        artist="Bebe Rexha, David Guetta"
+      ></app-new-tracks>
     </div>
-    
-    
+  </div>
 
+  <!-- Recently Listened div -->
+
+  <div>
+    <div class="grid grid-cols-2 p-4 pb-3 w-auto">
+      <div>
+        <p class="font-medium text-white text-[20px] w-[220px]">
+          Recently Listened
+        </p>
+      </div>
+
+      <div class="flex justify-end items-center">
+        <p class="view-all-text">View all</p>
+        <img src="assets/Icons-geo/arrow-right-2.svg" alt="" />
+      </div>
+    </div>
+
+    <div class="w-full pr-5 pb-[76px] overflow-x-auto flex hide-scrollbar">
+      <app-phone-card
+        album="Jazz Classics"
+        artist="My favourite jazz music"
+      ></app-phone-card>
+      <app-phone-card
+        album="Jazz Classics"
+        artist="My favourite jazz music"
+      ></app-phone-card>
+      <app-phone-card
+        album="Jazz Classics"
+        artist="My favourite jazz music"
+      ></app-phone-card>
+      <app-phone-card
+        album="Jazz Classics"
+        artist="My favourite jazz music"
+      ></app-phone-card>
+      <app-phone-card
+        album="Jazz Classics"
+        artist="My favourite jazz music"
+      ></app-phone-card>
+    </div>
+  </div>
+
+  
 </div>
-

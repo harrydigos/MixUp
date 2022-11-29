@@ -13,7 +13,10 @@ const routes: Routes = [
 
   { path: 'table', component: TableComponent },
   { path: 'wall', component: WallComponent },
-  { path: 'phone', component: PhoneComponent },
+  { 
+    path: 'phone', 
+    loadChildren: () => import('./pages/phone/phone.module').then((m) => m.PhoneModule),
+  },
 
   // { path: 'socket-events', loadChildren: () => import('./pages/socket-events/socket-events.module').then(m => m.SocketEventsModule) },
   {
