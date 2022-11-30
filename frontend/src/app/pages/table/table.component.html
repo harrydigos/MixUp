@@ -98,7 +98,7 @@
     </div>
   </div>
   <div
-    class="queue w-[600px] rounded-2xl flex flex-col p-4 pr-0 gap-4 shadow-md"
+    class="queue w-[600px] rounded-2xl flex flex-col p-4 pr-0 gap-4 shadow-md overflow-hidden"
     #queue
   >
     <div class="w-full flex justify-between items-center">
@@ -114,17 +114,17 @@
         />
       </button>
     </div>
-    <div class="w-full overflow-x-auto flex gap-6 hide-scrollbar">
+    <app-card-wrapper>
       <app-table-disc></app-table-disc>
       <app-table-disc></app-table-disc>
       <app-table-disc></app-table-disc>
       <app-table-disc></app-table-disc>
       <app-table-disc></app-table-disc>
-    </div>
+    </app-card-wrapper>
   </div>
 
   <div
-    class="favorites w-[600px] rounded-2xl flex flex-col p-4 pr-0 gap-4 shadow-md"
+    class="favorites w-[600px] rounded-2xl flex flex-col p-4 pr-0 gap-4 shadow-md overflow-hidden"
     #favorites
   >
     <div class="w-full flex justify-between items-center">
@@ -146,23 +146,23 @@
     </div>
     <div class="flex flex-col gap-4">
       <h2 class="font-medium text-[32px] text-white">Songs</h2>
-      <div class="w-full overflow-x-auto flex gap-6 hide-scrollbar">
+      <app-card-wrapper>
         <app-table-disc></app-table-disc>
         <app-table-disc></app-table-disc>
         <app-table-disc></app-table-disc>
         <app-table-disc></app-table-disc>
         <app-table-disc></app-table-disc>
-      </div>
+      </app-card-wrapper>
     </div>
     <div class="flex flex-col gap-4">
       <h2 class="font-medium text-[32px] text-white">Albums</h2>
-      <div class="w-full overflow-x-auto flex gap-6 hide-scrollbar">
+      <app-card-wrapper>
         <app-table-disc></app-table-disc>
         <app-table-disc></app-table-disc>
         <app-table-disc></app-table-disc>
         <app-table-disc></app-table-disc>
         <app-table-disc></app-table-disc>
-      </div>
+      </app-card-wrapper>
     </div>
   </div>
 </div>

@@ -1,0 +1,10 @@
+<div
+  class="wrapper hide-scrollbar"
+  #wrapper
+  (mousedown)="mouseDown($event)"
+  (mouseleave)="mouseLeave()"
+  (mouseup)="mouseLeave()"
+  (mousemove)="mouseMove($event)"
+>
+  <ng-content></ng-content>
+</div>

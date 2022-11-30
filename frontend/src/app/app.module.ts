@@ -2,8 +2,10 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { CardWrapperModule } from './components/global/card-wrapper/card-wrapper.module';
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+
+import { AppComponent } from './app.component';
 import { environment } from 'src/environments/environment';
 
 import { TasksComponent } from './pages/tasks/tasks.component';
@@ -17,7 +19,6 @@ import { TVComponent } from './pages/tv/tv.component';
 
 import { TvNavbarComponent } from './components/tv/tv-navbar/tv-navbar.component';
 import { TableDiscComponent } from './components/table/table-disc/table-disc.component';
-
 
 const socketIoConfig: SocketIoConfig = { url: environment.host, options: {} };
 @NgModule({
@@ -42,7 +43,7 @@ const socketIoConfig: SocketIoConfig = { url: environment.host, options: {} };
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    CardWrapperModule,
   ],
-
 })
 export class AppModule {}

@@ -10,8 +10,8 @@
   </button>
 
   <div class="relative w-full pl-[280px] py-[100px]">
-    <div class="font-semibold text-[40px] text-white mb-4">Genres</div>
-    <div class="w-full pt-2 pr-5 overflow-x-auto flex gap-6 hide-scrollbar">
+    <div class="font-semibold text-[40px] text-white">Genres</div>
+    <app-card-wrapper>
       <app-tv-genre-card genre="Pop"></app-tv-genre-card>
       <app-tv-genre-card genre="Pop"></app-tv-genre-card>
       <app-tv-genre-card genre="Pop"></app-tv-genre-card>
@@ -19,30 +19,30 @@
       <app-tv-genre-card genre="Pop"></app-tv-genre-card>
       <app-tv-genre-card genre="Pop"></app-tv-genre-card>
       <app-tv-genre-card genre="Pop"></app-tv-genre-card>
-    </div>
+    </app-card-wrapper>
     <div>
-      <div class="font-semibold text-[40px] text-white mt-10 mb-3">
+      <div class="font-semibold text-[40px] text-white mt-10">
         Recent Searches
       </div>
-      <div class="w-full pr-5 overflow-x-auto flex gap-7 hide-scrollbar">
+      <app-card-wrapper>
         <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
         <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
         <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
         <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
         <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
-      </div>
+      </app-card-wrapper>
 
       <div>
-        <div class="font-semibold text-[40px] text-white mt-10 mb-3">
+        <div class="font-semibold text-[40px] text-white mt-10">
           Based On What You Like
         </div>
-        <div class="w-full pr-5 overflow-x-auto flex gap-7 hide-scrollbar">
+        <app-card-wrapper>
           <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
           <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
           <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
           <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
           <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
-        </div>
+        </app-card-wrapper>
       </div>
     </div>
   </div>

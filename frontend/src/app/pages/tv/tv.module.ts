@@ -8,6 +8,7 @@ import { SearchComponent } from './search/search.component';
 import { TvGenreCardComponent } from 'src/app/components/tv/tv-genre-card/tv-genre-card.component';
 import { LibraryComponent } from './library/library.component';
 import { AlbumComponent } from './album/album.component';
+import { CardWrapperModule } from 'src/app/components/global/card-wrapper/card-wrapper.module';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,6 @@ import { AlbumComponent } from './album/album.component';
     TvGenreCardComponent,
     AlbumComponent,
   ],
-  imports: [CommonModule, TvRoutingModule],
+  imports: [CommonModule, TvRoutingModule, CardWrapperModule],
 })
 export class TvModule {}
