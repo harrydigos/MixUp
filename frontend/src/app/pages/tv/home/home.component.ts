@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TvService } from 'src/app/services/tv.service';
+import { Album } from 'src/app/global/models';
+import { NavbarStateService } from 'src/app/global/services';
+import { albumsReleases, albumsRecentlyPlayed } from './albums.data';
 
 @Component({
   selector: 'app-home',
@@ -7,8 +9,11 @@ import { TvService } from 'src/app/services/tv.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor(private tvService: TvService) {
-    this.tvService.setNavState('home');
+  latestReleases: Album[] = albumsReleases;
+  recentlyPlayed: Album[] = albumsRecentlyPlayed;
+
+  constructor(private navbarState: NavbarStateService) {
+    this.navbarState.setNavState('home');
   }
 
   ngOnInit(): void {}

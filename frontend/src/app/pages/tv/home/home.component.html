@@ -36,22 +36,26 @@
         Latest Releases
       </div>
       <app-card-wrapper>
-        <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
-        <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
-        <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
-        <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
-        <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
+        <app-tv-card
+          *ngFor="let card of latestReleases"
+          [id]="card.id"
+          [album]="card.name"
+          [artist]="card.artist"
+          [imgUrl]="card.image"
+        ></app-tv-card>
       </app-card-wrapper>
 
       <div class="font-semibold text-[40px] text-white mt-10">
         Recently Listened
       </div>
       <app-card-wrapper>
-        <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
-        <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
-        <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
-        <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
-        <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
+        <app-tv-card
+          *ngFor="let card of recentlyPlayed"
+          [id]="card.id"
+          [album]="card.name"
+          [artist]="card.artist"
+          [imgUrl]="card.image"
+        ></app-tv-card>
       </app-card-wrapper>
     </div>
   </div>

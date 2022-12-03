@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { TvNavbarState } from '../models/tvNavbarState';
+import { TvNavbarState } from '../../models';
 
 @Injectable({
   providedIn: 'root',
 })
-export class TvService {
+export class NavbarStateService {
   navState = new BehaviorSubject<TvNavbarState>('home');
   readonly navState$ = this.navState.asObservable();
 

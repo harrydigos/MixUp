@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { TvService } from 'src/app/services/tv.service';
+import { NavbarStateService } from 'src/app/global/services';
 
 @Component({
   selector: 'app-album',
@@ -8,8 +8,11 @@ import { TvService } from 'src/app/services/tv.service';
   styleUrls: ['./album.component.scss'],
 })
 export class AlbumComponent implements OnInit {
-  constructor(private tvService: TvService, private location: Location) {
-    this.tvService.setNavState('hide');
+  constructor(
+    private navbarState: NavbarStateService,
+    private location: Location
+  ) {
+    this.navbarState.setNavState('hide');
   }
 
   ngOnInit(): void {}

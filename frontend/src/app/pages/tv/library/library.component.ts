@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { TvService } from 'src/app/services/tv.service';
+import { NavbarStateService } from 'src/app/global/services';
 
 @Component({
   selector: 'app-library',
@@ -10,12 +9,12 @@ import { TvService } from 'src/app/services/tv.service';
 export class LibraryComponent implements OnInit {
   libraryNavState: 'favorites' | 'playlists' = 'favorites';
 
-  constructor(private tvService: TvService, private router: Router) {
-    this.tvService.setNavState('library');
+  constructor(private navbarState: NavbarStateService) {
+    this.navbarState.setNavState('library');
   }
 
   ngOnInit(): void {
-    this.tvService.libraryNavState$.subscribe(
+    this.navbarState.libraryNavState$.subscribe(
       (event) => (this.libraryNavState = event)
     );
   }

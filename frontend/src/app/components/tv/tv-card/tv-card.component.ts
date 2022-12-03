@@ -6,9 +6,10 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./tv-card.component.scss'],
 })
 export class TvCardComponent implements OnInit {
+  @Input() id: number = 0;
   @Input() album: string = '';
   @Input() artist: string = '';
-  @Input() img?: string;
+  @Input() imgUrl: string = '';
 
   constructor() {}
 

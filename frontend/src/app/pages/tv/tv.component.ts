@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TvService } from 'src/app/services/tv.service';
-import type { TvNavbarState } from 'src/app/models/tvNavbarState';
+import { TvNavbarState } from 'src/app/global/models';
+import { NavbarStateService } from 'src/app/global/services';
 
 @Component({
   selector: 'app-tv',
@@ -10,9 +10,9 @@ import type { TvNavbarState } from 'src/app/models/tvNavbarState';
 export class TVComponent implements OnInit {
   navState: TvNavbarState = 'home';
 
-  constructor(private tvService: TvService) {}
+  constructor(private navbarState: NavbarStateService) {}
 
   ngOnInit(): void {
-    this.tvService.navState$.subscribe((event) => (this.navState = event));
+    this.navbarState.navState$.subscribe((event) => (this.navState = event));
   }
 }

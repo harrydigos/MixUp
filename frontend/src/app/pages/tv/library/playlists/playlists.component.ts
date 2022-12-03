@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TvService } from 'src/app/services/tv.service';
+import { NavbarStateService } from 'src/app/global/services';
 
 @Component({
   selector: 'app-playlists',
@@ -7,8 +7,8 @@ import { TvService } from 'src/app/services/tv.service';
   styleUrls: ['./playlists.component.scss'],
 })
 export class PlaylistsComponent implements OnInit {
-  constructor(private tvService: TvService) {
-    this.tvService.setLibraryNavState('playlists');
+  constructor(private navbarState: NavbarStateService) {
+    this.navbarState.setLibraryNavState('playlists');
   }
 
   ngOnInit(): void {}

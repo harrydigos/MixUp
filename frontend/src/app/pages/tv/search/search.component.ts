@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TvService } from 'src/app/services/tv.service';
+import { NavbarStateService } from 'src/app/global/services';
 
 @Component({
   selector: 'app-search',
@@ -7,8 +7,8 @@ import { TvService } from 'src/app/services/tv.service';
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit {
-  constructor(private tvService: TvService) {
-    this.tvService.setNavState('search');
+  constructor(private navbarState: NavbarStateService) {
+    this.navbarState.setNavState('search');
   }
 
   ngOnInit(): void {}
