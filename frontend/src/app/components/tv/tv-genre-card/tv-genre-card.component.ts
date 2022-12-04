@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TvGenreCardComponent implements OnInit {
   @Input() genre: string = '';
+  @Input() imgUrl: string = '';
 
   constructor() {}
 

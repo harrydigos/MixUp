@@ -11,8 +11,6 @@ export class HomeComponent implements OnInit {
   latestReleases: AlbumModel[] = [];
   recentlyPlayed: AlbumModel[] = [];
 
-  imgAlbumPath: string = 'assets/images/albums/';
-
   constructor(
     private navbarState: NavbarStateService,
     private albumsService: AlbumsService
@@ -28,7 +26,6 @@ export class HomeComponent implements OnInit {
     this.albumsService.getAll().subscribe((result) => {
       this.latestReleases = result.slice(0, 6);
       this.recentlyPlayed = result.slice(6);
-      console.log(result)
     });
   }
 }

@@ -12,38 +12,24 @@
   <div class="relative w-full pl-[280px] py-[100px]">
     <div class="font-semibold text-[40px] text-white">Genres</div>
     <app-card-wrapper>
-      <app-tv-genre-card genre="Pop"></app-tv-genre-card>
-      <app-tv-genre-card genre="Pop"></app-tv-genre-card>
-      <app-tv-genre-card genre="Pop"></app-tv-genre-card>
-      <app-tv-genre-card genre="Pop"></app-tv-genre-card>
-      <app-tv-genre-card genre="Pop"></app-tv-genre-card>
-      <app-tv-genre-card genre="Pop"></app-tv-genre-card>
-      <app-tv-genre-card genre="Pop"></app-tv-genre-card>
+      <app-tv-genre-card
+        *ngFor="let card of genres"
+        [genre]="card.gerne"
+        [imgUrl]="'assets/images/genres/' + card.image"
+      ></app-tv-genre-card>
     </app-card-wrapper>
     <div>
       <div class="font-semibold text-[40px] text-white mt-10">
         Recent Searches
       </div>
       <app-card-wrapper>
-        <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
-        <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
-        <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
-        <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
-        <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
+        <app-tv-card
+          *ngFor="let card of recentSearches"
+          [album]="card.name"
+          [artist]="card.artist"
+          [imgUrl]="'assets/images/albums/' + card.image"
+        ></app-tv-card>
       </app-card-wrapper>
-
-      <div>
-        <div class="font-semibold text-[40px] text-white mt-10">
-          Based On What You Like
-        </div>
-        <app-card-wrapper>
-          <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
-          <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
-          <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
-          <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
-          <app-tv-card album="The Car" artist="Arctic Monkeys"></app-tv-card>
-        </app-card-wrapper>
-      </div>
     </div>
   </div>
 </div>
