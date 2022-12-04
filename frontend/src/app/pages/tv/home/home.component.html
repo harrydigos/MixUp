@@ -38,10 +38,9 @@
       <app-card-wrapper>
         <app-tv-card
           *ngFor="let card of latestReleases"
-          [id]="card.id"
           [album]="card.name"
           [artist]="card.artist"
-          [imgUrl]="card.image"
+          [imgUrl]="imgAlbumPath + card.image"
         ></app-tv-card>
       </app-card-wrapper>
 
@@ -51,10 +50,9 @@
       <app-card-wrapper>
         <app-tv-card
           *ngFor="let card of recentlyPlayed"
-          [id]="card.id"
           [album]="card.name"
           [artist]="card.artist"
-          [imgUrl]="card.image"
+          [imgUrl]="imgAlbumPath + card.image"
         ></app-tv-card>
       </app-card-wrapper>
     </div>

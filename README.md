@@ -1,6 +1,11 @@
 # MixUp
 Music player made by Team 13 in course CS469
 
+## To initialize the database data in your computer:
+```sh
+http://localhost:8080/api/albums/init
+```
+
 ## Docker Variant
 
 What you will need:
