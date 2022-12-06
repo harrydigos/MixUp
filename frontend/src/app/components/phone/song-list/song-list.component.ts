@@ -14,6 +14,8 @@ export class SongListComponent implements OnInit {
   @Input() album: string = '';
   @Input() playlist: string = '';
 
+  
+
   constructor() { }
 
   ngOnInit(): void {

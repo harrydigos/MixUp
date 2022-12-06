@@ -1,9 +1,33 @@
 <div class="w-screen h-full hide-scrollbar bg-blue-dark">
   <div class="grid grid-cols-2 p-4 pt-7">
     <div><p class="font-semibold text-white text-[24px]">Library</p></div>
-    <div class="flex justify-end"></div>
+    <div class="relative">
+      <div
+        class="toggleSelector"
+        [ngClass]="
+          libraryNavState === 'favorites' ? 'favorites' : 'playlists'
+        "
+      ></div>
+      <div
+        class="flex items-center w-full h-full rounded-full bg-blue/25 text-[14px] font-normal overflow-hidden"
+      >
+        <button
+          routerLink="/phone/favorites"
+          class="z-10 w-1/2 h-full flex items-center justify-center rounded-full text-blue-extra-light"
+        >
+          Favorites
+        </button>
+        <button
+          routerLink="/phone/playlists"
+          class="z-10 w-1/2 h-full flex items-center justify-center rounded-full text-blue-extra-light"
+        >
+          Playlists
+        </button>
+      </div>
+    </div>
   </div>
 
+  
   <!-- My Playlists -->
 
   <div>

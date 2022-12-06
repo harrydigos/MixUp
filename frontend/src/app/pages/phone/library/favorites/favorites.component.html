@@ -1,0 +1,93 @@
+<div class="w-screen h-full hide-scrollbar bg-blue-dark p-4">
+  <div class="grid grid-cols-2 pt-3">
+    <div><p class="font-semibold text-white text-[24px]">Library</p></div>
+    <div class="relative">
+      <div
+        class="toggleSelector"
+        [ngClass]="libraryNavState === 'favorites' ? 'favorites' : 'playlists'"
+      ></div>
+      <div
+        class="flex items-center w-full h-full rounded-full bg-blue/25 text-[14px] font-normal overflow-hidden"
+      >
+        <button
+          routerLink="/phone/favorites"
+          class="z-10 w-1/2 h-full flex items-center justify-center rounded-full text-blue-extra-light"
+        >
+          Favorites
+        </button>
+        <button
+          routerLink="/phone/playlists"
+          class="z-10 w-1/2 h-full flex items-center justify-center rounded-full text-blue-extra-light"
+        >
+          Playlists
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search in favorites -->
+  <div class="relative block pt-4">
+    <span class="absolute inset-y-0 flex items-center pl-4 pt-4">
+      <img
+        src="assets/Icons-geo/search-normal-1.svg"
+        class="h-5 w-5 fill-slate-300"
+        viewBox="0 0 20 20"
+      />
+    </span>
+    <input
+      #box
+      
+      type="text"
+      placeholder="{{ searchText }}"
+      class="w-full rounded-lg h-[40px] placeholder:text-blue-dark text-[14px] block border border-slate-300 pl-12 pr-3 shadow-sm focus:outline-none focus:border-sky"
+    />
+  </div>
+
+  <!-- Under search text div -->
+
+  <div class="pt-4 pb-4">
+    <div class="grid grid-cols-2">
+      <p class="font-medium text-white text-[20px]">Liked Songs</p>
+
+      <button
+        id="dropdownBottomButton"
+        data-dropdown-toggle="dropdownBottom"
+        data-dropdown-placement="bottom"
+        class="md:mb-0 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center justify-end inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        type="button"
+      >
+        Date added
+        <svg
+          class="ml-2 w-4 h-4"
+          aria-hidden="true"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+      </button>
+    </div>
+    <p class="font-normal text-[#A5C9CA] text-[14px]">
+      {{ numberofsongs }} songs
+    </p>
+  </div>
+
+  <hr id="horizontal-line" />
+
+  <!-- song list -->
+
+  <div class="pt-4 pb-[60px]">
+    <app-song-list-favorites
+      *ngFor="let song of songArray"
+      [song]="song.title"
+      [artist]="song.artist"
+      [imgUrl]="'assets/images/albums/' + song.image"
+      (removeSongFromFavorites)="rmSongFav($event)"
+    ></app-song-list-favorites>
+  </div>
+</div>

@@ -4,7 +4,9 @@ import { PhoneComponent } from './phone.component';
 
 import { HomeComponent } from './home/home.component';
 import { SearchComponent } from './search/search.component';
-import { PlaylistsComponent } from './playlists/playlists.component';
+import { PlaylistsComponent } from './library/playlists/playlists.component';
+import { FavoritesComponent } from './library/favorites/favorites.component';
+import { LibraryComponent } from './library/library.component';
 
 const routes: Routes = [
   {
@@ -17,7 +19,11 @@ const routes: Routes = [
       },
       /* --- */
       { path: 'search', component: SearchComponent },
+      { path: 'library', component: LibraryComponent},
+
+      { path: 'favorites', component: FavoritesComponent },
       { path: 'playlists', component: PlaylistsComponent },
+
       { path: '**', redirectTo: 'home', pathMatch: 'full' },
     ],
   },

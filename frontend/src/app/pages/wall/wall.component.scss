@@ -1,5 +1,14 @@
 $bgcolor: #2C3333;
 
+#black-div-below{
+    background-color: black;
+    position: absolute;
+    width: 100%;
+    height: 300px;
+    left: 0px;
+    top: 660px;
+}
+
 #SurroundWall{
     background-color: $bgcolor;
     height: 655px;

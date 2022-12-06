@@ -20,6 +20,7 @@ import { TVComponent } from './pages/tv/tv.component';
 import { TvNavbarComponent } from './components/tv/tv-navbar/tv-navbar.component';
 import { TableDiscComponent } from './components/table/table-disc/table-disc.component';
 
+
 const socketIoConfig: SocketIoConfig = { url: environment.host, options: {} };
 @NgModule({
   declarations: [
@@ -35,6 +36,8 @@ const socketIoConfig: SocketIoConfig = { url: environment.host, options: {} };
 
     TvNavbarComponent,
     TableDiscComponent,
+   
+    
   ],
   providers: [],
   bootstrap: [AppComponent],
