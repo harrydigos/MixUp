@@ -1,9 +1,4 @@
-export type genre = {
-  gerne: string;
-  image: string;
-};
-
-export const genresData: genre[] = [
+export const genres = [
   {
     gerne: 'Pop',
     image: 'pop.jpg',

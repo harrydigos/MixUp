@@ -19,13 +19,15 @@
     <div class="font-semibold text-[40px] text-white mt-10">
       Favorite Albums
     </div>
-    <app-card-wrapper>
-      <app-tv-lib-card playlistName="Rockies" tracks="7"></app-tv-lib-card>
-      <app-tv-lib-card playlistName="Rockies" tracks="7"></app-tv-lib-card>
-      <app-tv-lib-card playlistName="Rockies" tracks="7"></app-tv-lib-card>
-      <app-tv-lib-card playlistName="Rockies" tracks="7"></app-tv-lib-card>
-      <app-tv-lib-card playlistName="Rockies" tracks="7"></app-tv-lib-card>
-      <app-tv-lib-card playlistName="Rockies" tracks="7"></app-tv-lib-card>
-    </app-card-wrapper>
+
+    <div class="w-full pt-4 pr-5 flex gap-8 select-none">
+      <app-tv-lib-card
+        class="cursor-pointer"
+        *ngFor="let album of favAlbums"
+        [playlistName]="album.name"
+        [tracks]="album.noTracks"
+        [imgUrl]="'assets/images/albums/' + album.image"
+      ></app-tv-lib-card>
+    </div>
   </div>
 </div>

@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
   private getAllAlbums(): void {
     this.albumsService.getAll().subscribe((result) => {
       this.latestReleases = result.slice(0, 6);
-      this.recentlyPlayed = result.slice(6);
+      this.recentlyPlayed = result.slice(6).filter((album) => !album.isFavorite);
     });
   }
 }

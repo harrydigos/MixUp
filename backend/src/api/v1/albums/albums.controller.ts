@@ -81,6 +81,34 @@ export class AlbumController extends ResourceController<IAlbum> {
         artist: "The Weeknd",
         image: "starboy.jpg",
       },
+      {
+        name: "AM",
+        artist: "Arctic Monkeys",
+        image: "am.jpg",
+        isFavorite: true,
+        noTracks: 12,
+      },
+      {
+        name: "A Love Supreme",
+        artist: "John Coltrane",
+        image: "a_love_supreme.jpg",
+        isFavorite: true,
+        noTracks: 3,
+      },
+      {
+        name: "Stories",
+        artist: "Avicii",
+        image: "stories.jpg",
+        isFavorite: true,
+        noTracks: 14,
+      },
+      {
+        name: "Californication",
+        artist: "Red Hot Chili Peppers",
+        image: "californication.jpg",
+        isFavorite: true,
+        noTracks: 15,
+      },
     ];
 
     await AlbumModel.insertMany(albums)

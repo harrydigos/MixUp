@@ -7,7 +7,8 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TvLibCardComponent implements OnInit {
   @Input() playlistName: string = '';
-  @Input() tracks: string = '';
+  @Input() tracks: number = 0;
+  @Input() imgUrl: string = '';
 
   constructor() {}
 

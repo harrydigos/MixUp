@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavbarStateService } from 'src/app/global/services';
+import { AlbumModel } from 'src/app/global/models';
+import { AlbumsService, NavbarStateService } from 'src/app/global/services';
 
 @Component({
   selector: 'app-favorites',
@@ -7,6 +8,8 @@ import { NavbarStateService } from 'src/app/global/services';
   styleUrls: ['./favorites.component.scss'],
 })
 export class FavoritesComponent implements OnInit {
+  favAlbums: AlbumModel[] = [];
+
   songs = [
     {
       title: "God's Plan",
@@ -40,9 +43,16 @@ export class FavoritesComponent implements OnInit {
     },
   ];
 
-  constructor(private navbarState: NavbarStateService) {
+  constructor(
+    private navbarState: NavbarStateService,
+    private albumsService: AlbumsService
+  ) {
     this.navbarState.setLibraryNavState('favorites');
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.albumsService.getAll().subscribe((result) => {
+      this.favAlbums = result.filter((album) => album.isFavorite);
+    });
+  }
 }
