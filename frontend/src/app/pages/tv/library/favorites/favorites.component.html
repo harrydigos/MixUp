@@ -21,12 +21,22 @@
     </div>
 
     <div class="w-full pt-4 pr-5 flex gap-8 select-none">
+      <!-- We only want to navigate to only 1 album, others are just for decoration -->
       <app-tv-lib-card
         class="cursor-pointer"
         *ngFor="let album of favAlbums"
         [playlistName]="album.name"
         [tracks]="album.noTracks"
         [imgUrl]="'assets/images/albums/' + album.image"
+      ></app-tv-lib-card>
+
+      <app-tv-lib-card
+        *ngIf="aviciiStories.name"
+        routerLink="/tv/album/{{ aviciiStories._id }}"
+        class="cursor-pointer"
+        [playlistName]="aviciiStories.name"
+        [tracks]="aviciiStories.noTracks"
+        [imgUrl]="'assets/images/albums/' + aviciiStories.image"
       ></app-tv-lib-card>
     </div>
   </div>

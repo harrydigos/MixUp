@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlbumModel } from 'src/app/global/models';
+import { AlbumDummyModel } from 'src/app/global/models';
 import { NavbarStateService } from 'src/app/global/services';
 import { genres, recentSearches } from 'src/app/global/utils';
 
@@ -10,7 +10,7 @@ import { genres, recentSearches } from 'src/app/global/utils';
 })
 export class SearchComponent implements OnInit {
   genres = genres;
-  recentSearches: AlbumModel[] = recentSearches;
+  recentSearches: AlbumDummyModel[] = recentSearches;
 
   constructor(private navbarState: NavbarStateService) {
     this.navbarState.setNavState('search');

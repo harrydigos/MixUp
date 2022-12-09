@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { ItemModel } from '../../models/items/item.model';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
@@ -21,5 +20,11 @@ export class AlbumsService {
     return this.http
       .get<AlbumModel[]>(`${this.hostUrl}/api/albums`)
       .pipe(map((result) => _.map(result, (t) => new AlbumModel(t))));
+  }
+
+  public getById(id: string): Observable<AlbumModel> {
+    return this.http
+      .get<AlbumModel>(`${this.hostUrl}/api/albums/${id}`)
+      .pipe(map((result) => new AlbumModel(result)));
   }
 }

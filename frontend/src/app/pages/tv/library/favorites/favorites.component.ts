@@ -9,6 +9,7 @@ import { AlbumsService, NavbarStateService } from 'src/app/global/services';
 })
 export class FavoritesComponent implements OnInit {
   favAlbums: AlbumModel[] = [];
+  aviciiStories: AlbumModel = {} as AlbumModel;
 
   songs = [
     {
@@ -53,6 +54,12 @@ export class FavoritesComponent implements OnInit {
   ngOnInit(): void {
     this.albumsService.getAll().subscribe((result) => {
       this.favAlbums = result.filter((album) => album.isFavorite);
+      this.aviciiStories = this.favAlbums
+        .splice(
+          this.favAlbums.findIndex((album) => album.name === 'Stories'),
+          1
+        )
+        .flat()[0];
     });
   }
 }

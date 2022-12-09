@@ -12,7 +12,10 @@ export class AlbumController extends ResourceController<IAlbum> {
 
   public applyRoutes(): Router {
     const router = Router();
-    router.get("/", this.getAlbums).get("/init", this.initializeAlbums);
+    router
+      .get("/", this.getAlbums)
+      .get("/init", this.initializeAlbums)
+      .get("/:id", this.getAlbumById);
 
     return router;
   }
@@ -21,6 +24,12 @@ export class AlbumController extends ResourceController<IAlbum> {
     this.logger.debug("getAlbums request");
     const allAlbums = await this.getAll(req, res);
     return res.status(StatusCodes.OK).json(allAlbums);
+  };
+
+  getAlbumById = async (req: Request, res: Response) => {
+    this.logger.debug("getAlbumById request");
+    const album = await this.getOne(req.params.id, req, res);
+    return res.status(StatusCodes.OK).json(album);
   };
 
   initializeAlbums = async (req: Request, res: Response) => {
@@ -96,18 +105,38 @@ export class AlbumController extends ResourceController<IAlbum> {
         noTracks: 3,
       },
       {
-        name: "Stories",
-        artist: "Avicii",
-        image: "stories.jpg",
-        isFavorite: true,
-        noTracks: 14,
-      },
-      {
         name: "Californication",
         artist: "Red Hot Chili Peppers",
         image: "californication.jpg",
         isFavorite: true,
         noTracks: 15,
+      },
+      {
+        name: "Stories",
+        artist: "Avicii",
+        image: "stories.jpg",
+        artistImage: "avicii.jpg",
+        isFavorite: true,
+        noTracks: 14,
+        yearProduced: 2015,
+        duration: 55,
+        info: "Stories is the second studio album by Swedish electronic music producer Avicii, by PRMD Music and Island Records.",
+        songs: [
+          { name: "Waiting For Love", duration: 3.5 },
+          { name: "Talk To Myself", duration: 3.55 },
+          { name: "Touch Me", duration: 3.06 },
+          { name: "Ten More Days", duration: 4.05 },
+          { name: "For A Better Day", duration: 3.26 },
+          { name: "Broken Arrows", duration: 3.52 },
+          { name: "True Believer", duration: 4.48 },
+          { name: "City Lights", duration: 6.28 },
+          { name: "Pure Grinding", duration: 2.51 },
+          { name: "Sunset Jesus", duration: 4.24 },
+          { name: "Can't Catch Me", duration: 3.59 },
+          { name: "Somewhere In Stockholm", duration: 3.22 },
+          { name: "Trouble", duration: 2.51 },
+          { name: "Gonna Love Ya", duration: 3.35 },
+        ],
       },
     ];
 

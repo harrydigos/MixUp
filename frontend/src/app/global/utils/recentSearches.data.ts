@@ -1,6 +1,6 @@
-import { AlbumModel } from '../models';
+import { AlbumDummyModel } from '../models';
 
-export const recentSearches: AlbumModel[] = [
+export const recentSearches: AlbumDummyModel[] = [
   {
     name: "I'm Good(Blue)",
     artist: 'David Guetta',

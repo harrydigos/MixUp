@@ -1,68 +1,77 @@
 <div
+  *ngIf="album.name"
   class="relative w-screen h-screen bg-blue-dark overflow-x-hidden hide-scrollbar"
 >
   <div class="w-full flex">
     <div class="w-1/2">
       <div class="w-full h-full p-[100px] flex flex-col gap-6">
-        <div class="flex items-center gap-2 text-3xl text-blue-light/75">
-          <img src="assets/Icons/ArrowLeft.svg" width="48px" height="48px" />
-          <button (click)="back()">Back</button>
+        <div>
+          <button
+            (click)="back()"
+            class="flex items-center gap-2 text-3xl text-blue-light select-none hover:opacity-75"
+          >
+            <img src="assets/Icons/ArrowLeft.svg" width="48px" height="48px" />
+            <div>Back</div>
+          </button>
         </div>
         <div class="w-full flex justify-between items-center">
-          <div class="flex gap-6 items-center text-white">
-            <h1 class="font-semibold text-5xl">Stories</h1>
-            <div class="text-2xl pt-1">2015</div>
+          <div class="flex gap-6 items-center text-white select-none">
+            <h1 class="font-semibold text-5xl">{{ album.name }}</h1>
+            <div class="text-2xl pt-1">{{ album.yearProduced }}</div>
           </div>
-          <div class="flex gap-8">
+          <div class="flex gap-8 select-none">
             <button
               class="flex gap-2 justify-center items-center py-[6px] px-5 bg-blue-light rounded-2xl text-blue-dark font-semibold text-2xl"
             >
               <img src="assets/Icons/Shuffle.svg" width="40px" height="40px" />
               Shuffle
             </button>
-            <img src="assets/Icons/Heart.svg" width="48px" height="48px" />
+            <button>
+              <img src="assets/Icons/Heart.svg" width="48px" height="48px" />
+            </button>
           </div>
         </div>
-        <div class="flex items-center gap-6">
-          <div class="w-[64px] h-[64px] rounded-full bg-blue"></div>
-          <div class="text-white text-[40px] font-medium">Avicii</div>
+        <div class="flex items-center gap-6 cursor-pointer select-none">
+          <img
+            draggable="false"
+            src="assets/images/artists/{{ album.artistImage }}"
+            class="w-[64px] h-[64px] rounded-full object-cover"
+          />
+          <div class="text-white text-[40px] font-medium">
+            {{ album.artist }}
+          </div>
         </div>
-        <div class="flex items-center gap-6">
+        <div class="flex items-center gap-6 select-none">
           <div
-            class="flex items-center justify-center py-2 px-4 bg-blue-extra-light text-blue-dark font-medium text-xl rounded-full"
+            class="flex items-center justify-center py-2 px-4 bg-blue text-blue-extra-light font-medium text-xl rounded-full"
           >
-            14 Tracks
+            {{ album.noTracks }} Tracks
           </div>
           <div
-            class="flex items-center justify-center py-2 px-4 bg-blue-extra-light text-blue-dark font-medium text-xl rounded-full"
+            class="flex items-center justify-center py-2 px-4 bg-blue text-blue-extra-light font-medium text-xl rounded-full"
           >
-            55 Minutes
+            {{ album.duration }} Minutes
           </div>
         </div>
-        <p class="text-xl text-white py-4">
-          Stories is the second studio album by Swedish electronic music
-          producer Avicii, by PRMD Music and Island Records.
+        <p class="text-xl text-white py-4 select-none">
+          {{ album.info }}
         </p>
         <div class="w-full flex flex-col gap-3 text-white text-2xl font-medium">
-          <div class="w-full flex items-center justify-between py-3">
-            <div class="flex items-center gap-10">
-              <div>1</div>
+          <div
+            *ngFor="let song of album.songs; let i = index"
+            class="w-full flex items-center justify-between py-3 cursor-pointer rounded-xl select-none hover:bg-blue/25 duration-100 ease-out"
+            (click)="playSong(song.name)"
+          >
+            <div class="flex items-center gap-4">
+              <div class="h-full w-10 text-center">{{ i + 1 }}</div>
               <div class="flex flex-col gap-1">
-                <div>Waiting For Love</div>
-                <div class="text-xl">Avicii</div>
+                <div>{{ song.name }}</div>
+                <div class="text-xl">{{ album.artist }}</div>
               </div>
             </div>
-            <div>3:50</div>
-          </div>
-          <div class="w-full flex items-center justify-between py-3">
-            <div class="flex items-center gap-10">
-              <div>1</div>
-              <div class="flex flex-col gap-1">
-                <div>Waiting For Love</div>
-                <div class="text-xl">Avicii</div>
-              </div>
+            <div class="pr-3">
+              {{ getTimeOfSong(song.duration) }}
             </div>
-            <div>3:50</div>
           </div>
         </div>
       </div>
@@ -70,31 +79,58 @@
         <div
           class="w-[600px] h-full mx-auto flex flex-col gap-12 justify-center items-center"
         >
-          <div class="w-full h-[600px] rounded-3xl bg-blue"></div>
-          <h1 class="font-semibold text-5xl text-white">Waiting For Love</h1>
-          <div class="w-full flex items-center justify-between">
+          <img
+            draggable="false"
+            class="w-full h-[600px] rounded-3xl select-none"
+            src="assets/images/albums/{{ album.image }}"
+          />
+          <h1
+            class="font-semibold text-5xl w-[580px] h-14 truncate text-white text-center align-middle select-none"
+          >
+            {{ playingSong }}
+          </h1>
+          <div class="w-full flex items-center justify-between select-none">
             <img
+              class="cursor-pointer hover:opacity-75"
               src="assets/Icons/RepeatMusic.svg"
               width="48px"
               height="48px"
             />
-            <img src="assets/Icons/Previous.svg" width="48px" height="48px" />
-            <img src="assets/Icons/Pause.svg" width="80px" height="80px" />
-            <img src="assets/Icons/Next.svg" width="48px" height="48px" />
             <img
+              class="cursor-pointer hover:opacity-75"
+              src="assets/Icons/Previous.svg"
+              width="48px"
+              height="48px"
+            />
+            <img
+              class="cursor-pointer hover:opacity-75"
+              src="assets/Icons/Pause.svg"
+              width="80px"
+              height="80px"
+            />
+            <img
+              class="cursor-pointer hover:opacity-75"
+              src="assets/Icons/Next.svg"
+              width="48px"
+              height="48px"
+            />
+            <img
+              class="cursor-pointer hover:opacity-75"
               src="assets/Icons/MusicSquareAdd.svg"
               width="48px"
               height="48px"
             />
           </div>
-          <div class="flex items-center gap-3 text-2xl text-blue-light/75">
+          <button
+            class="flex items-center gap-3 text-2xl text-blue-light/75 hover:opacity-75 select-none"
+          >
             <img
               src="assets/Icons/MirroringScreen.svg"
               width="48px"
               height="48px"
             />
             Close surround wall
-          </div>
+          </button>
         </div>
       </div>
     </div>

@@ -18,8 +18,8 @@ const routes: Routes = [
           import('./library/library.module').then((m) => m.LibraryModule),
       },
       {
-        path: 'album',
-        component: AlbumComponent, // This will need an ID
+        path: 'album/:id',
+        component: AlbumComponent,
       },
       { path: '**', redirectTo: 'home', pathMatch: 'full' },
     ],
