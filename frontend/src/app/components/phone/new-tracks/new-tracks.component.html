@@ -1,10 +1,12 @@
 <div
-  class="grid grid-cols-4 pb-3 pl-4 cursor-pointer  hover:bg-slate-500/5 rounded-2xl duration-100"
+  class="grid grid-cols-4 pb-2 pt-1 pl-4 cursor-pointer  hover:bg-slate-500/5 rounded-2xl duration-100"
 >
-    <div class="w-[80px] h-[80px]  rounded-xl bg-blue-light"></div>
-    <div class="col-span-3  ">
-        <div class="grid grid-rows-3 h-[80px] justify-items-start">
-            <div class="font-medium text-white text-[16px]">{{song}}</div>
+    <div class="w-full h-[100px]">
+    <img class="rounded-[8px] w-full h-full " src="{{ imgUrl }}" alt="" />
+  </div>
+    <div class="col-span-3 flex items-center ">
+        <div class="grid grid-rows-3 h-[90px] justify-items-start pl-3">
+            <div class="font-medium text-white text-[16px] ">{{song}}</div>
             <div class="font-normal text-white text-[12px]">{{artist}}</div>
             <div class="font-normal text-white text-[12px] bg-[#395B64] rounded-md p-2 flex items-center">{{genre}}</div>
         </div>

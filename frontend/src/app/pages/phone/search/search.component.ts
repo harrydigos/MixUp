@@ -1,5 +1,7 @@
 import { Component, OnInit ,Input } from '@angular/core';
-import { divide } from 'lodash';
+import { PhoneNavbarState } from 'src/app/global/models/navbar/phoneNavbarState.model';
+import { genres, recentSearches } from 'src/app/global/utils';
+import { AlbumDummyModel } from 'src/app/global/models';
 
 
 @Component({
@@ -8,6 +10,11 @@ import { divide } from 'lodash';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
+
+  navState: PhoneNavbarState = 'search';
+
+  genres = genres;
+  recentSearches: AlbumDummyModel[] = recentSearches;
 
   @Input() searchText: string = 'Albums, songs or playlists';
   displayValue:string ='';

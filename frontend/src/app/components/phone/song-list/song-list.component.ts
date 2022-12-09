@@ -8,12 +8,12 @@ import { Component, OnInit , Input } from '@angular/core';
 export class SongListComponent implements OnInit {
 
   
-  @Input() artist: string = '';
-  @Input() img?: string;
-  @Input() song: string = '';
-  @Input() album: string = '';
-  @Input() playlist: string = '';
+ 
 
+  @Input() id: number = 0;
+  @Input() album: string = '';
+  @Input() artist: string = '';
+  @Input() imgUrl: string = '';
   
 
   constructor() { }

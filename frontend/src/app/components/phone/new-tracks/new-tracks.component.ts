@@ -9,7 +9,7 @@ export class NewTracksComponent implements OnInit {
 
   @Input() genre: string = '';
   @Input() artist: string = '';
-  @Input() img?: string;
+  @Input() imgUrl: string ='';
   @Input() song: string = '';
 
   constructor() { }

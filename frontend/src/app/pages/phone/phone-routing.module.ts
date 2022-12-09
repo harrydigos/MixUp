@@ -7,6 +7,7 @@ import { SearchComponent } from './search/search.component';
 import { PlaylistsComponent } from './library/playlists/playlists.component';
 import { FavoritesComponent } from './library/favorites/favorites.component';
 import { LibraryComponent } from './library/library.component';
+import { PlayingSongComponent } from './playing-song/playing-song.component';
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
 
       { path: 'favorites', component: FavoritesComponent },
       { path: 'playlists', component: PlaylistsComponent },
+      { path: 'play', component: PlayingSongComponent},
 
       { path: '**', redirectTo: 'home', pathMatch: 'full' },
     ],

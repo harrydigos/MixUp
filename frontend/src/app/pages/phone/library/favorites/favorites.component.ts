@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { PhoneNavbarState } from 'src/app/global/models/navbar/phoneNavbarState.model';
 import { NavbarStateService } from 'src/app/global/services';
 
 @Component({
@@ -8,6 +9,9 @@ import { NavbarStateService } from 'src/app/global/services';
   styleUrls: ['./favorites.component.scss'],
 })
 export class FavoritesComponent implements OnInit {
+
+  navState :PhoneNavbarState = "library";
+
   libraryNavState: 'favorites' | 'playlists' = 'favorites';
   @Input() searchText: string = 'Search in favorites';
 
@@ -77,18 +81,59 @@ export class FavoritesComponent implements OnInit {
     },
   ];
 
-  displayValue: string = '';
+  
   public numberofsongs: number = this.songArray.length;
+  playBlindingLights: boolean = true;
+  songPressed: string ='';
+  showMessageQueue: boolean = false;
+  showMessageRemove: boolean = false;
+
+  //Open song (mostly check about blinding lights)
+
+  openSong(songname:any){
+    this.songPressed = songname;
+    if (songname ==='Blinding Lights'){
+      console.log("Open blinding lights");
+      // this.playBlindingLights = true; 
+         
+    }
+  }
+
+  
+
+  songAdd2Queue(songname:any){
+    console.log("Add '" + songname + "' to the queue") ;
+    this.songPressed = songname;
+    setTimeout(() => {
+      this.showMessageQueue = true;
+    }, 500);
+    
+    setTimeout(() => {
+      this.showMessageQueue = false;
+    }, 2500);
+    
+  }
+
 
   //If we implement remove from favorites (error with SVG)
 
   rmSongFav(songname: any){
+    this.songPressed = songname;
     const index = this.songArray.findIndex(object => {
       return object.title === songname;
     });
-    if (index > -1) {
-      this.songArray.splice(index, 1);
-    }
+    setTimeout(() => {
+      if (index > -1) {
+        this.songArray.splice(index, 1);
+        this.numberofsongs = this.numberofsongs -1;
+        this.showMessageRemove = true;
+      }
+    }, 300);
+
+    setTimeout(() => {
+      this.showMessageRemove = false;
+    }, 2500);
+   
   }
 
   constructor(private navbarState: NavbarStateService) {

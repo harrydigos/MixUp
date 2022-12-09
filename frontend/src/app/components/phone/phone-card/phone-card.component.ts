@@ -7,9 +7,10 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class PhoneCardComponent implements OnInit {
 
-  @Input() album: string = '';
-  @Input() artist: string = '';
-  @Input() img?: string;
+  @Input() playlistName: string = '';
+  @Input() tracks: number = 0;
+  @Input() imgUrl: string = '';
+
 
   constructor() { }
 

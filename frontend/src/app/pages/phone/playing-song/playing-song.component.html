@@ -1,0 +1,32 @@
+<app-ph-navbar [page]="navState"></app-ph-navbar>
+<!-- //// -->
+<div class="w-screen h-full hide-scrollbar bg-blue-dark p-4 pt-7">
+  <div class="w-full h-[24px] flex flex-cols-3 justify-between">
+    <div><img src="assets/Icons-geo/arrow-left-2.svg" alt="" /></div>
+    <div class="font-normal text-white text-[16px]">{{ album }}</div>
+    <div><img src="assets/Icons-geo/more.svg" alt="" /></div>
+  </div>
+
+  <div class="pt-4 pb-4">
+    <img
+      class="object-fit w-full h-[325px] rounded-2xl"
+      src="assets/images/albums/bl.jpg"
+      alt="sdfds"
+    />
+  </div>
+
+  <div class="w-full flex justify-center">
+    <div class="font-semibold text-white text-[24px] pb-2">{{ song }}</div>
+  </div>
+  <div class="w-full flex justify-center">
+    <div class="font-regular text-white text-[16px]">{{ artist }}</div>
+  </div>
+
+  <div class="w-full  pt-4 pb-4" >song timer</div>
+
+  <div class="w-full h-[64px] flex flex-cols-5 justify-between">
+    <div><img src="assets/Icons-geo/arrow-left-2.svg" alt="" /></div>
+    <div class="font-normal text-white text-[16px]">{{ album }}</div>
+    <div><img src="assets/Icons-geo/more.svg" alt="" /></div>
+  </div>
+</div>

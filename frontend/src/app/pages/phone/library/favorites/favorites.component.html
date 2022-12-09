@@ -1,5 +1,7 @@
+<app-ph-navbar [page]="navState"></app-ph-navbar>
+<!-- //// -->
 <div class="w-screen h-full hide-scrollbar bg-blue-dark p-4">
-  <div class="grid grid-cols-2 pt-3">
+  <div class="grid grid-cols-2 pb-4 pt-3">
     <div><p class="font-semibold text-white text-[24px]">Library</p></div>
     <div class="relative">
       <div
@@ -25,6 +27,8 @@
     </div>
   </div>
 
+  
+
   <!-- Search in favorites -->
   <div class="relative block pt-4">
     <span class="absolute inset-y-0 flex items-center pl-4 pt-4">
@@ -45,7 +49,7 @@
 
   <!-- Under search text div -->
 
-  <div class="pt-4 pb-4">
+  <div class="pt-7 pb-4">
     <div class="grid grid-cols-2">
       <p class="font-medium text-white text-[20px]">Liked Songs</p>
 
@@ -88,6 +92,23 @@
       [artist]="song.artist"
       [imgUrl]="'assets/images/albums/' + song.image"
       (removeSongFromFavorites)="rmSongFav($event)"
+      (Song2open)="openSong($event)"
+      (Song2queue)="songAdd2Queue($event)"
     ></app-song-list-favorites>
+    
   </div>
+
+  <!-- /////////////////////// -->
+
+  <div *ngIf="showMessageQueue == true">
+    <div class="fixed bottom-[72px] left-2 rounded-[8px] w-[95%] h-[40px] bg-white ">
+      <p class="font-normal text-black text-[12px] absolute top-[25%] left-8">' {{songPressed}} ' added to your queue.</p>
+    </div>
+  </div>
+  <div *ngIf="showMessageRemove == true">
+    <div class="fixed bottom-[72px] left-2 rounded-[8px] w-[95%] h-[40px] bg-white ">
+      <p class="font-normal text-black text-[12px] absolute top-[25%] left-8">' {{songPressed}} ' removed from favorites.</p>
+    </div>
+  </div>
+
 </div>

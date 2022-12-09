@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { PhoneNavbarState } from 'src/app/global/models/navbar/phoneNavbarState.model';
 import { NavbarStateService } from 'src/app/global/services';
+import { playlists } from 'src/app/global/utils';
 
 @Component({
   selector: 'app-playlists',
@@ -7,7 +9,12 @@ import { NavbarStateService } from 'src/app/global/services';
   styleUrls: ['./playlists.component.scss']
 })
 export class PlaylistsComponent implements OnInit {
+  navState: PhoneNavbarState = 'library';
   libraryNavState: 'favorites' | 'playlists' = 'favorites';
+
+  savedPlaylists = playlists.filter((playlist) => playlist.saved);
+  youMayLikePlaylists = playlists.filter((playlist) => !playlist.saved);
+
   constructor(private navbarState: NavbarStateService) {
     this.navbarState.setLibraryNavState('playlists');
   }

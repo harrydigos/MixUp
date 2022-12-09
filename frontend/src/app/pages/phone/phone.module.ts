@@ -13,6 +13,7 @@ import { PlaylistsComponent } from './library/playlists/playlists.component';
 import { LibraryComponent } from './library/library.component';
 import { FavoritesComponent } from './library/favorites/favorites.component';
 import { SongListFavoritesComponent } from 'src/app/components/song-list-favorites/song-list-favorites.component';
+import { PlayingSongComponent } from './playing-song/playing-song.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { SongListFavoritesComponent } from 'src/app/components/song-list-favorit
     PlaylistsComponent,
     LibraryComponent,
     FavoritesComponent,
+    PlayingSongComponent,
   ],
   imports: [CommonModule, PhoneRoutingModule],
 })

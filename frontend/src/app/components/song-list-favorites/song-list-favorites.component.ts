@@ -11,24 +11,38 @@ export class SongListFavoritesComponent implements OnInit {
   @Input() imgUrl: string = '';
   @Input() song: string = '';
 
+  
+  
+
+  //Check if song is blinding lights and open it
+
+  @Output() Song2open = new EventEmitter<string>();
+  @Output() Song2queue = new EventEmitter<string>();
+
+  openSong(title:string){
+    this.Song2open.emit(title);
+  }
+
+  songQueueAdded(title:string){
+    this.Song2queue.emit(title);
+  }
+
   //If we will implement song remove from favorites library
 
   @Output() removeSongFromFavorites = new EventEmitter<string>();
-
-  song2remove:string = '';
+  
 
   removeSongFav(val: string) {
     this.removeSongFromFavorites.emit(val);
   }
 
   removefavorites(title:string){
-    document.getElementById("heartsvg")?.setAttribute("fill","none");
-    this.song2remove = title;
-    console.log("Remove from favorites: " + title);
+    //remove heart from favorite song(bugged)
+    // document.getElementById("heartsvg")?.setAttribute("fill","none");
     this.removeSongFav(title);
   }
 
-  ////
+ 
 
   constructor() { }
 

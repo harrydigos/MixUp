@@ -1,12 +1,12 @@
+<app-ph-navbar [page]="navState"></app-ph-navbar>
+<!-- //// -->
 <div class="w-screen h-full hide-scrollbar bg-blue-dark">
   <div class="grid grid-cols-2 p-4 pt-7">
     <div><p class="font-semibold text-white text-[24px]">Library</p></div>
     <div class="relative">
       <div
         class="toggleSelector"
-        [ngClass]="
-          libraryNavState === 'favorites' ? 'favorites' : 'playlists'
-        "
+        [ngClass]="libraryNavState === 'favorites' ? 'favorites' : 'playlists'"
       ></div>
       <div
         class="flex items-center w-full h-full rounded-full bg-blue/25 text-[14px] font-normal overflow-hidden"
@@ -27,7 +27,6 @@
     </div>
   </div>
 
-  
   <!-- My Playlists -->
 
   <div>
@@ -35,12 +34,14 @@
       <div><p class="font-medium text-white text-[20px]">My Playlists</p></div>
     </div>
 
-    <div class="w-full pr-5 overflow-x-auto flex hide-scrollbar">
-      <app-phone-card album="Rockies" artist="7 Tracks"></app-phone-card>
-      <app-phone-card album="Rockies" artist="7 Tracks"></app-phone-card>
-      <app-phone-card album="Rockies" artist="7 Tracks"></app-phone-card>
-      <app-phone-card album="Rockies" artist="7 Tracks"></app-phone-card>
-      <app-phone-card album="Rockies" artist="7 Tracks"></app-phone-card>
+    <div class="w-full pl-2 pr-5 overflow-x-auto flex hide-scrollbar">
+      <app-phone-card
+        *ngFor="let playlist of savedPlaylists"
+        [playlistName]="playlist.name"
+        [tracks]="playlist.noTracks"
+        [imgUrl]="'assets/images/playlists/' + playlist.image"
+      >
+      </app-phone-card>
     </div>
   </div>
 
@@ -48,7 +49,7 @@
 
   <div class="p-6 pl-4 pb-2">
     <button
-      class="w-[140px] rounded-lg h-[32px] bg-[#395B64]  block shadow-sm focus:outline-none focus:border-sky"
+      class="w-[140px] rounded-lg h-[32px] bg-[#395B64] block shadow-sm focus:outline-none focus:border-sky"
     >
       <p class="font-regular text-white text-[16px]">+ New Playlist</p>
     </button>
@@ -65,12 +66,15 @@
       </div>
     </div>
 
-    <div class="w-full pr-5 pb-[76px] overflow-x-auto flex hide-scrollbar">
-      <app-phone-card album="Party Life" artist="24 Tracks"></app-phone-card>
-      <app-phone-card album="Party Life" artist="24 Tracks"></app-phone-card>
-      <app-phone-card album="Party Life" artist="24 Tracks"></app-phone-card>
-      <app-phone-card album="Party Life" artist="24 Tracks"></app-phone-card>
-      <app-phone-card album="Party Life" artist="24 Tracks"></app-phone-card>
+    <div class="w-full pl-2 pr-5 pb-[76px] overflow-x-auto flex hide-scrollbar">
+      <app-phone-card
+        *ngFor="let playlist of youMayLikePlaylists"
+        [playlistName]="playlist.name"
+        [tracks]="playlist.noTracks"
+        [imgUrl]="'assets/images/playlists/' + playlist.image"
+      >
+      </app-phone-card
+      >
     </div>
   </div>
 </div>
