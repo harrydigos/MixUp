@@ -26,8 +26,20 @@
               <img src="assets/Icons/Shuffle.svg" width="40px" height="40px" />
               Shuffle
             </button>
-            <button>
-              <img src="assets/Icons/Heart.svg" width="48px" height="48px" />
+            <button (click)="toggleFavorite()">
+              <img
+                *ngIf="album.isFavorite; else notFavorite"
+                src="assets/Icons/Heart.svg"
+                width="48px"
+                height="48px"
+              />
+              <ng-template #notFavorite>
+                <img
+                  src="assets/Icons/HeartOutline.svg"
+                  width="48px"
+                  height="48px"
+                />
+              </ng-template>
             </button>
           </div>
         </div>

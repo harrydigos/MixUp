@@ -41,6 +41,11 @@ export class AlbumComponent implements OnInit {
     return `${minutes}:${seconds}`;
   }
 
+  toggleFavorite(): void {
+    this.album.isFavorite = !this.album.isFavorite;
+    this.albumsService.updateAlbum(this.album).subscribe();
+  }
+
   back() {
     this.location.back();
   }

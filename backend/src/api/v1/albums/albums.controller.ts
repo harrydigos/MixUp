@@ -15,7 +15,8 @@ export class AlbumController extends ResourceController<IAlbum> {
     router
       .get("/", this.getAlbums)
       .get("/init", this.initializeAlbums)
-      .get("/:id", this.getAlbumById);
+      .get("/:id", this.getAlbumById)
+      .put("/:id", this.updateAlbum);
 
     return router;
   }
@@ -29,6 +30,17 @@ export class AlbumController extends ResourceController<IAlbum> {
   getAlbumById = async (req: Request, res: Response) => {
     this.logger.debug("getAlbumById request");
     const album = await this.getOne(req.params.id, req, res);
+    return res.status(StatusCodes.OK).json(album);
+  };
+
+  updateAlbum = async (req: Request, res: Response) => {
+    this.logger.debug("updateAlbum request");
+    const album = await this.update(
+      req.params.id,
+      req.body.blacklist,
+      req,
+      res
+    );
     return res.status(StatusCodes.OK).json(album);
   };
 
