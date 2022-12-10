@@ -5,6 +5,8 @@ import {
   Renderer2,
   ViewChild,
 } from '@angular/core';
+import { AlbumModel } from 'src/app/global/models';
+import { AlbumsService } from 'src/app/global/services';
 
 @Component({
   selector: 'app-table',
@@ -12,6 +14,11 @@ import {
   styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit {
+  favAlbums: AlbumModel[] = [];
+  // TODO: Song model
+  favSongs: string[] = [];
+  queueSongs: string[] = [];
+
   @ViewChild('table') table?: ElementRef;
   @ViewChild('menu') menu?: ElementRef;
   @ViewChild('close') close?: ElementRef;
@@ -22,9 +29,16 @@ export class TableComponent implements OnInit {
   mouseX: number | undefined;
   mouseY: number | undefined;
 
-  constructor(private renderer: Renderer2) {}
+  constructor(
+    private renderer: Renderer2,
+    private albumsService: AlbumsService
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.albumsService.getAll().subscribe((result) => {
+      this.favAlbums = result.filter((album) => album.isFavorite);
+    });
+  }
 
   toggleMenu(event: MouseEvent): void {
     if (

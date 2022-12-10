@@ -98,7 +98,7 @@
     </div>
   </div>
   <div
-    class="queue w-[600px] rounded-2xl flex flex-col p-4 pr-0 gap-4 shadow-md overflow-hidden"
+    class="queue w-[600px] rounded-2xl flex flex-col p-4 pr-0 gap-4 shadow-md overflow-hidden bg-blue-dark"
     #queue
   >
     <div class="w-full flex justify-between items-center">
@@ -114,17 +114,20 @@
         />
       </button>
     </div>
-    <app-card-wrapper>
-      <app-table-disc></app-table-disc>
-      <app-table-disc></app-table-disc>
-      <app-table-disc></app-table-disc>
-      <app-table-disc></app-table-disc>
-      <app-table-disc></app-table-disc>
+    <app-card-wrapper *ngIf="queueSongs.length; else emptyQueue">
+      <app-table-disc
+        *ngFor="let song of queueSongs"
+        [name]="''"
+        [imgUrl]="''"
+      ></app-table-disc>
     </app-card-wrapper>
+    <ng-template #emptyQueue>
+      <h2 class="font-base text-2xl text-white/75">Queue is empty</h2>
+    </ng-template>
   </div>
 
   <div
-    class="favorites w-[600px] rounded-2xl flex flex-col p-4 pr-0 gap-4 shadow-md overflow-hidden"
+    class="favorites w-[600px] rounded-2xl flex flex-col p-4 pr-0 gap-4 shadow-md overflow-hidden bg-blue-dark"
     #favorites
   >
     <div class="w-full flex justify-between items-center">
@@ -144,25 +147,28 @@
         />
       </button>
     </div>
-    <div class="flex flex-col gap-4">
+    <div *ngIf="favSongs.length" class="flex flex-col gap-4">
       <h2 class="font-medium text-[32px] text-white">Songs</h2>
       <app-card-wrapper>
-        <app-table-disc></app-table-disc>
-        <app-table-disc></app-table-disc>
-        <app-table-disc></app-table-disc>
-        <app-table-disc></app-table-disc>
-        <app-table-disc></app-table-disc>
+        <app-table-disc
+          *ngFor="let song of favSongs"
+          [name]="''"
+          [imgUrl]="''"
+        ></app-table-disc>
       </app-card-wrapper>
     </div>
-    <div class="flex flex-col gap-4">
+    <div *ngIf="favAlbums.length" class="flex flex-col gap-4">
       <h2 class="font-medium text-[32px] text-white">Albums</h2>
       <app-card-wrapper>
-        <app-table-disc></app-table-disc>
-        <app-table-disc></app-table-disc>
-        <app-table-disc></app-table-disc>
-        <app-table-disc></app-table-disc>
-        <app-table-disc></app-table-disc>
+        <app-table-disc
+          *ngFor="let album of favAlbums"
+          [name]="album.name"
+          [imgUrl]="'assets/images/albums/' + album.image"
+        ></app-table-disc>
       </app-card-wrapper>
+    </div>
+    <div *ngIf="!favAlbums.length && !favSongs.length">
+      <h2 class="font-base text-2xl text-white/75">No favorites yet</h2>
     </div>
   </div>
 </div>
