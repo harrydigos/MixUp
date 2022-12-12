@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PhoneNavbarState } from 'src/app/global/models/navbar/phoneNavbarState.model';
 import { playlists } from 'src/app/global/utils';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -10,6 +11,8 @@ import { playlists } from 'src/app/global/utils';
 export class HomeComponent implements OnInit {
 
   navState: PhoneNavbarState = 'home';
+  songPlaying = environment.songPlaying;
+  
 
   artist: string = '';
   song: string = '';

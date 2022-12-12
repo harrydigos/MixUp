@@ -1,7 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { RouterLink } from '@angular/router';
+import { AlbumModel } from 'src/app/global/models';
 import { PhoneNavbarState } from 'src/app/global/models/navbar/phoneNavbarState.model';
-import { NavbarStateService } from 'src/app/global/services';
+import { NavbarStateService, AlbumsService } from 'src/app/global/services';
 
 @Component({
   selector: 'app-favorites',
@@ -15,6 +17,8 @@ export class FavoritesComponent implements OnInit {
   libraryNavState: 'favorites' | 'playlists' = 'favorites';
   @Input() searchText: string = 'Search in favorites';
 
+  blindingLights: AlbumModel = {} as AlbumModel;
+  
 
   //Array with favorite songs (Will change this with DB)
 
@@ -27,7 +31,7 @@ export class FavoritesComponent implements OnInit {
     {
       title: 'Blinding Lights',
       artist: 'The Weeknd',
-      image: 'blinding_lights.jpg',
+      image: 'blindingPhone.jpg',
     },
     { title: 'Flying', artist: 'Curbi', image: 'astronaut_in_the_ocean.jpg' },
     {
@@ -83,10 +87,11 @@ export class FavoritesComponent implements OnInit {
 
   
   public numberofsongs: number = this.songArray.length;
-  playBlindingLights: boolean = true;
+  playBlindingLights: boolean = false;
   songPressed: string ='';
   showMessageQueue: boolean = false;
   showMessageRemove: boolean = false;
+  surroundWallOpen: boolean = false;
 
   //Open song (mostly check about blinding lights)
 
@@ -94,8 +99,7 @@ export class FavoritesComponent implements OnInit {
     this.songPressed = songname;
     if (songname ==='Blinding Lights'){
       console.log("Open blinding lights");
-      // this.playBlindingLights = true; 
-         
+      this.playBlindingLights = true; 
     }
   }
 
@@ -115,7 +119,7 @@ export class FavoritesComponent implements OnInit {
   }
 
 
-  //If we implement remove from favorites (error with SVG)
+  //If we implement remove from favorites
 
   rmSongFav(songname: any){
     this.songPressed = songname;

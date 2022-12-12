@@ -1,0 +1,8 @@
+<div
+  *ngFor="let lyric of lyrics; let i = index"
+  class="font-semibold text-[18px] leading-relaxed"
+  (click)="activeLyric(i)"
+  [ngStyle]="{ color: setActiveLyric(lyric.active) }"
+>
+  {{ lyric.text }}
+</div>

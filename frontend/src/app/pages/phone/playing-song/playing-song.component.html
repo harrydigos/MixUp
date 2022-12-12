@@ -1,32 +1,113 @@
 <app-ph-navbar [page]="navState"></app-ph-navbar>
 <!-- //// -->
-<div class="w-screen h-full hide-scrollbar bg-blue-dark p-4 pt-7">
+<div
+  class="w-screen h-screen relative hide-scrollbar bg-blue-dark p-4 pb-0 pt-7"
+>
   <div class="w-full h-[24px] flex flex-cols-3 justify-between">
-    <div><img src="assets/Icons-geo/arrow-left-2.svg" alt="" /></div>
+    <div (click)="back()"><img src="assets/Icons-geo/arrow-left-2.svg" alt="" /></div>
     <div class="font-normal text-white text-[16px]">{{ album }}</div>
     <div><img src="assets/Icons-geo/more.svg" alt="" /></div>
   </div>
 
-  <div class="pt-4 pb-4">
+  <!-- Image -->
+
+  <div *ngIf="showImage" class="pt-4">
     <img
-      class="object-fit w-full h-[325px] rounded-2xl"
-      src="assets/images/albums/bl.jpg"
+      class="object-fit shadow-2xl w-full h-[50vh] rounded-[40px]"
+      src="assets/images/albums/blindingPhone.jpg"
       alt="sdfds"
     />
   </div>
 
-  <div class="w-full flex justify-center">
+  <!-- Music info-->
+
+  <div class="w-full pt-4 flex justify-center">
     <div class="font-semibold text-white text-[24px] pb-2">{{ song }}</div>
   </div>
   <div class="w-full flex justify-center">
     <div class="font-regular text-white text-[16px]">{{ artist }}</div>
   </div>
 
-  <div class="w-full  pt-4 pb-4" >song timer</div>
+  <!-- MusicTime-->
 
-  <div class="w-full h-[64px] flex flex-cols-5 justify-between">
-    <div><img src="assets/Icons-geo/arrow-left-2.svg" alt="" /></div>
-    <div class="font-normal text-white text-[16px]">{{ album }}</div>
-    <div><img src="assets/Icons-geo/more.svg" alt="" /></div>
+  <div class="w-full pt-[24px] pb-[24px] flex items-stretch gap-2">
+    <div class="text-white text-[12px] font-medium self-center">{{songTimeStart}}</div>
+    <div class="w-full h-[5px] rounded-full bg-white self-center"></div>
+    <div class="text-white text-[12px] font-medium self-center">{{songTimeEnd}}</div>
   </div>
+
+  <!-- Buttons -->
+
+  <div class="w-full h-[10vh] pb-4 flex flex-cols-5 justify-between items-center">
+    <div class="cursor-pointer">
+      <img src="assets/Icons/RepeatMusic.svg" alt="" />
+    </div>
+    <div class="cursor-pointer">
+      <img src="assets/Icons/Previous.svg" alt="" />
+    </div>
+    <div class="cursor-pointer">
+      <img class="w-[55px] h-[55px]" src="assets/Icons/Pause.svg" alt="" />
+    </div>
+    <div class="cursor-pointer"><img src="assets/Icons/Next.svg" alt="" /></div>
+    <div class="cursor-pointer" (click)="SurroundWall(song)">
+      <img src="assets/Icons/MirroringScreen.svg" alt="" />
+    </div>
+  </div>
+
+   <!-- OpenSurroundWall -->
+
+  <div class="flex justify-center pb-4">
+    <div class="font-semibold text-[#395b64] text-[16px]">
+      SurroundWall <span class="font-bold">{{surroundWallText}}</span>
+    </div>
+  </div>
+
+  
+
+  <!-- Lyrics -->
+
+  <div
+    *ngIf="lyricsSmall; else lyricsBig"
+    class="hide-scrollbar h-[5vh] fixed bottom-0 left-4 right-4 bg-blue rounded-t-[40px] flex justify-center"
+    (pointerenter)="lyricsOpen()"
+  >
+    <div class="absolute top-4 left-6">
+      <p class=" text-[16px] text-white font-medium">Lyrics</p>
+    </div>
+    <div>
+      <hr class="w-[100px] border-[1px] mt-2 border-white/50 rounded-full" />
+    </div>
+    <div class="absolute top-14 left-6">
+      <!-- call lyrics -->
+      <app-lyrics></app-lyrics>
+    </div>
+    
+  </div>
+
+  <!-- lyricsBIG div -->
+
+  <ng-template #lyricsBig>
+    <div
+      class="hide-scrollbar h-[50vh] shadow-lg bg-blue rounded-[40px] relative"
+      
+    >
+      <div class="z-10 absolute top-4 left-6">
+        <p class="text-regular text-[16px] text-white font-medium">Lyrics</p>
+      </div>
+      <div class="z-10 absolute top-4 right-6" (click)="lyricsClose()">
+        <img
+          style="height: 32px"
+          src="assets/Icons/Table/CloseCircle.svg"
+          alt=""
+        />
+      </div>
+      <div class="absolute top-14 left-6 ">
+        <!-- call lyrics -->
+        <app-lyrics></app-lyrics>
+      </div>
+    </div>
+  </ng-template>
+
+  
+
 </div>

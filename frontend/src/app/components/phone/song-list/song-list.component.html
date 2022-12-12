@@ -1,16 +1,16 @@
 <div
-  class="grid grid-cols-8 pb-2 pt-1 pl-4 cursor-pointer hover:bg-slate-500/5 rounded-2xl duration-100"
+  class="pl-4 pt-1 pb-1 pr-4 flex items-center cursor-pointer hover:bg-slate-500/5 rounded-2xl duration-100"
 >
-  <div class="max-w-[50px] h-[50px] ">
-    <img class="w-full h-full rounded-[8px] object-fit" src="{{ imgUrl }}" />
+  <div class="w-[50px] h-[50px] ">
+    <img class="w-full h-full rounded-[10px] object-fit" src="{{ imgUrl }}" />
   </div>
   <div class="col-span-6">
-    <div class="grid grid-rows-2 h-[50px] pl-2 justify-items-start gap-1">
-      <div class="font-medium text-white text-[16px]">{{ album }}</div>
-      <div class="font-regular text-white text-[12px]">{{ artist }}</div>
+    <div class="grid grid-rows-2 h-[40px] pl-2 justify-items-start gap-1">
+      <div class="font-normal text-white text-[16px]">{{ album }}</div>
+      <div class="font-light text-white text-[12px]">{{ artist }}</div>
     </div>
   </div>
-  <div class="w-[40px] absolute right-0 mt-3">
+  <div class="w-[40px] absolute right-0 ">
     <img src="assets/Icons-geo/arrow-right-2.svg" alt="" />
   </div>
 </div>
