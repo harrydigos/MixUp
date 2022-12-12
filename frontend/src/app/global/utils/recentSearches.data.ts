@@ -18,7 +18,7 @@ export const recentSearches: AlbumDummyModel[] = [
   {
     name: 'Blinding Lights',
     artist: 'The Weeknd',
-    image: 'blindingPhone.jpg',
+    image: 'blinding_lights.jpg',
     isFavorite: false,
     noTracks: 0,
   },
