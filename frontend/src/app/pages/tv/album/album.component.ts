@@ -1,8 +1,13 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AlbumModel } from 'src/app/global/models';
-import { AlbumsService, NavbarStateService } from 'src/app/global/services';
+import { AlbumModel, SongModel } from 'src/app/global/models';
+import {
+  AlbumsService,
+  NavbarStateService,
+  SongsService,
+} from 'src/app/global/services';
+import { result } from 'lodash';
 
 @Component({
   selector: 'app-album',
@@ -11,13 +16,15 @@ import { AlbumsService, NavbarStateService } from 'src/app/global/services';
 })
 export class AlbumComponent implements OnInit {
   album: AlbumModel = {} as AlbumModel;
+  songs: SongModel[] = [];
   playingSong: string = '';
 
   constructor(
     private navbarState: NavbarStateService,
     private location: Location,
     private route: ActivatedRoute,
-    private albumsService: AlbumsService
+    private albumsService: AlbumsService,
+    private songsService: SongsService
   ) {
     this.navbarState.setNavState('hide');
   }
@@ -25,9 +32,16 @@ export class AlbumComponent implements OnInit {
   ngOnInit(): void {
     let id = this.route.snapshot.paramMap.get('id');
     if (!id) this.back();
+
+    // Fetch album and after that fetch its songs
     this.albumsService.getById(id!).subscribe((result) => {
       this.album = result;
-      this.playSong(this.album.songs[0].name);
+      this.album.songs.forEach((songId) => {
+        this.songsService.getById(songId).subscribe((result) => {
+          this.songs.push(result);
+          if (this.songs.length === 1) this.playSong(this.songs[0].name);
+        });
+      });
     });
   }
 
