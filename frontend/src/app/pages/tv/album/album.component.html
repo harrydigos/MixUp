@@ -70,7 +70,7 @@
         </p>
         <div class="w-full flex flex-col gap-3 text-white text-2xl font-medium">
           <div
-            *ngFor="let song of album.songs; let i = index"
+            *ngFor="let song of songs; let i = index"
             class="w-full flex items-center justify-between py-3 cursor-pointer rounded-xl select-none hover:bg-blue/25 duration-100 ease-out"
             (click)="playSong(song.name)"
           >

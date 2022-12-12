@@ -3,6 +3,7 @@ import { AlbumController } from "./albums/albums.controller";
 import { ExampleController } from "./example/example.controller";
 import { ItemShopController } from "./item-shop/item-shop.controller";
 import { TaskController } from "./task/task.controller";
+import { SongsController } from "./songs/songs.controller";
 const apiV1Router = express.Router();
 
 apiV1Router
@@ -13,7 +14,7 @@ apiV1Router
 
   // Our routes
 
-  // Album routes
-  .use("/albums", new AlbumController().applyRoutes());
+  .use("/albums", new AlbumController().applyRoutes())
+  .use("/songs", new SongsController().applyRoutes());
 
 export { apiV1Router };

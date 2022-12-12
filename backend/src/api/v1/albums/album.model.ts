@@ -1,4 +1,4 @@
-import { Document, Schema, Model, model } from "mongoose";
+import { Document, Schema, Model, model, Types } from "mongoose";
 import { DefaultSchemaOptions } from "../../../models/shared";
 
 export interface IAlbum extends Document {
@@ -11,7 +11,7 @@ export interface IAlbum extends Document {
   yearProduced?: number;
   duration?: number;
   info?: string;
-  songs?: { name: string; duration: number }[];
+  songs?: Types.ObjectId[];
 }
 
 const albumSchema = new Schema(
@@ -25,12 +25,7 @@ const albumSchema = new Schema(
     yearProduced: { type: Number, default: 0 },
     duration: { type: Number, default: 0 },
     info: { type: String, default: "" },
-    songs: [
-      {
-        name: { type: String, default: "" },
-        duration: { type: Number, default: 0 },
-      },
-    ],
+    songs: [{ type: Types.ObjectId, default: "" }],
   },
   { ...DefaultSchemaOptions }
 );

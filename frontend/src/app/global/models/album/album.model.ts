@@ -9,7 +9,7 @@ export class AlbumModel {
   public yearProduced!: number;
   public duration!: number;
   public info!: string;
-  public songs!: { name: string; duration: number }[];
+  public songs!: string[];
 
   constructor(model?: any) {
     Object.assign(this, model);

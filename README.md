@@ -1,8 +1,11 @@
 # MixUp
 Music player made by Team 13 in course CS469
 
-## To initialize the database data in your computer:
+### To initialize the database data in your computer:
+They must be done with this order because the albums refer to song ids:
 ```sh
+http://localhost:8080/api/songs/init
+
 http://localhost:8080/api/albums/init
 ```
 
