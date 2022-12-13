@@ -1,4 +1,5 @@
 <app-ph-navbar [page]="navState"></app-ph-navbar>
+<app-song-active></app-song-active>
 <!-- //// -->
 <div
   *ngIf="!playBlindingLights; else playMusic"
@@ -118,6 +119,8 @@
       </p>
     </div>
   </div>
+   <!-- if song is playing add padding to bottom -->
+   <div *ngIf="songPlaying" class="h-[60px]"></div>
 </div>
 
 <ng-template #playMusic>

@@ -21,7 +21,7 @@ export class LyricsComponent implements OnInit {
   lyrics = [
     {"line":0,"text":"I've been tryna call",active:false},
     {"line":1,"text":"I've been on my own for long enough",active:false},
-    {"line":2,"text":"I've been on my own for long enough",active:false},
+    {"line":2,"text":"Maybe you can show me how to love, maybe",active:false},
     {"line":3,"text":"I'm going through withdrawals",active:false},
     {"line":4,"text":"You don't even have to do too much",active:false},
     // {"line":5,"text":"You can turn me on with just a touch, baby",active:false}

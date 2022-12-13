@@ -1,4 +1,6 @@
 <app-ph-navbar [page]="navState"></app-ph-navbar>
+<app-song-active></app-song-active>
+
 <!-- //// -->
 <div class="w-screen h-screen hide-scrollbar bg-blue-dark">
   <div class="grid grid-cols-2 p-4 pt-7">
@@ -77,4 +79,6 @@
       >
     </div>
   </div>
+   <!-- if song is playing add padding to bottom -->
+   <div *ngIf="songPlaying" class="h-[60px]"></div>
 </div>

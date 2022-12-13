@@ -1,4 +1,6 @@
 <app-ph-navbar [page]="navState"></app-ph-navbar>
+<app-song-active></app-song-active>
+
 <!-- //// -->
 <div class="w-screen h-full hide-scrollbar bg-blue-dark">
   <div class="grid grid-cols-2 p-4 pt-7">
@@ -23,11 +25,11 @@
       class="w-full rounded-lg h-[40px] placeholder:text-blue-dark text-[14px] block border border-slate-300 pl-12 pr-3 shadow-sm focus:outline-none focus:border-sky"
     />
   </div>
-  {{ displayValue }}
-  
-  <!-- Recent Searches -->
 
-  <div id="TEMP">
+  <!-- This div changes dynamic with search input -->
+
+  <div *ngIf="displaySearchValue === 'blank'; else showInputResults">
+    <!-- Recent Searches -->
     <div class="grid grid-cols-2 p-4 pb-3 w-auto">
       <div>
         <p class="font-medium text-white text-[20px] w-[220px]">
@@ -37,7 +39,7 @@
 
       <div class="flex justify-end items-center">
         <p class="view-all-text">View all</p>
-        <img src="assets/Icons-geo/arrow-right-2.svg" alt="" />
+        <img class="w-[20px]" src="assets/Icons-geo/arrow-right-2.svg" alt="" />
       </div>
     </div>
 
@@ -153,12 +155,47 @@
     <!-- Search button -->
 
     <button
-      class="w-[60px] h-[60px] rounded-full bg-[#E7F6F2] fixed bottom-[85px] right-2 flex align-center justify-center transition hover:bg-blue focus:outline-none focus:ring focus:ring-blue-light"
+      *ngIf="songPlaying; else searchDown"
+      class="w-[60px] h-[60px] shadow-[0px_22px_70px_4px_rgba(0,0,0,0.56)] rounded-full bg-[#E7F6F2] fixed bottom-[135px] right-2 flex align-center justify-center transition hover:bg-blue focus:outline-none focus:ring focus:ring-blue-light"
     >
       <img
         class="w-[100%] h-[100%] p-3 cursor-pointer hover:bg-slate-500/5 duration-100"
         src="assets/Icons-geo/microphone-2.svg"
       />
     </button>
+    <ng-template #searchDown>
+      <button
+        class="w-[60px] h-[60px] shadow-[0px_22px_70px_4px_rgba(0,0,0,0.56)] rounded-full bg-[#E7F6F2] fixed bottom-[85px] right-2 flex align-center justify-center transition hover:bg-blue focus:outline-none focus:ring focus:ring-blue-light"
+      >
+        <img
+          class="w-[100%] h-[100%] p-3 cursor-pointer hover:bg-slate-500/5 duration-100"
+          src="assets/Icons-geo/microphone-2.svg"
+        />
+      </button>
+    </ng-template>
   </div>
+
+  <ng-template #showInputResults>
+    <div class="w-full pl-4 pr-4 pb-4 text-white">{{ displaySearchValue }}</div>
+    <!-- //TODO temp results -->
+    <div class="pb-[80px]">
+      <app-song-list
+        *ngFor="let card of recentSearches"
+        [album]="'Blinding Lights'"
+        [artist]="'The Weeknd'"
+        [imgUrl]="'assets/images/albums/blinding_lights.jpg'"
+      >
+      </app-song-list>
+      <app-song-list
+        *ngFor="let card of recentSearches"
+        [album]="'Blinding Lights'"
+        [artist]="'The Weeknd'"
+        [imgUrl]="'assets/images/albums/blinding_lights.jpg'"
+      >
+      </app-song-list>
+    </div>
+  </ng-template>
+
+  <!-- if song is playing add padding to bottom -->
+  <div *ngIf="songPlaying" class="h-[60px]"></div>
 </div>

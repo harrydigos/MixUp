@@ -10,7 +10,7 @@ export class SongActiveComponent implements OnInit {
 
   songPlayingBool = environment.songPlaying;
 
-  imgUrl:string = 'assets/images/albums/blindingPhone.jpg';
+  imgUrl:string = 'assets/images/albums/blinding_lights.jpg';
   song: string = "Blinding Lights";
   artist:string = "The Weeknd";
 

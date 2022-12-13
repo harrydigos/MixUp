@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { AlbumModel } from 'src/app/global/models';
 import { PhoneNavbarState } from 'src/app/global/models/navbar/phoneNavbarState.model';
 import { NavbarStateService, AlbumsService } from 'src/app/global/services';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-favorites',
@@ -13,6 +14,7 @@ import { NavbarStateService, AlbumsService } from 'src/app/global/services';
 export class FavoritesComponent implements OnInit {
 
   navState :PhoneNavbarState = "library";
+  songPlaying = environment.songPlaying;
 
   libraryNavState: 'favorites' | 'playlists' = 'favorites';
   @Input() searchText: string = 'Search in favorites';
@@ -31,7 +33,7 @@ export class FavoritesComponent implements OnInit {
     {
       title: 'Blinding Lights',
       artist: 'The Weeknd',
-      image: 'blindingPhone.jpg',
+      image: 'blinding_lights.jpg',
     },
     { title: 'Flying', artist: 'Curbi', image: 'astronaut_in_the_ocean.jpg' },
     {
