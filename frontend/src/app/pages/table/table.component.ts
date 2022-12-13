@@ -29,6 +29,9 @@ export class TableComponent implements OnInit {
   mouseX: number | undefined;
   mouseY: number | undefined;
 
+  isPlaying: boolean = true;
+  volume: boolean = true;
+
   constructor(
     private renderer: Renderer2,
     private albumsService: AlbumsService
@@ -88,5 +91,13 @@ export class TableComponent implements OnInit {
 
   closeQueue(): void {
     this.renderer.removeClass(this.queue!.nativeElement, '__show');
+  }
+
+  togglePlay(): void {
+    this.isPlaying = !this.isPlaying;
+  }
+
+  toggleMute(): void {
+    this.volume = !this.volume;
   }
 }

@@ -1,6 +1,6 @@
 <div
   #table
-  class="relative w-screen h-screen bg-blue-dark overflow-hidden hide-scrollbar"
+  class="relative w-screen h-screen bg-blue-dark overflow-hidden hide-scrollbar select-none"
   (click)="toggleMenu($event)"
   (mousemove)="getMousePosition($event)"
 >
@@ -47,15 +47,15 @@
       <h2 class="font-medium text-[32px] text-white">The Weeknd</h2>
     </div>
     <div class="relative z-50">
-      <div class="relative">
-        <img src="assets/vinyl.png" width="500px" height="500px" />
+      <div class="relative disc" [ngClass]="{'__pause': !isPlaying}">
+        <img class="w-[500px] h-[500px]" src="assets/vinyl.png" draggable="false" />
         <img
-          src="assets/weeknd.jpg"
           class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rounded-full"
+          src="assets/images/artists/weeknd.jpg"
+          draggable="false"
         />
       </div>
 
-      <!-- <div class="w-[500px] h-[500px] rounded-full bg-blue"></div> -->
       <div class="absolute top-0 -right-1/4">
         <svg
           width="235"
@@ -84,17 +84,37 @@
           />
         </svg>
       </div>
-      <img
-        class="absolute bottom-0 -right-1/4"
-        src="assets/Icons/VolumeHigh.svg"
-        width="64px"
-        height="64px"
-      />
+      <button (click)="toggleMute()">
+        <img *ngIf="volume; else mute"
+          class="absolute bottom-0 -right-1/4"
+          src="assets/Icons/VolumeHigh.svg"
+          width="64px"
+          height="64px"
+        />
+        <ng-template #mute>
+          <img #mute
+           class="absolute bottom-0 -right-1/4"
+           src="assets/Icons/Table/VolumeMute.svg"
+           width="64px"
+           height="64px"
+          />
+        </ng-template>
+
+      </button>
     </div>
     <div class="flex gap-16">
-      <img src="assets/Icons/Previous.svg" width="64px" height="64px" />
-      <img src="assets/Icons/Pause.svg" width="100px" height="100px" />
-      <img src="assets/Icons/Next.svg" width="64px" height="64px" />
+      <button class="hover:opacity-70">
+        <img src="assets/Icons/Previous.svg" width="64px" height="64px" />
+      </button>
+      <button (click)="togglePlay()" class="hover:opacity-70">
+        <img *ngIf="isPlaying; else pause" src="assets/Icons/Pause.svg" width="100px" height="100px" />
+        <ng-template #pause>
+          <img src="assets/Icons/Table/Play.svg" width="100px" height="100px" />
+        </ng-template>
+      </button>
+      <button class="hover:opacity-70">
+        <img src="assets/Icons/Next.svg" width="64px" height="64px" />
+      </button>
     </div>
   </div>
   <div
