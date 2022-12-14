@@ -80,13 +80,10 @@
         &:nth-child(6) {
           transform: translate(150%, -35%);
         }
-
-
       }
     }
   }
 }
-
 
 .favorites {
   position: absolute;
@@ -115,23 +112,3 @@
     visibility: visible;
   }
 }
-
-.disc {
-  animation: rotating 2s linear infinite;
-  animation-play-state: running;
-
-  &.__pause {
-    animation-play-state: paused;
-  }
-
-}
-
-@keyframes rotating {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
