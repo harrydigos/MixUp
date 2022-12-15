@@ -2,11 +2,7 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlbumModel, SongModel } from 'src/app/global/models';
-import {
-  AlbumsService,
-  NavbarStateService,
-  SongsService,
-} from 'src/app/global/services';
+import { AlbumsService, NavbarStateService, SocketsService, SongsService } from 'src/app/global/services';
 import { result } from 'lodash';
 
 @Component({
@@ -18,13 +14,15 @@ export class AlbumComponent implements OnInit {
   album: AlbumModel = {} as AlbumModel;
   songs: SongModel[] = [];
   playingSong: string = '';
+  isPlaying: boolean = false;
 
   constructor(
     private navbarState: NavbarStateService,
     private location: Location,
     private route: ActivatedRoute,
     private albumsService: AlbumsService,
-    private songsService: SongsService
+    private songsService: SongsService,
+    private socketService: SocketsService,
   ) {
     this.navbarState.setNavState('hide');
   }
@@ -42,6 +40,10 @@ export class AlbumComponent implements OnInit {
           if (this.songs.length === 1) this.playSong(this.songs[0].name);
         });
       });
+    });
+
+    this.socketService.subscribe('play', (isPlaying: boolean) => {
+      this.isPlaying = isPlaying;
     });
   }
 
@@ -62,5 +64,10 @@ export class AlbumComponent implements OnInit {
 
   back() {
     this.location.back();
+  }
+
+  togglePlay(): void {
+    this.isPlaying = !this.isPlaying;
+    this.socketService.publish('play', this.isPlaying);
   }
 }

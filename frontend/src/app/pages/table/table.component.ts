@@ -1,9 +1,8 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { AlbumModel } from 'src/app/global/models';
-import { AlbumsService } from 'src/app/global/services';
+import { AlbumsService, SocketsService } from 'src/app/global/services';
 
 let id: any = null;
-let state: number = 0;
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -45,11 +44,16 @@ export class TableComponent implements OnInit {
   R2D: number = 180 / Math.PI;
   styleRotation: string = '';
 
-  constructor(private renderer: Renderer2, private albumsService: AlbumsService) {}
+  state: number = 0;
+
+  constructor(private renderer: Renderer2, private albumsService: AlbumsService, private socketService: SocketsService) {}
 
   ngOnInit(): void {
     this.albumsService.getAll().subscribe((result) => {
       this.favAlbums = result.filter((album) => album.isFavorite);
+    });
+    this.socketService.subscribe('play', (isPlaying: boolean) => {
+      this.isPlaying = isPlaying;
     });
   }
 
@@ -101,10 +105,8 @@ export class TableComponent implements OnInit {
 
   togglePlay(): void {
     this.isPlaying = !this.isPlaying;
-    if (this.isPlaying) {
-      clearInterval(id);
-      state = (this.angle + this.rotation) % 360;
-    }
+    if (this.isPlaying) clearInterval(id);
+    this.socketService.publish('play', this.isPlaying);
   }
 
   toggleMute(): void {
@@ -134,7 +136,8 @@ export class TableComponent implements OnInit {
     let y = e.clientY - this.center.y;
     let d = this.R2D * Math.atan2(y, x);
     this.rotation = d - this.startAngle;
-    this.styleRotation = `rotate(${this.angle + this.rotation}deg)`;
+    this.state = this.angle + this.rotation;
+    this.styleRotation = `rotate(${this.state}deg)`;
     this.disc!.nativeElement.style.cursor = 'grabbing';
   }
 
@@ -146,16 +149,11 @@ export class TableComponent implements OnInit {
 
   playAnim(): void {
     if (!this.isPlaying || this.active) return;
-    console.log(state);
-    let rotate = state ? state : this.angle + this.rotation;
+    console.log('Play anim', this.state);
     const frame = () => {
-      if (rotate === 360) {
-        clearInterval(id);
-      } else {
-        rotate++;
-        state = rotate;
-        this.styleRotation = `rotate(${state}deg)`;
-      }
+      if (this.active) return;
+      this.state++;
+      this.styleRotation = `rotate(${this.state}deg)`;
     };
 
     id = setInterval(frame, 10);
