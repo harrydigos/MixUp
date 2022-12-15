@@ -75,10 +75,10 @@
       <button class="hover:opacity-70">
         <img src="assets/Icons/Previous.svg" width="64px" height="64px" />
       </button>
-      <button (click)="togglePlay()" class="hover:opacity-70">
-        <img *ngIf="isPlaying; else pause" (click)="playAnim()" src="assets/Icons/Table/Play.svg" width="100px" height="100px" />
+      <button (click)="togglePlay(); playAnim()" class="hover:opacity-70">
+        <img *ngIf="isPlaying; else pause" src="assets/Icons/Pause.svg" width="100px" height="100px" />
         <ng-template #pause>
-          <img src="assets/Icons/Pause.svg" width="100px" height="100px" />
+          <img src="assets/Icons/Table/Play.svg" width="100px" height="100px" />
         </ng-template>
       </button>
       <button class="hover:opacity-70">

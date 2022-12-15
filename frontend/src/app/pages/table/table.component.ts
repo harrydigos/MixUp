@@ -2,7 +2,8 @@ import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/co
 import { AlbumModel } from 'src/app/global/models';
 import { AlbumsService, SocketsService } from 'src/app/global/services';
 
-let id: any = null;
+let disc: any = null;
+
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
@@ -26,7 +27,7 @@ export class TableComponent implements OnInit {
   mouseX: number | undefined;
   mouseY: number | undefined;
 
-  isPlaying: boolean = true;
+  isPlaying: boolean = false;
   volume: boolean = true;
 
   // Disc Rotation
@@ -54,6 +55,8 @@ export class TableComponent implements OnInit {
     });
     this.socketService.subscribe('play', (isPlaying: boolean) => {
       this.isPlaying = isPlaying;
+      clearInterval(disc);
+      this.playAnim();
     });
   }
 
@@ -105,7 +108,6 @@ export class TableComponent implements OnInit {
 
   togglePlay(): void {
     this.isPlaying = !this.isPlaying;
-    if (this.isPlaying) clearInterval(id);
     this.socketService.publish('play', this.isPlaying);
   }
 
@@ -148,14 +150,16 @@ export class TableComponent implements OnInit {
   }
 
   playAnim(): void {
-    if (!this.isPlaying || this.active) return;
-    console.log('Play anim', this.state);
+    if (!this.isPlaying || this.active) {
+      clearInterval(disc);
+      return;
+    }
     const frame = () => {
       if (this.active) return;
       this.state++;
       this.styleRotation = `rotate(${this.state}deg)`;
     };
 
-    id = setInterval(frame, 10);
+    disc = setInterval(frame, 10);
   }
 }
