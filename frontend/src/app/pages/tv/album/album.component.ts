@@ -60,6 +60,7 @@ export class AlbumComponent implements OnInit {
   toggleFavorite(): void {
     this.album.isFavorite = !this.album.isFavorite;
     this.albumsService.updateAlbum(this.album).subscribe();
+    this.socketService.publish('updateFavoriteAlbum', this.album);
   }
 
   back() {

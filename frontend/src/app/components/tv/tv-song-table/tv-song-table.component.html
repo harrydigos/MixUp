@@ -1,27 +1,47 @@
 <table class="w-full table-fixed border-separate border-spacing-y-4">
   <thead>
-    <tr class="text-left text-blue-light font-semibold text-xl select-none">
+    <tr class="select-none text-left text-xl font-semibold text-blue-light">
       <th class="w-20"></th>
       <th class="pl-6">Title</th>
       <th>Artist</th>
       <th>Album</th>
       <th>Time</th>
-      <th class="w-8 h-8"></th>
+      <th class="h-8 w-8"></th>
     </tr>
   </thead>
   <tbody>
     <tr
-      *ngFor="let song of songs"
-      class="h-full text-white font-medium text-2xl cursor-pointer hover:bg-blue/20 duration-100"
+      *ngFor="let song of songsFiltered"
+      class="h-full cursor-pointer select-none text-2xl font-medium text-white duration-100 hover:bg-blue/20"
     >
       <td class="h-full rounded-l-xl">
-        <div class="w-20 h-20 bg-blue rounded-[10px]"></div>
+        <img class="w-20 h-20 rounded-[10px] object-cover" src="assets/images/songs/{{ song.image }}" />
       </td>
-      <td class="pl-6 group-hover:bg-blue/30 duration-100">{{ song.title }}</td>
+      <td class="pl-6 duration-100 group-hover:bg-blue/30">{{ song.title }}</td>
       <td>{{ song.artist }}</td>
-      <td>{{ song.album }}</td>
+      <td>
+        <div class="w-fit hover:underline">{{ song.album }}</div>
+      </td>
       <td>{{ song.duration }}</td>
-      <td class="rounded-r-xl"><img src="assets/Icons/Heart.svg" width="32px" height="32px" /></td>
+      <td class="rounded-r-xl">
+        <img
+          class="transition-transform duration-100 hover:scale-110"
+          *ngIf="song.isFavorite; else notFavorite"
+          (click)="toggleFavorite(song)"
+          src="assets/Icons/Heart.svg"
+          width="32px"
+          height="32px"
+        />
+        <ng-template #notFavorite>
+          <img
+            class="transition-transform duration-100 hover:scale-110"
+            (click)="toggleFavorite(song)"
+            src="assets/Icons/HeartOutline.svg"
+            width="32px"
+            height="32px"
+          />
+        </ng-template>
+      </td>
     </tr>
   </tbody>
 </table>

@@ -47,16 +47,26 @@ export class TableComponent implements OnInit {
 
   state: number = 0;
 
-  constructor(private renderer: Renderer2, private albumsService: AlbumsService, private socketService: SocketsService) {}
+  constructor(
+    private renderer: Renderer2,
+    private albumsService: AlbumsService,
+    private socketService: SocketsService,
+  ) {}
 
   ngOnInit(): void {
     this.albumsService.getAll().subscribe((result) => {
       this.favAlbums = result.filter((album) => album.isFavorite);
     });
+
     this.socketService.subscribe('play', (isPlaying: boolean) => {
       this.isPlaying = isPlaying;
       clearInterval(disc);
       this.playAnim();
+    });
+
+    this.socketService.subscribe('updateFavoriteAlbum', (album: AlbumModel) => {
+      if (album.isFavorite) this.favAlbums.push(album);
+      else this.favAlbums = this.favAlbums.filter((favAlbum) => favAlbum._id !== album._id);
     });
   }
 

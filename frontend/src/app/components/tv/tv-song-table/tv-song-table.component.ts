@@ -5,7 +5,8 @@ type SongTableProps = {
   artist: string;
   album: string;
   duration: string;
-  img?: string;
+  isFavorite: boolean;
+  image: string;
 };
 
 @Component({
@@ -16,7 +17,15 @@ type SongTableProps = {
 export class TvSongTableComponent implements OnInit {
   @Input() songs: SongTableProps[] = [];
 
+  songsFiltered: SongTableProps[] = [];
+
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.songsFiltered = this.songs.slice(0, 5);
+  }
+
+  toggleFavorite(song: SongTableProps): void {
+    song.isFavorite = !song.isFavorite;
+  }
 }
