@@ -25,9 +25,9 @@ export class SongsService {
     return this.http.get<SongModel>(`${this.hostUrl}/api/songs/${id}`).pipe(map((result) => new SongModel(result)));
   }
 
-  public updateAlbum(resource: AlbumModel): Observable<AlbumModel> {
+  public updateSong(resource: SongModel): Observable<SongModel> {
     return this.http
-      .put<AlbumModel>(`${this.hostUrl}/api/albums/${resource._id}`, resource)
-      .pipe(map((result) => new AlbumModel(result)));
+      .put<SongModel>(`${this.hostUrl}/api/songs/${resource._id}`, resource)
+      .pipe(map((result) => new SongModel(result)));
   }
 }

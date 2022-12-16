@@ -1,29 +1,21 @@
 <app-ph-navbar [page]="navState"></app-ph-navbar>
 <app-song-active></app-song-active>
 <!-- //// -->
-<div
-  *ngIf="!playBlindingLights; else playMusic"
-  class="w-screen h-full hide-scrollbar bg-blue-dark p-4"
->
-  <div class="grid grid-cols-2 pb-4 pt-3">
+<div *ngIf="!playBlindingLights; else playMusic" class="h-screen w-screen p-4 hide-scrollbar bg-blue-dark">
+  <div class="grid grid-cols-2 pt-3 pb-4">
     <div><p class="font-semibold text-white text-[24px]">Library</p></div>
     <div class="relative">
-      <div
-        class="toggleSelector"
-        [ngClass]="libraryNavState === 'favorites' ? 'favorites' : 'playlists'"
-      ></div>
-      <div
-        class="flex items-center w-full h-full rounded-full bg-blue/25 text-[14px] font-normal overflow-hidden"
-      >
+      <div class="toggleSelector" [ngClass]="libraryNavState === 'favorites' ? 'favorites' : 'playlists'"></div>
+      <div class="flex items-center w-full h-full rounded-full bg-blue/25 text-[14px] font-normal overflow-hidden">
         <button
           routerLink="/phone/favorites"
-          class="z-10 w-1/2 h-full flex items-center justify-center rounded-full text-blue-extra-light"
+          class="z-10 flex h-full w-1/2 items-center justify-center rounded-full text-blue-extra-light"
         >
           Favorites
         </button>
         <button
           routerLink="/phone/playlists"
-          class="z-10 w-1/2 h-full flex items-center justify-center rounded-full text-blue-extra-light"
+          class="z-10 flex h-full w-1/2 items-center justify-center rounded-full text-blue-extra-light"
         >
           Playlists
         </button>
@@ -33,12 +25,8 @@
 
   <!-- Search in favorites -->
   <div class="relative block pt-4">
-    <span class="absolute inset-y-0 flex items-center pl-4 pt-4">
-      <img
-        src="assets/Icons-geo/search-normal-1.svg"
-        class="h-5 w-5 fill-slate-300"
-        viewBox="0 0 20 20"
-      />
+    <span class="absolute inset-y-0 flex items-center pt-4 pl-4">
+      <img src="assets/Icons-geo/search-normal-1.svg" class="h-5 w-5 fill-slate-300" viewBox="0 0 20 20" />
     </span>
     <input
       #box
@@ -58,12 +46,12 @@
         id="dropdownBottomButton"
         data-dropdown-toggle="dropdownBottom"
         data-dropdown-placement="bottom"
-        class="md:mb-0 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center justify-end inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        class="inline-flex items-center justify-end rounded-lg bg-blue-700 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-blue-300 dark:hover:bg-blue-700 dark:focus:ring-blue-800 dark:bg-blue-600 md:mb-0"
         type="button"
       >
         Date added
         <svg
-          class="ml-2 w-4 h-4"
+          class="ml-2 h-4 w-4"
           aria-hidden="true"
           fill="currentColor"
           viewBox="0 0 20 20"
@@ -77,9 +65,7 @@
         </svg>
       </button>
     </div>
-    <p class="font-normal text-[#A5C9CA] text-[14px]">
-      {{ numberofsongs }} songs
-    </p>
+    <p class="font-normal text-[#A5C9CA] text-[14px]">{{ songs.length }} songs</p>
   </div>
 
   <hr id="horizontal-line" />
@@ -88,10 +74,10 @@
 
   <div class="pt-4 pb-[60px]">
     <app-song-list-favorites
-      *ngFor="let song of songArray"
+      *ngFor="let song of songs"
       [song]="song.title"
       [artist]="song.artist"
-      [imgUrl]="'assets/images/albums/' + song.image"
+      [imgUrl]="'assets/images/songs/' + song.image"
       (removeSongFromFavorites)="rmSongFav($event)"
       (Song2open)="openSong($event)"
       (Song2queue)="songAdd2Queue($event)"
@@ -102,25 +88,17 @@
   <!-- //TODO I have to fix something here -->
 
   <div *ngIf="showMessageQueue == true">
-    <div
-      class="fixed bottom-[72px] left-2 rounded-[8px] w-[95%] h-[40px] bg-white flex items-center"
-    >
-      <p class="font-normal text-black text-[12px] p-4">
-        ' {{ songPressed }} ' added to your queue.
-      </p>
+    <div class="z-40 fixed bottom-[72px] left-2 rounded-[8px] w-[95%] h-[40px] bg-white flex items-center">
+      <p class="font-normal text-black text-[12px] p-4">' {{ songPressed }} ' added to your queue.</p>
     </div>
   </div>
   <div *ngIf="showMessageRemove == true">
-    <div
-      class="fixed bottom-[72px] left-2 rounded-[8px] w-[95%] h-[40px] bg-white flex items-center"
-    >
-      <p class="font-normal text-black text-[12px] p-4">
-        ' {{ songPressed }} ' removed from favorites.
-      </p>
+    <div class="fixed bottom-[72px] left-2 rounded-[8px] w-[95%] h-[40px] bg-white flex items-center">
+      <p class="font-normal text-black text-[12px] p-4">' {{ songPressed }} ' removed from favorites.</p>
     </div>
   </div>
-   <!-- if song is playing add padding to bottom -->
-   <div *ngIf="songPlaying" class="h-[60px]"></div>
+  <!-- if song is playing add padding to bottom -->
+  <div *ngIf="songPlaying" class="h-[60px]"></div>
 </div>
 
 <ng-template #playMusic>

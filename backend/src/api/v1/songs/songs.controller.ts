@@ -15,7 +15,11 @@ export class SongsController extends ResourceController<ISong> {
 
   public applyRoutes(): Router {
     const router = Router();
-    router.get("/init", this.initializeSongs).get("/", this.getSongs).get("/:id", this.getSongById);
+    router
+      .get("/init", this.initializeSongs)
+      .get("/", this.getSongs)
+      .get("/:id", this.getSongById)
+      .put("/:id", this.updateSong);
 
     return router;
   }
@@ -28,6 +32,12 @@ export class SongsController extends ResourceController<ISong> {
 
   getSongById = async (req: Request, res: Response) => {
     const song = await this.getOne(req.params.id, req, res);
+    return res.status(StatusCodes.OK).json(song);
+  };
+
+  updateSong = async (req: Request, res: Response) => {
+    this.logger.debug("updateSong request");
+    const song = await this.update(req.params.id, req.body.blacklist, req, res);
     return res.status(StatusCodes.OK).json(song);
   };
 

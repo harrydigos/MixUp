@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
-import { AlbumModel } from 'src/app/global/models';
-import { AlbumsService, SocketsService } from 'src/app/global/services';
+import { AlbumModel, SongModel } from 'src/app/global/models';
+import { AlbumsService, SocketsService, SongsService } from 'src/app/global/services';
 
 let disc: any = null;
 
@@ -11,8 +11,7 @@ let disc: any = null;
 })
 export class TableComponent implements OnInit {
   favAlbums: AlbumModel[] = [];
-  // TODO: Song model
-  favSongs: string[] = [];
+  favSongs: SongModel[] = [];
   queueSongs: string[] = [];
 
   @ViewChild('table') table?: ElementRef;
@@ -51,9 +50,15 @@ export class TableComponent implements OnInit {
     private renderer: Renderer2,
     private albumsService: AlbumsService,
     private socketService: SocketsService,
+    private songsService: SongsService,
   ) {}
 
   ngOnInit(): void {
+    this.songsService.getAll().subscribe((songs) => {
+      this.favSongs = songs.filter((song) => song.isFavorite);
+      console.log(this.favSongs);
+    });
+
     this.albumsService.getAll().subscribe((result) => {
       this.favAlbums = result.filter((album) => album.isFavorite);
     });
@@ -67,6 +72,11 @@ export class TableComponent implements OnInit {
     this.socketService.subscribe('updateFavoriteAlbum', (album: AlbumModel) => {
       if (album.isFavorite) this.favAlbums.push(album);
       else this.favAlbums = this.favAlbums.filter((favAlbum) => favAlbum._id !== album._id);
+    });
+
+    this.socketService.subscribe('updateFavoriteSong', (song: SongModel) => {
+      if (song.isFavorite) this.favSongs.push(song);
+      else this.favSongs = this.favSongs.filter((favSong) => favSong._id !== song._id);
     });
   }
 
