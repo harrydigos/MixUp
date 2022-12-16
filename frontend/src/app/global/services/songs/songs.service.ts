@@ -15,10 +15,14 @@ export class SongsService {
     this.hostUrl = environment.host;
   }
 
-  public getById(id: string): Observable<SongModel> {
+  public getAll(): Observable<SongModel[]> {
     return this.http
-      .get<SongModel>(`${this.hostUrl}/api/songs/${id}`)
-      .pipe(map((result) => new SongModel(result)));
+      .get<SongModel[]>(`${this.hostUrl}/api/songs`)
+      .pipe(map((result) => result.map((song) => new SongModel(song))));
+  }
+
+  public getById(id: string): Observable<SongModel> {
+    return this.http.get<SongModel>(`${this.hostUrl}/api/songs/${id}`).pipe(map((result) => new SongModel(result)));
   }
 
   public updateAlbum(resource: AlbumModel): Observable<AlbumModel> {

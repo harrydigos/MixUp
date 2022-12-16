@@ -37,7 +37,7 @@ export class AlbumComponent implements OnInit {
       this.album.songs.forEach((songId) => {
         this.songsService.getById(songId).subscribe((result) => {
           this.songs.push(result);
-          if (this.songs.length === 1) this.playSong(this.songs[0].name);
+          if (this.songs.length === 1) this.playSong(this.songs[0].title);
         });
       });
     });

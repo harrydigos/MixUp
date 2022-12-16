@@ -3,17 +3,25 @@ import { DefaultSchemaOptions } from "../../../models/shared";
 
 export interface ISong extends Document {
   _id: Types.ObjectId;
-  name: string;
+  title: string;
+  artist: string;
+  album: string;
   duration: number;
+  isFavorite: boolean;
+  image?: string;
 }
 
 const songSchema = new Schema(
   {
     _id: { type: Types.ObjectId, required: true },
-    name: { type: String, required: true },
-    duration: { type: Number, default: 0 },
+    title: { type: String, required: true },
+    artist: { type: String, required: true },
+    album: { type: String, required: true },
+    duration: { type: Number, required: true },
+    isFavorite: { type: Boolean, required: true },
+    image: { type: String, default: "" },
   },
-  { ...DefaultSchemaOptions }
+  { ...DefaultSchemaOptions },
 );
 
 export const SongModel: Model<ISong> = model<ISong>("Song", songSchema, "Song");

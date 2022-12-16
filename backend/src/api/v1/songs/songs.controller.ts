@@ -15,10 +15,16 @@ export class SongsController extends ResourceController<ISong> {
 
   public applyRoutes(): Router {
     const router = Router();
-    router.get("/init", this.initializeSongs).get("/:id", this.getSongById);
+    router.get("/init", this.initializeSongs).get("/", this.getSongs).get("/:id", this.getSongById);
 
     return router;
   }
+
+  getSongs = async (req: Request, res: Response) => {
+    this.logger.debug("getSongs request");
+    const allSongs = await this.getAll(req, res);
+    return res.status(StatusCodes.OK).json(allSongs);
+  };
 
   getSongById = async (req: Request, res: Response) => {
     const song = await this.getOne(req.params.id, req, res);
@@ -27,9 +33,8 @@ export class SongsController extends ResourceController<ISong> {
 
   initializeSongs = async (req: Request, res: Response) => {
     this.logger.debug("Initialize songs request");
-    let songs = SONGS;
 
-    await SongModel.insertMany(songs)
+    await SongModel.insertMany(SONGS)
       .then(function (docs) {
         res.json(docs);
       })

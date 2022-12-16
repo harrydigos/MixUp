@@ -3,7 +3,10 @@
     <div class="w-1/2">
       <div class="w-full h-full p-[100px] flex flex-col gap-6">
         <div>
-          <button (click)="back()" class="flex select-none items-center gap-2 text-3xl text-blue-light hover:opacity-75">
+          <button
+            (click)="back()"
+            class="flex select-none items-center gap-2 text-3xl text-blue-light hover:opacity-75"
+          >
             <img src="assets/Icons/ArrowLeft.svg" width="48px" height="48px" />
             <div>Back</div>
           </button>
@@ -14,7 +17,9 @@
             <div class="pt-1 text-2xl">{{ album.yearProduced }}</div>
           </div>
           <div class="flex select-none gap-8">
-            <button class="flex gap-2 justify-center items-center py-[6px] px-5 bg-blue-light rounded-2xl text-blue-dark font-semibold text-2xl">
+            <button
+              class="flex gap-2 justify-center items-center py-[6px] px-5 bg-blue-light rounded-2xl text-blue-dark font-semibold text-2xl"
+            >
               <img src="assets/Icons/Shuffle.svg" width="40px" height="40px" />
               Shuffle
             </button>
@@ -27,16 +32,24 @@
           </div>
         </div>
         <div class="flex cursor-pointer select-none items-center gap-6">
-          <img draggable="false" src="assets/images/artists/{{ album.artistImage }}" class="w-[64px] h-[64px] rounded-full object-cover" />
+          <img
+            draggable="false"
+            src="assets/images/artists/{{ album.artistImage }}"
+            class="w-[64px] h-[64px] rounded-full object-cover"
+          />
           <div class="text-white text-[40px] font-medium">
             {{ album.artist }}
           </div>
         </div>
         <div class="flex select-none items-center gap-6">
-          <div class="flex items-center justify-center rounded-full px-4 py-2 text-xl font-medium bg-blue text-blue-extra-light">
+          <div
+            class="flex items-center justify-center rounded-full px-4 py-2 text-xl font-medium bg-blue text-blue-extra-light"
+          >
             {{ album.noTracks }} Tracks
           </div>
-          <div class="flex items-center justify-center rounded-full px-4 py-2 text-xl font-medium bg-blue text-blue-extra-light">
+          <div
+            class="flex items-center justify-center rounded-full px-4 py-2 text-xl font-medium bg-blue text-blue-extra-light"
+          >
             {{ album.duration }} Minutes
           </div>
         </div>
@@ -47,12 +60,12 @@
           <div
             *ngFor="let song of songs; let i = index"
             class="flex w-full cursor-pointer select-none items-center justify-between rounded-xl py-3 duration-100 ease-out hover:bg-blue/25"
-            (click)="playSong(song.name)"
+            (click)="playSong(song.title)"
           >
             <div class="flex items-center gap-4">
               <div class="h-full w-10 text-center">{{ i + 1 }}</div>
               <div class="flex flex-col gap-1">
-                <div>{{ song.name }}</div>
+                <div>{{ song.title }}</div>
                 <div class="text-xl">{{ album.artist }}</div>
               </div>
             </div>
@@ -64,12 +77,21 @@
       </div>
       <div class="fixed top-0 right-0 h-full w-1/2">
         <div class="w-[600px] h-full mx-auto flex flex-col gap-12 justify-center items-center">
-          <img draggable="false" class="w-full h-[600px] rounded-3xl select-none" src="assets/images/albums/{{ album.image }}" />
+          <img
+            draggable="false"
+            class="w-full h-[600px] rounded-3xl select-none"
+            src="assets/images/albums/{{ album.image }}"
+          />
           <h1 class="font-semibold text-5xl w-[580px] h-14 truncate text-white text-center align-middle select-none">
             {{ playingSong }}
           </h1>
           <div class="flex w-full select-none items-center justify-between">
-            <img class="cursor-pointer hover:opacity-75" src="assets/Icons/RepeatMusic.svg" width="48px" height="48px" />
+            <img
+              class="cursor-pointer hover:opacity-75"
+              src="assets/Icons/RepeatMusic.svg"
+              width="48px"
+              height="48px"
+            />
             <img class="cursor-pointer hover:opacity-75" src="assets/Icons/Previous.svg" width="48px" height="48px" />
 
             <button (click)="togglePlay()" class="hover:opacity-70">
@@ -80,7 +102,12 @@
             </button>
 
             <img class="cursor-pointer hover:opacity-75" src="assets/Icons/Next.svg" width="48px" height="48px" />
-            <img class="cursor-pointer hover:opacity-75" src="assets/Icons/MusicSquareAdd.svg" width="48px" height="48px" />
+            <img
+              class="cursor-pointer hover:opacity-75"
+              src="assets/Icons/MusicSquareAdd.svg"
+              width="48px"
+              height="48px"
+            />
           </div>
           <button class="flex select-none items-center gap-3 text-2xl text-blue-light/75 hover:opacity-75">
             <img src="assets/Icons/MirroringScreen.svg" width="48px" height="48px" />

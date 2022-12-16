@@ -1,13 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-
-type SongTableProps = {
-  title: string;
-  artist: string;
-  album: string;
-  duration: string;
-  isFavorite: boolean;
-  image: string;
-};
+import { SongModel } from '../../../global/models';
 
 @Component({
   selector: 'app-tv-song-table',
@@ -15,9 +7,9 @@ type SongTableProps = {
   styleUrls: ['./tv-song-table.component.scss'],
 })
 export class TvSongTableComponent implements OnInit {
-  @Input() songs: SongTableProps[] = [];
+  @Input() songs: SongModel[] = [];
 
-  songsFiltered: SongTableProps[] = [];
+  songsFiltered: SongModel[] = [];
 
   constructor() {}
 
@@ -25,7 +17,13 @@ export class TvSongTableComponent implements OnInit {
     this.songsFiltered = this.songs.slice(0, 5);
   }
 
-  toggleFavorite(song: SongTableProps): void {
+  toggleFavorite(song: SongModel): void {
     song.isFavorite = !song.isFavorite;
+  }
+
+  getTimeOfSong(duration: number): string {
+    let [minutes, seconds] = duration.toString().split('.');
+    seconds.length === 1 ? (seconds += '0') : null;
+    return `${minutes}:${seconds}`;
   }
 }
