@@ -3,12 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlbumModel, SongModel } from 'src/app/global/models';
 import { AlbumsService, NavbarStateService, SocketsService, SongsService } from 'src/app/global/services';
-import { result } from 'lodash';
 
 @Component({
   selector: 'app-album',
   templateUrl: './album.component.html',
-  styleUrls: ['./album.component.scss'],
 })
 export class AlbumComponent implements OnInit {
   album: AlbumModel = {} as AlbumModel;

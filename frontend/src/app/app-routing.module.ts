@@ -13,21 +13,18 @@ const routes: Routes = [
 
   { path: 'table', component: TableComponent },
   { path: 'wall', component: WallComponent },
-  { 
-    path: 'phone', 
+  {
+    path: 'phone',
     loadChildren: () => import('./pages/phone/phone.module').then((m) => m.PhoneModule),
   },
 
-  // { path: 'socket-events', loadChildren: () => import('./pages/socket-events/socket-events.module').then(m => m.SocketEventsModule) },
   {
     path: 'tasks',
-    loadChildren: () =>
-      import('./pages/tasks/tasks.module').then((m) => m.TasksModule),
+    loadChildren: () => import('./pages/tasks/tasks.module').then((m) => m.TasksModule),
   },
   {
     path: 'home',
-    loadChildren: () =>
-      import('./pages/home/home.module').then((m) => m.HomeModule),
+    loadChildren: () => import('./pages/home/home.module').then((m) => m.HomeModule),
   },
   { path: 'item-shop', component: ItemShopComponent },
   { path: '**', redirectTo: 'tv', pathMatch: 'full' },

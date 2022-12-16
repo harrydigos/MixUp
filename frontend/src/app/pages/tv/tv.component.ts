@@ -4,8 +4,10 @@ import { NavbarStateService } from 'src/app/global/services';
 
 @Component({
   selector: 'app-tv',
-  templateUrl: './tv.component.html',
-  styleUrls: ['./tv.component.scss'],
+  template: `
+    <app-tv-navbar [page]="navState"></app-tv-navbar>
+    <router-outlet></router-outlet>
+  `,
 })
 export class TVComponent implements OnInit {
   navState: TvNavbarState = 'home';
