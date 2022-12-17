@@ -4,43 +4,45 @@ import { AlbumsService, NavbarStateService, SocketsService, SongsService } from 
 
 @Component({
   selector: 'app-favorites',
-  template: `<div>
+  template: `
     <div>
-      <div class="mt-10 mb-6 flex w-full items-center justify-between text-white">
-        <div class="font-semibold text-[40px]">Favorite Songs</div>
-        <div class="flex items-center justify-center gap-2 pr-[100px] hover:opacity-75 cursor-pointer">
-          <div class="font-base text-[28px] text-blue-extra-light/75">View all</div>
-          <img src="assets/Icons/ArrowRight.svg" width="28px" height="28px" />
+      <div>
+        <div class="mt-10 mb-6 flex w-full select-none items-center justify-between text-white">
+          <div class="font-semibold text-[40px]">Favorite Songs</div>
+          <div class="flex items-center justify-center gap-2 pr-[100px] hover:opacity-75 cursor-pointer">
+            <div class="font-base text-[28px] text-blue-extra-light/75">View all</div>
+            <img src="assets/Icons/ArrowRight.svg" width="28px" height="28px" />
+          </div>
+        </div>
+        <div class="w-full pr-[100px]">
+          <app-tv-song-table [songs]="songs" (remove)="removeSong($event)"></app-tv-song-table>
         </div>
       </div>
-      <div class="w-full pr-[100px]">
-        <app-tv-song-table *ngIf="songs.length" [songs]="songs" (remove)="removeSong($event)"></app-tv-song-table>
+      <div>
+        <div class="font-semibold text-[40px] text-white mt-10 select-none">Favorite Albums</div>
+
+        <div class="flex w-full select-none gap-8 pt-4 pr-5">
+          <!-- We only want to navigate to only 1 album, others are just for decoration -->
+          <app-tv-lib-card
+            class="cursor-pointer"
+            *ngFor="let album of favAlbums"
+            [playlistName]="album.name"
+            [tracks]="album.noTracks"
+            [imgUrl]="'assets/images/albums/' + album.image"
+          ></app-tv-lib-card>
+
+          <app-tv-lib-card
+            *ngIf="aviciiStories.name"
+            routerLink="/tv/album/{{ aviciiStories._id }}"
+            class="cursor-pointer"
+            [playlistName]="aviciiStories.name"
+            [tracks]="aviciiStories.noTracks"
+            [imgUrl]="'assets/images/albums/' + aviciiStories.image"
+          ></app-tv-lib-card>
+        </div>
       </div>
     </div>
-    <div>
-      <div class="font-semibold text-[40px] text-white mt-10">Favorite Albums</div>
-
-      <div class="flex w-full select-none gap-8 pt-4 pr-5">
-        <!-- We only want to navigate to only 1 album, others are just for decoration -->
-        <app-tv-lib-card
-          class="cursor-pointer"
-          *ngFor="let album of favAlbums"
-          [playlistName]="album.name"
-          [tracks]="album.noTracks"
-          [imgUrl]="'assets/images/albums/' + album.image"
-        ></app-tv-lib-card>
-
-        <app-tv-lib-card
-          *ngIf="aviciiStories.name"
-          routerLink="/tv/album/{{ aviciiStories._id }}"
-          class="cursor-pointer"
-          [playlistName]="aviciiStories.name"
-          [tracks]="aviciiStories.noTracks"
-          [imgUrl]="'assets/images/albums/' + aviciiStories.image"
-        ></app-tv-lib-card>
-      </div>
-    </div>
-  </div> `,
+  `,
 })
 export class FavoritesComponent implements OnInit {
   favAlbums: AlbumModel[] = [];
@@ -71,8 +73,14 @@ export class FavoritesComponent implements OnInit {
         )
         .flat()[0];
     });
+
     this.socketService.subscribe('updateFavoriteAlbum', (albums: AlbumModel[]) => {
       this.favAlbums = albums;
+    });
+
+    this.socketService.subscribe('updateFavoriteSong', (song: SongModel) => {
+      if (song.isFavorite) this.songs.push(song);
+      else this.songs = this.songs.filter((favSong) => favSong._id !== song._id);
     });
   }
 

@@ -7,12 +7,12 @@ import { AlbumsService, NavbarStateService } from 'src/app/global/services';
   template: `
     <div class="relative h-screen w-screen overflow-x-hidden bg-blue-dark hide-scrollbar">
       <div class="absolute top-0 right-0 h-[60%] min-w-1/2">
-        <img class="h-full w-full object-cover" src="\\assets\\theCar.jpg" />
+        <img class="h-full w-full select-none object-cover" src="assets/images/albums/the_car_quality.jpg" />
         <div class="absolute top-0 right-0 h-full w-full bg-gradient-to-r to-transparent from-blue-dark"></div>
         <div class="absolute right-0 bottom-0 h-1/2 w-full bg-gradient-to-t to-transparent from-blue-dark"></div>
       </div>
 
-      <div class="relative w-full pl-[280px] py-[100px]">
+      <div class="relative w-full pl-[280px] py-[100px] select-none">
         <div>
           <div class="text-xl font-bold text-blue-light">STUDIO ALBUM</div>
           <div class="my-2 text-5xl font-bold text-white">The Car</div>
@@ -28,7 +28,7 @@ import { AlbumsService, NavbarStateService } from 'src/app/global/services';
           </button>
         </div>
         <div>
-          <div class="font-semibold text-[40px] text-white mt-10">Latest Releases</div>
+          <div class="font-semibold text-[40px] text-white mt-10 select-none">Latest Releases</div>
           <app-card-wrapper>
             <app-tv-card
               *ngFor="let card of latestReleases"
@@ -38,7 +38,7 @@ import { AlbumsService, NavbarStateService } from 'src/app/global/services';
             ></app-tv-card>
           </app-card-wrapper>
 
-          <div class="font-semibold text-[40px] text-white mt-10">Recently Listened</div>
+          <div class="font-semibold text-[40px] text-white mt-10 select-none">Recently Listened</div>
           <app-card-wrapper>
             <app-tv-card
               *ngFor="let card of recentlyPlayed"

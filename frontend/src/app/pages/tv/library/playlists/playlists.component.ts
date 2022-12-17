@@ -7,7 +7,7 @@ import { playlists } from 'src/app/global/utils';
   template: `
     <div>
       <div>
-        <div class="mt-10 flex w-full items-center justify-between text-white">
+        <div class="mt-10 flex w-full select-none items-center justify-between text-white">
           <div class="font-semibold text-[40px]">Saved Playlists</div>
           <div class="flex items-center justify-center gap-4 pr-[100px] hover:opacity-75 cursor-pointer">
             <div class="font-medium text-[28px]">Sort by</div>
@@ -25,7 +25,7 @@ import { playlists } from 'src/app/global/utils';
         </div>
       </div>
       <div>
-        <div class="font-semibold text-[40px] text-white mt-10">Playlists that you may like</div>
+        <div class="font-semibold text-[40px] text-white mt-10 select-none">Playlists that you may like</div>
         <app-card-wrapper>
           <app-tv-lib-card
             *ngFor="let playlist of youMayLikePlaylists"

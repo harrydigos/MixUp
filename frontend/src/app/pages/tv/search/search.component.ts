@@ -8,14 +8,14 @@ import { genres, recentSearches } from 'src/app/global/utils';
   template: `
     <div class="relative h-screen w-screen overflow-x-hidden bg-blue-dark hide-scrollbar">
       <button
-        class="fixed top-14 left-1/2 z-10 flex -translate-x-1/2 items-center justify-center gap-4 rounded-full px-8 py-3 transition bg-blue/60 hover:bg-blue focus:ring-blue-light focus:outline-none focus:ring"
+        class="fixed top-14 left-1/2 z-10 flex -translate-x-1/2 select-none items-center justify-center gap-4 rounded-full px-8 py-3 transition bg-blue/60 hover:bg-blue focus:ring-blue-light focus:outline-none focus:ring"
       >
         <img src="assets/Icons/Microphone.svg" width="48px" height="48px" />
         <div class="text-2xl font-medium text-white">Search</div>
       </button>
 
       <div class="relative w-full pl-[280px] py-[100px]">
-        <div class="font-semibold text-[40px] text-white">Genres</div>
+        <div class="font-semibold text-[40px] text-white select-none">Genres</div>
         <app-card-wrapper>
           <app-tv-genre-card
             *ngFor="let card of genres"
@@ -24,7 +24,7 @@ import { genres, recentSearches } from 'src/app/global/utils';
           ></app-tv-genre-card>
         </app-card-wrapper>
         <div>
-          <div class="font-semibold text-[40px] text-white mt-10">Recent Searches</div>
+          <div class="font-semibold text-[40px] text-white mt-10 select-none">Recent Searches</div>
           <app-card-wrapper>
             <app-tv-card
               *ngFor="let card of recentSearches"

@@ -21,7 +21,11 @@ import { SocketsService, SongsService } from '../../../global/services';
         class="h-full cursor-pointer select-none text-2xl font-medium text-white duration-100 hover:bg-blue/20"
       >
         <td class="h-full rounded-l-xl">
-          <img class="w-20 h-20 rounded-[10px] object-cover" src="assets/images/songs/{{ song.image }}" />
+          <img
+            draggable="false"
+            class="w-20 h-20 rounded-[10px] object-cover"
+            src="assets/images/songs/{{ song.image }}"
+          />
         </td>
         <td class="pl-6 duration-100 group-hover:bg-blue/30">{{ song.title }}</td>
         <td>{{ song.artist }}</td>
@@ -49,12 +53,7 @@ export class TvSongTableComponent implements OnInit {
 
   constructor(private songsService: SongsService, private socketService: SocketsService) {}
 
-  ngOnInit(): void {
-    this.socketService.subscribe('updateFavoriteSong', (song: SongModel) => {
-      if (song.isFavorite) this.songs.push(song);
-      else this.songs = this.songs.filter((favSong) => favSong._id !== song._id);
-    });
-  }
+  ngOnInit(): void {}
 
   removeSongFromFavorites(song: SongModel): void {
     this.remove.emit(song);
