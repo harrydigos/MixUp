@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { AlbumModel, SongModel } from 'src/app/global/models';
-import { AlbumsService, SocketsService, SongsService } from 'src/app/global/services';
+import { AlbumsService, SocketsService, SongPlayingService, SongsService } from 'src/app/global/services';
 
 let disc: any = null;
 
@@ -13,6 +13,8 @@ export class TableComponent implements OnInit {
   favAlbums: AlbumModel[] = [];
   favSongs: SongModel[] = [];
   queueSongs: string[] = [];
+
+  songPlaying: SongModel = {} as SongModel;
 
   @ViewChild('table') table?: ElementRef;
   @ViewChild('menu') menu?: ElementRef;
@@ -51,6 +53,7 @@ export class TableComponent implements OnInit {
     private albumsService: AlbumsService,
     private socketService: SocketsService,
     private songsService: SongsService,
+    private songPlayingService: SongPlayingService,
   ) {}
 
   ngOnInit(): void {
@@ -63,11 +66,13 @@ export class TableComponent implements OnInit {
       this.favAlbums = result.filter((album) => album.isFavorite);
     });
 
-    this.socketService.subscribe('play', (isPlaying: boolean) => {
+    this.songPlayingService.isPlaying$.subscribe((isPlaying) => {
       this.isPlaying = isPlaying;
       clearInterval(disc);
       this.playAnim();
     });
+
+    this.songPlayingService.songPlaying$.subscribe((song) => (this.songPlaying = song));
 
     this.socketService.subscribe('updateFavoriteAlbum', (album: AlbumModel) => {
       if (album.isFavorite) this.favAlbums.push(album);
@@ -127,8 +132,8 @@ export class TableComponent implements OnInit {
   }
 
   togglePlay(): void {
-    this.isPlaying = !this.isPlaying;
-    this.socketService.publish('play', this.isPlaying);
+    this.songPlayingService.setPlay(!this.isPlaying);
+    clearInterval(disc);
   }
 
   toggleMute(): void {

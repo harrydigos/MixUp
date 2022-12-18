@@ -60,7 +60,7 @@
           <div
             *ngFor="let song of songs; let i = index"
             class="flex w-full cursor-pointer select-none items-center justify-between rounded-xl py-3 duration-100 ease-out hover:bg-blue/25"
-            (click)="playSong(song.title)"
+            (click)="selectSong(song)"
           >
             <div class="flex items-center gap-4">
               <div class="h-full w-10 text-center">{{ i + 1 }}</div>
@@ -83,7 +83,7 @@
             src="assets/images/albums/{{ album.image }}"
           />
           <h1 class="font-semibold text-5xl w-[580px] h-14 truncate text-white text-center align-middle select-none">
-            {{ playingSong }}
+            {{ selectedSong.title }}
           </h1>
           <div class="flex w-full select-none items-center justify-between">
             <img
@@ -94,8 +94,13 @@
             />
             <img class="cursor-pointer hover:opacity-75" src="assets/Icons/Previous.svg" width="48px" height="48px" />
 
-            <button (click)="togglePlay()" class="hover:opacity-70">
-              <img *ngIf="isPlaying; else pause" src="assets/Icons/Pause.svg" width="80px" height="80px" />
+            <button (click)="playSong()" class="hover:opacity-70">
+              <img
+                *ngIf="selectedSong._id === songPlaying._id && isPlaying; else pause"
+                src="assets/Icons/Pause.svg"
+                width="80px"
+                height="80px"
+              />
               <ng-template #pause>
                 <img src="assets/Icons/Table/Play.svg" width="80px" height="80px" />
               </ng-template>

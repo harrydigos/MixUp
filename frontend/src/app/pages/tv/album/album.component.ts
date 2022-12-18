@@ -2,7 +2,13 @@ import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlbumModel, SongModel } from 'src/app/global/models';
-import { AlbumsService, NavbarStateService, SocketsService, SongsService } from 'src/app/global/services';
+import {
+  AlbumsService,
+  NavbarStateService,
+  SocketsService,
+  SongPlayingService,
+  SongsService,
+} from 'src/app/global/services';
 
 @Component({
   selector: 'app-album',
@@ -11,7 +17,8 @@ import { AlbumsService, NavbarStateService, SocketsService, SongsService } from 
 export class AlbumComponent implements OnInit {
   album: AlbumModel = {} as AlbumModel;
   songs: SongModel[] = [];
-  playingSong: string = '';
+  selectedSong: SongModel = {} as SongModel;
+  songPlaying: SongModel = {} as SongModel;
   isPlaying: boolean = false;
 
   constructor(
@@ -21,6 +28,7 @@ export class AlbumComponent implements OnInit {
     private albumsService: AlbumsService,
     private songsService: SongsService,
     private socketService: SocketsService,
+    private songPlayingService: SongPlayingService,
   ) {
     this.navbarState.setNavState('hide');
   }
@@ -33,19 +41,31 @@ export class AlbumComponent implements OnInit {
     this.albumsService.getById(id!).subscribe((result) => {
       this.album = result;
       this.album.songs.forEach((songId) => {
-        this.songsService.getById(songId).subscribe((result) => this.songs.push(result));
+        this.songsService.getById(songId).subscribe((result) => {
+          this.songs.push(result);
+          this.selectSong(this.songs[0]);
+          this.songPlayingService.setSongPlaying(this.songs[0]);
+        });
       });
-      this.playSong('Waiting For Love');
     });
 
-    this.socketService.subscribe('play', (isPlaying: boolean) => {
-      this.isPlaying = isPlaying;
-    });
+    this.songPlayingService.songPlaying$.subscribe((song) => (this.songPlaying = song));
+    this.songPlayingService.isPlaying$.subscribe((isPlaying) => (this.isPlaying = isPlaying));
   }
 
-  playSong(song: string): void {
-    this.playingSong = song;
-  }
+  selectSong = (song: SongModel) => {
+    this.selectedSong = song;
+  };
+
+  playSong = () => {
+    if (this.songPlaying._id !== this.selectedSong._id) {
+      console.log('diff song', this.songPlaying.title, this.selectedSong.title);
+      this.songPlayingService.setSongPlaying(this.selectedSong);
+      this.songPlayingService.setPlay(true);
+    } else {
+      this.songPlayingService.setPlay(!this.isPlaying);
+    }
+  };
 
   getTimeOfSong(duration: number): string {
     let [minutes, seconds] = duration.toString().split('.');
@@ -59,12 +79,5 @@ export class AlbumComponent implements OnInit {
     this.socketService.publish('updateFavoriteAlbum', this.album);
   }
 
-  back() {
-    this.location.back();
-  }
-
-  togglePlay(): void {
-    this.isPlaying = !this.isPlaying;
-    this.socketService.publish('play', this.isPlaying);
-  }
+  back = () => this.location.back();
 }
