@@ -1,245 +1,234 @@
-$bgcolor: #2C3333;
+$bgcolor: #2c3333;
 
-#black-div-below{
-    background-color: black;
-    position: absolute;
-    width: 100%;
-    height: 300px;
-    left: 0px;
-    top: 660px;
+#SurroundWall {
+  background-color: $bgcolor;
+  height: 655px;
+  width: 1920px;
 }
 
-#SurroundWall{
-    background-color: $bgcolor;
-    height: 655px;
-    width: 1920px;
+#vignette-effect {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 1286px;
+  height: 655px;
+  z-index: +1;
+  background-image: linear-gradient(
+    rgba(0, 0, 0, 0.8),
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0),
+    rgba(0, 0, 0, 0.7),
+    rgb(0, 0, 0)
+  );
 }
 
-#vignette-effect{
-   
-    position:absolute;
-    top: 0%;
-    left: 0%;
-    width: 1286px;
-    height: 655px;
-    z-index: +1;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0),rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.7),rgb(0, 0, 0));
+#VideoClip {
+  width: 1296px;
+  height: 655px;
+  margin-top: -65px;
+  margin-left: -60px;
+
+  -moz-transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+  -o-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
 }
 
-#VideoClip{
-    width: 1296px;
-    height: 655px;
-    margin-top: -65px; 
-    margin-left: -60px;
+#SurroundWall-Video {
+  background-color: $bgcolor;
+  position: absolute;
+  width: 1296px;
+  height: 655px;
+  left: 0px;
+  top: 0px;
 
-    -moz-transform:scale(1.2);
-    -webkit-transform:scale(1.2);
-    -o-transform:scale(1.2);
-    -ms-transform:scale(1.2);
-    transform:scale(1.2); 
-
-    
+  font-family: "Poppins";
+  font-style: normal;
+  font-size: 24px;
+  /* identical to box height */
+  text-align: center;
+  color: #ffffff;
 }
 
-#SurroundWall-Video{
-    background-color: $bgcolor;
-    position: absolute;
-    width: 1296px;
-    height: 655px;
-    left: 0px;
-    top: 0px;
+#Video-textup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
 
-    font-family: 'Poppins';
-    font-style: normal;
-    font-size: 24px;
-    /* identical to box height */
-    text-align: center;
-    color: #FFFFFF;
+  position: absolute;
+  width: 237px;
+  height: 84px;
+  left: 530px;
+  top: 24px;
 }
 
-#Video-textup{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0px;
-
-    position: absolute;
-    width: 237px;
-    height: 84px;
-    left: 530px;
-    top: 24px;
+#song_title {
+  height: 48px;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 48px;
+  z-index: +1;
 }
 
-#song_title{
-    height: 48px;
-    font-weight: 600;
-    font-size: 32px;
-    line-height: 48px;
-    z-index: +1;
+#song_artist {
+  height: 36px;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 36px;
+  z-index: +1;
 }
 
-#song_artist{
-    height: 36px;
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 36px;
-    z-index: +1;
+#lyrics {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0px;
+  gap: 4px;
+
+  position: absolute;
+  width: 1286px;
+  height: 122px;
+  left: 0px;
+  top: 510px;
+  z-index: +1;
 }
 
-#lyrics{
-    
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 0px;
-    gap: 4px;
+#SurroundWall-Right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 8px;
 
-    position: absolute;
-    width: 1286px;
-    height: 122px;
-    left: 0px;
-    top: 510px;
-    z-index: +1;
+  position: absolute;
+  width: 576px;
+  height: 607px;
+  left: 1320px;
+  top: 24px;
+
+  color: #ffffff;
 }
 
-#SurroundWall-Right{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 0px;
-    gap: 8px;
-    
-    position: absolute;
-    width: 576px;
-    height: 607px;
-    left: 1320px;
-    top: 24px;
-
-    color: #FFFFFF;
+.header-right {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 36px;
+  color: #e7f6f2;
 }
 
-
-.header-right{
-    font-weight: 600; font-size: 24px; line-height: 36px; color: #E7F6F2;
+#video-right1 {
+  width: 576px;
+  height: 183px;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
 }
 
-#video-right1{
-    width: 576px;
-    height: 183px;
-    flex: none;
-    order: 0;
-    flex-grow: 0;
+.video-right1-text {
+  position: absolute;
+  width: 576px;
+  height: 130px;
+  left: 0px;
+  top: 48px;
+
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
 }
 
-.video-right1-text{
-    position: absolute;
-    width: 576px;
-    height: 130px;
-    left: 0px;
-    top: 48px;
-
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 27px;
+#video-right2 {
+  width: 576px;
+  height: 183px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
 }
 
-#video-right2{
-    width: 576px;
-    height: 183px;
-    flex: none;
-    order: 1;
-    flex-grow: 0;
+#right-text-2 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 6px;
+
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
+
+  width: 576px;
+  height: 130px;
+  position: absolute;
+  left: 0px;
+  top: 260px;
 }
 
-#right-text-2{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0px;
-    gap: 6px;
-
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 27px;
-
-    width: 576px;
-    height: 130px;
-    position: absolute;
-    left: 0px;
-    top: 260px;
+#video-right3 {
+  width: 576px;
+  height: 183px;
+  flex: none;
+  order: 2;
+  flex-grow: 0;
 }
 
+#right-text-3 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 8px;
 
-
-#video-right3{
-    width: 576px;
-    height: 183px;
-    flex: none;
-    order: 2;
-    flex-grow: 0;
+  position: absolute;
+  width: 576px;
+  height: 130px;
+  left: 0px;
+  bottom: 0px;
 }
 
-#right-text-3{
-    
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0px;
-    gap: 8px;
+#concert1 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 2px;
 
-    position: absolute;
-    width: 576px;
-    height: 130px;
-    left: 0px;
-    bottom: 0px;
+  width: 576px;
+  height: 56px;
 
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
 }
 
-#concert1{
-    
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0px;
-    gap: 2px;
+#concert2 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 2px;
 
-    width: 576px;
-    height: 56px;
+  width: 576px;
+  height: 56px;
 
-    /* Inside auto layout */
-    flex: none;
-    order: 0;
-    flex-grow: 0;
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
 }
 
-#concert2{
-    
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0px;
-    gap: 2px;
-
-    width: 576px;
-    height: 56px;
-
-    /* Inside auto layout */
-    flex: none;
-    order: 1;
-    flex-grow: 0;
+.header-icons {
+  display: flex;
+  gap: 8px;
 }
 
-.header-icons{
-    display: flex;
-    gap: 8px;
-}
-
-.concerts-layout{
-    display: flex;
-    gap: 8px;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 27px;
+.concerts-layout {
+  display: flex;
+  gap: 8px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 27px;
 }

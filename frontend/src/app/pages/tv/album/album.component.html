@@ -114,9 +114,13 @@
               height="48px"
             />
           </div>
-          <button class="flex select-none items-center gap-3 text-2xl text-blue-light/75 hover:opacity-75">
+          <button
+            (click)="toggleWall()"
+            class="flex select-none items-center gap-3 text-2xl text-blue-light/75 hover:opacity-75"
+          >
             <img src="assets/Icons/MirroringScreen.svg" width="48px" height="48px" />
-            Close surround wall
+            <div *ngIf="wallIsOpen; else openWall">Close surround wall</div>
+            <ng-template #openWall>Open surround wall</ng-template>
           </button>
         </div>
       </div>

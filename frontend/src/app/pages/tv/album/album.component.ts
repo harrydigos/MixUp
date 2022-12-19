@@ -20,6 +20,7 @@ export class AlbumComponent implements OnInit {
   selectedSong: SongModel = {} as SongModel;
   songPlaying: SongModel = {} as SongModel;
   isPlaying: boolean = false;
+  wallIsOpen: boolean = false;
 
   constructor(
     private navbarState: NavbarStateService,
@@ -51,6 +52,8 @@ export class AlbumComponent implements OnInit {
 
     this.songPlayingService.songPlaying$.subscribe((song) => (this.songPlaying = song));
     this.songPlayingService.isPlaying$.subscribe((isPlaying) => (this.isPlaying = isPlaying));
+
+    this.socketService.subscribe('wallIsOpen', (isOpen: boolean) => (this.wallIsOpen = isOpen));
   }
 
   selectSong = (song: SongModel) => {
@@ -59,7 +62,6 @@ export class AlbumComponent implements OnInit {
 
   playSong = () => {
     if (this.songPlaying._id !== this.selectedSong._id) {
-      console.log('diff song', this.songPlaying.title, this.selectedSong.title);
       this.songPlayingService.setSongPlaying(this.selectedSong);
       this.songPlayingService.setPlay(true);
     } else {
@@ -78,6 +80,8 @@ export class AlbumComponent implements OnInit {
     this.albumsService.updateAlbum(this.album).subscribe();
     this.socketService.publish('updateFavoriteAlbum', this.album);
   }
+
+  toggleWall = () => this.socketService.publish('wallIsOpen', !this.wallIsOpen);
 
   back = () => this.location.back();
 }

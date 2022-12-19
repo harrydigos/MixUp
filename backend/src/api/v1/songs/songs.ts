@@ -16,6 +16,7 @@ export const SONGS = [
     album: "Waiting For Love",
     duration: 3.5,
     isFavorite: false,
+    image: "stories.jpg",
   },
   {
     _id: generateSongId(),
@@ -24,6 +25,7 @@ export const SONGS = [
     album: "Waiting For Love",
     duration: 3.55,
     isFavorite: false,
+    image: "stories.jpg",
   },
   {
     _id: generateSongId(),
@@ -32,6 +34,7 @@ export const SONGS = [
     album: "Waiting For Love",
     duration: 3.06,
     isFavorite: false,
+    image: "stories.jpg",
   },
   {
     _id: generateSongId(),
@@ -40,6 +43,7 @@ export const SONGS = [
     album: "Waiting For Love",
     duration: 4.05,
     isFavorite: false,
+    image: "stories.jpg",
   },
   {
     _id: generateSongId(),
@@ -48,6 +52,7 @@ export const SONGS = [
     album: "Waiting For Love",
     duration: 3.26,
     isFavorite: false,
+    image: "stories.jpg",
   },
   {
     _id: generateSongId(),
@@ -56,6 +61,7 @@ export const SONGS = [
     album: "Waiting For Love",
     duration: 3.52,
     isFavorite: false,
+    image: "stories.jpg",
   },
   {
     _id: generateSongId(),
@@ -64,6 +70,7 @@ export const SONGS = [
     album: "Waiting For Love",
     duration: 4.48,
     isFavorite: false,
+    image: "stories.jpg",
   },
   {
     _id: generateSongId(),
@@ -72,6 +79,7 @@ export const SONGS = [
     album: "Waiting For Love",
     duration: 6.28,
     isFavorite: false,
+    image: "stories.jpg",
   },
   {
     _id: generateSongId(),
@@ -80,6 +88,7 @@ export const SONGS = [
     album: "Waiting For Love",
     duration: 2.51,
     isFavorite: false,
+    image: "stories.jpg",
   },
   {
     _id: generateSongId(),
@@ -88,6 +97,7 @@ export const SONGS = [
     album: "Waiting For Love",
     duration: 4.24,
     isFavorite: false,
+    image: "stories.jpg",
   },
   {
     _id: generateSongId(),
@@ -96,6 +106,7 @@ export const SONGS = [
     album: "Waiting For Love",
     duration: 3.59,
     isFavorite: false,
+    image: "stories.jpg",
   },
   {
     _id: generateSongId(),
@@ -104,6 +115,7 @@ export const SONGS = [
     album: "Waiting For Love",
     duration: 3.22,
     isFavorite: false,
+    image: "stories.jpg",
   },
   {
     _id: generateSongId(),
@@ -112,6 +124,7 @@ export const SONGS = [
     album: "Waiting For Love",
     duration: 2.51,
     isFavorite: false,
+    image: "stories.jpg",
   },
   {
     _id: generateSongId(),
@@ -120,6 +133,7 @@ export const SONGS = [
     album: "Waiting For Love",
     duration: 3.35,
     isFavorite: false,
+    image: "stories.jpg",
   },
   {
     _id: generateSongId(),

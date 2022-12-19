@@ -31,6 +31,8 @@ export class TableComponent implements OnInit {
   isPlaying: boolean = false;
   volume: boolean = true;
 
+  wallIsOpen: boolean = false;
+
   // Disc Rotation
 
   // var init, rotate, start, stop,
@@ -51,7 +53,7 @@ export class TableComponent implements OnInit {
   constructor(
     private renderer: Renderer2,
     private albumsService: AlbumsService,
-    private socketService: SocketsService,
+    private socketsService: SocketsService,
     private songsService: SongsService,
     private songPlayingService: SongPlayingService,
   ) {}
@@ -74,15 +76,17 @@ export class TableComponent implements OnInit {
 
     this.songPlayingService.songPlaying$.subscribe((song) => (this.songPlaying = song));
 
-    this.socketService.subscribe('updateFavoriteAlbum', (album: AlbumModel) => {
+    this.socketsService.subscribe('updateFavoriteAlbum', (album: AlbumModel) => {
       if (album.isFavorite) this.favAlbums.push(album);
       else this.favAlbums = this.favAlbums.filter((favAlbum) => favAlbum._id !== album._id);
     });
 
-    this.socketService.subscribe('updateFavoriteSong', (song: SongModel) => {
+    this.socketsService.subscribe('updateFavoriteSong', (song: SongModel) => {
       if (song.isFavorite) this.favSongs.push(song);
       else this.favSongs = this.favSongs.filter((favSong) => favSong._id !== song._id);
     });
+
+    this.socketsService.subscribe('wallIsOpen', (isOpen: boolean) => (this.wallIsOpen = isOpen));
   }
 
   toggleMenu(event: MouseEvent): void {
@@ -102,43 +106,37 @@ export class TableComponent implements OnInit {
     this.renderer.addClass(this.menu!.nativeElement, '__show');
   }
 
-  getMousePosition = (event: MouseEvent): void => {
+  getMousePosition = (event: MouseEvent) => {
     this.mouseX = event.clientX;
     this.mouseY = event.clientY;
   };
 
-  closeMenu(): void {
-    this.renderer.removeClass(this.menu!.nativeElement, '__show');
-  }
+  closeMenu = () => this.renderer.removeClass(this.menu!.nativeElement, '__show');
 
-  showFavorites(): void {
+  showFavorites = () => {
     this.renderer.removeClass(this.queue!.nativeElement, '__show');
     this.renderer.addClass(this.favorites!.nativeElement, '__show');
     this.renderer.removeClass(this.menu!.nativeElement, '__show');
-  }
+  };
 
-  closeFavorites(): void {
-    this.renderer.removeClass(this.favorites!.nativeElement, '__show');
-  }
+  closeFavorites = () => this.renderer.removeClass(this.favorites!.nativeElement, '__show');
 
-  showQueue(): void {
+  showQueue = () => {
     this.renderer.removeClass(this.favorites!.nativeElement, '__show');
     this.renderer.addClass(this.queue!.nativeElement, '__show');
     this.renderer.removeClass(this.menu!.nativeElement, '__show');
-  }
+  };
 
-  closeQueue(): void {
-    this.renderer.removeClass(this.queue!.nativeElement, '__show');
-  }
+  closeQueue = () => this.renderer.removeClass(this.queue!.nativeElement, '__show');
 
-  togglePlay(): void {
+  togglePlay = () => {
     this.songPlayingService.setPlay(!this.isPlaying);
     clearInterval(disc);
-  }
+  };
 
-  toggleMute(): void {
-    this.volume = !this.volume;
-  }
+  toggleMute = () => (this.volume = !this.volume);
+
+  toggleWall = () => this.socketsService.publish('wallIsOpen', !this.wallIsOpen);
 
   start(e: MouseEvent) {
     if (this.active) return;

@@ -23,16 +23,17 @@
       <button class="bubble" (click)="showFavorites()">
         <img src="assets/Icons/Table/FolderFavorite.svg" width="48px" height="48px" />
       </button>
-      <div class="bubble">
+      <button class="bubble" (click)="toggleWall()">
+        <div *ngIf="wallIsOpen" class="absolute top-8 right-5 w-6 h-[3px] rounded-full bg-[#E7F6F2] -rotate-45"></div>
         <img src="assets/Icons/Table/MirroringScreen.svg" width="48px" height="48px" />
-      </div>
+      </button>
       <button class="bubble" (click)="showQueue()">
         <img src="assets/Icons/Table/Queue.svg" width="48px" height="48px" />
       </button>
     </div>
   </div>
   <div class="relative mx-auto flex h-full w-1/2 flex-col items-center justify-between py-20">
-    <div class="text-center">
+    <div class="text-center h-[150px]">
       <h1 class="font-semibold text-[64px] text-white">{{ songPlaying.title }}</h1>
       <h2 class="font-medium text-[32px] text-white">{{ songPlaying.artist }}</h2>
     </div>
@@ -48,6 +49,7 @@
       >
         <img class="w-[500px] h-[500px]" src="assets/vinyl.png" draggable="false" />
         <img
+          *ngIf="songPlaying.image"
           class="absolute top-1/2 left-1/2 h-48 w-48 -translate-x-1/2 -translate-y-1/2 rounded-full"
           src="assets/images/songs/{{ songPlaying.image }}"
           draggable="false"
@@ -82,19 +84,21 @@
         </ng-template>
       </button>
     </div>
-    <div class="flex gap-16">
-      <button class="hover:opacity-70">
-        <img src="assets/Icons/Previous.svg" width="64px" height="64px" />
-      </button>
-      <button (click)="togglePlay(); playAnim()" class="hover:opacity-70">
-        <img *ngIf="isPlaying; else pause" src="assets/Icons/Pause.svg" width="100px" height="100px" />
-        <ng-template #pause>
-          <img src="assets/Icons/Table/Play.svg" width="100px" height="100px" />
-        </ng-template>
-      </button>
-      <button class="hover:opacity-70">
-        <img src="assets/Icons/Next.svg" width="64px" height="64px" />
-      </button>
+    <div class="h-[100px]">
+      <div *ngIf="songPlaying.title" class="flex gap-16">
+        <button class="hover:opacity-70">
+          <img src="assets/Icons/Previous.svg" width="64px" height="64px" />
+        </button>
+        <button (click)="togglePlay(); playAnim()" class="hover:opacity-70">
+          <img *ngIf="isPlaying; else pause" src="assets/Icons/Pause.svg" width="100px" height="100px" />
+          <ng-template #pause>
+            <img src="assets/Icons/Table/Play.svg" width="100px" height="100px" />
+          </ng-template>
+        </button>
+        <button class="hover:opacity-70">
+          <img src="assets/Icons/Next.svg" width="64px" height="64px" />
+        </button>
+      </div>
     </div>
   </div>
   <div class="queue w-[600px] rounded-2xl flex flex-col p-4 pr-0 gap-4 shadow-md overflow-hidden bg-blue-dark" #queue>

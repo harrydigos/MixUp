@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Location } from '@angular/common';
-import { Router } from '@angular/router';
 import { PhoneNavbarState } from 'src/app/global/models/navbar/phoneNavbarState.model';
-import { environment } from 'src/environments/environment';
+import { SocketsService } from 'src/app/global/services';
 
 @Component({
   selector: 'app-playing-song',
@@ -25,18 +24,7 @@ export class PlayingSongComponent implements OnInit {
   lyricsSmall = true;
   lyricsBig = false;
   showImage = true;
-  surroundWallOpen = false;
-  surroundWallText: string = 'closed';
-
-  SurroundWall(songTitle: string) {
-    if (this.surroundWallOpen) {
-      this.surroundWallOpen = false;
-      this.surroundWallText = 'closed';
-    } else {
-      this.surroundWallOpen = true;
-      this.surroundWallText = 'open';
-    }
-  }
+  wallIsOpen: boolean = false;
 
   lyricsClose() {
     this.lyricsBig = false;
@@ -54,11 +42,11 @@ export class PlayingSongComponent implements OnInit {
     this.location.back();
   }
 
-  
-
-  constructor(private location: Location) {}
+  constructor(private location: Location, private socketsService: SocketsService) {}
 
   ngOnInit(): void {
-    environment.songPlaying = true;
+    this.socketsService.subscribe('wallIsOpen', (isOpen: boolean) => (this.wallIsOpen = isOpen));
   }
+
+  toggleWall = () => this.socketsService.publish('wallIsOpen', !this.wallIsOpen);
 }
