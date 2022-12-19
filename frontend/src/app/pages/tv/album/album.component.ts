@@ -9,6 +9,7 @@ import {
   SongPlayingService,
   SongsService,
 } from 'src/app/global/services';
+import { shuffleArray } from 'src/app/global/utils';
 
 @Component({
   selector: 'app-album',
@@ -21,6 +22,7 @@ export class AlbumComponent implements OnInit {
   songPlaying: SongModel = {} as SongModel;
   isPlaying: boolean = false;
   wallIsOpen: boolean = false;
+  repeat: boolean = false;
 
   constructor(
     private navbarState: NavbarStateService,
@@ -56,8 +58,20 @@ export class AlbumComponent implements OnInit {
     this.socketService.subscribe('wallIsOpen', (isOpen: boolean) => (this.wallIsOpen = isOpen));
   }
 
-  selectSong = (song: SongModel) => {
-    this.selectedSong = song;
+  back = () => this.location.back();
+
+  selectSong = (song: SongModel) => (this.selectedSong = song);
+
+  shuffle = () => (this.songs = shuffleArray(this.songs));
+
+  toggleRepeat = () => (this.repeat = !this.repeat);
+
+  toggleWall = () => this.socketService.publish('wallIsOpen', !this.wallIsOpen);
+
+  toggleFavorite = () => {
+    this.album.isFavorite = !this.album.isFavorite;
+    this.albumsService.updateAlbum(this.album).subscribe();
+    this.socketService.publish('updateFavoriteAlbum', this.album);
   };
 
   playSong = () => {
@@ -69,19 +83,23 @@ export class AlbumComponent implements OnInit {
     }
   };
 
-  getTimeOfSong(duration: number): string {
+  getTimeOfSong = (duration: number): string => {
     let [minutes, seconds] = duration.toString().split('.');
     seconds.length === 1 ? (seconds += '0') : null;
     return `${minutes}:${seconds}`;
-  }
+  };
 
-  toggleFavorite(): void {
-    this.album.isFavorite = !this.album.isFavorite;
-    this.albumsService.updateAlbum(this.album).subscribe();
-    this.socketService.publish('updateFavoriteAlbum', this.album);
-  }
+  navigateSong = (direction: 'prev' | 'next') => {
+    if (this.repeat) {
+      //TODO repeat song
+      return;
+    }
+    let index = this.songs.indexOf(this.selectedSong);
+    const move = () => (direction === 'next' ? ++index : --index);
+    const isOutOfBounds = () => index >= this.songs.length || index < 0;
 
-  toggleWall = () => this.socketService.publish('wallIsOpen', !this.wallIsOpen);
-
-  back = () => this.location.back();
+    move();
+    if (isOutOfBounds()) this.selectSong(this.songs[0]);
+    else this.selectSong(this.songs[index]);
+  };
 }

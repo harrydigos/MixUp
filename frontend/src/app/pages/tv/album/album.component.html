@@ -18,12 +18,13 @@
           </div>
           <div class="flex select-none gap-8">
             <button
-              class="flex gap-2 justify-center items-center py-[6px] px-5 bg-blue-light rounded-2xl text-blue-dark font-semibold text-2xl"
+              (click)="shuffle()"
+              class="hover:opacity-75 flex gap-2 justify-center items-center py-[6px] px-5 bg-blue-light rounded-2xl text-blue-dark font-semibold text-2xl"
             >
               <img src="assets/Icons/Shuffle.svg" width="40px" height="40px" />
               Shuffle
             </button>
-            <button (click)="toggleFavorite()">
+            <button class="hover:opacity-75" (click)="toggleFavorite()">
               <img *ngIf="album.isFavorite; else notFavorite" src="assets/Icons/Heart.svg" width="48px" height="48px" />
               <ng-template #notFavorite>
                 <img src="assets/Icons/HeartOutline.svg" width="48px" height="48px" />
@@ -86,13 +87,16 @@
             {{ selectedSong.title }}
           </h1>
           <div class="flex w-full select-none items-center justify-between">
-            <img
-              class="cursor-pointer hover:opacity-75"
-              src="assets/Icons/RepeatMusic.svg"
-              width="48px"
-              height="48px"
-            />
-            <img class="cursor-pointer hover:opacity-75" src="assets/Icons/Previous.svg" width="48px" height="48px" />
+            <button class="hover:opacity-75" (click)="toggleRepeat()">
+              <img *ngIf="repeat; else noRepeat" src="assets/Icons/RepeatYes.svg" width="48px" height="48px" />
+              <ng-template #noRepeat>
+                <img src="assets/Icons/RepeatNo.svg" width="48px" height="48px" />
+              </ng-template>
+            </button>
+
+            <button (click)="navigateSong('prev')">
+              <img class="hover:opacity-75" src="assets/Icons/Previous.svg" width="48px" height="48px" />
+            </button>
 
             <button (click)="playSong()" class="hover:opacity-70">
               <img
@@ -106,7 +110,9 @@
               </ng-template>
             </button>
 
-            <img class="cursor-pointer hover:opacity-75" src="assets/Icons/Next.svg" width="48px" height="48px" />
+            <button (click)="navigateSong('next')">
+              <img class="hover:opacity-75" src="assets/Icons/Next.svg" width="48px" height="48px" />
+            </button>
             <img
               class="cursor-pointer hover:opacity-75"
               src="assets/Icons/MusicSquareAdd.svg"
