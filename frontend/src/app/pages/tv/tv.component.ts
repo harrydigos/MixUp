@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { SongModel, TvNavbarState } from 'src/app/global/models';
-import { NavbarStateService, SocketsService } from 'src/app/global/services';
+import { NavbarStateService, QueueService, SocketsService } from 'src/app/global/services';
 
 @Component({
   selector: 'app-tv',
   template: `
     <app-tv-navbar [page]="navState"></app-tv-navbar>
     <router-outlet></router-outlet>
-    <div *ngIf="songsQueue.length" class="fixed bottom-0 w-screen h-[76px] songPlaying select-none">
+    <div *ngIf="queue.length" class="fixed bottom-0 w-screen h-[76px] songPlaying select-none">
       <div class="flex h-full w-full items-center justify-center gap-12">
-        <div class="font-medium text-white text-[32px]">{{ songsQueue[0].title }}</div>
+        <div class="font-medium text-white text-[32px]">{{ queue[0].title }}</div>
         <img class="cursor-pointer hover:opacity-75" src="assets/Icons/Previous.svg" width="32" />
         <button (click)="togglePlay()" class="hover:opacity-70">
           <img *ngIf="isPlaying; else pause" src="assets/Icons/Pause.svg" width="48" />
@@ -31,7 +31,7 @@ import { NavbarStateService, SocketsService } from 'src/app/global/services';
 })
 export class TVComponent implements OnInit {
   navState: TvNavbarState = 'home';
-  songsQueue: SongModel[] = [];
+  queue: SongModel[] = [];
 
   isPlaying: boolean = false;
 
@@ -40,12 +40,16 @@ export class TVComponent implements OnInit {
     this.socketsService.publish('play', this.isPlaying);
   }
 
-  constructor(private navbarState: NavbarStateService, private socketsService: SocketsService) {}
+  constructor(
+    private navbarState: NavbarStateService,
+    private socketsService: SocketsService,
+    private queueService: QueueService,
+  ) {}
 
   ngOnInit(): void {
     this.navbarState.navState$.subscribe((event) => (this.navState = event));
 
-    this.socketsService.subscribe('songsQueue', (queue: SongModel[]) => (this.songsQueue = queue));
+    this.queueService.queue$.subscribe((queue) => (this.queue = queue));
     this.socketsService.subscribe('play', (isPlaying: boolean) => (this.isPlaying = isPlaying));
   }
 }

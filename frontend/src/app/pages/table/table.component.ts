@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { AlbumModel, SongModel } from 'src/app/global/models';
-import { AlbumsService, SocketsService, SongPlayingService, SongsService } from 'src/app/global/services';
+import { AlbumsService, QueueService, SocketsService, SongPlayingService, SongsService } from 'src/app/global/services';
 
 let disc: any = null;
 
@@ -12,8 +12,7 @@ let disc: any = null;
 export class TableComponent implements OnInit {
   favAlbums: AlbumModel[] = [];
   favSongs: SongModel[] = [];
-  queueSongs: string[] = [];
-
+  queueSongs: SongModel[] = [];
   songPlaying: SongModel = {} as SongModel;
 
   @ViewChild('table') table?: ElementRef;
@@ -56,6 +55,7 @@ export class TableComponent implements OnInit {
     private socketsService: SocketsService,
     private songsService: SongsService,
     private songPlayingService: SongPlayingService,
+    private queueService: QueueService,
   ) {}
 
   ngOnInit(): void {
@@ -64,9 +64,7 @@ export class TableComponent implements OnInit {
       console.log(this.favSongs);
     });
 
-    this.albumsService.getAll().subscribe((result) => {
-      this.favAlbums = result.filter((album) => album.isFavorite);
-    });
+    this.albumsService.getAll().subscribe((result) => (this.favAlbums = result.filter((album) => album.isFavorite)));
 
     this.songPlayingService.isPlaying$.subscribe((isPlaying) => {
       this.isPlaying = isPlaying;
@@ -86,6 +84,7 @@ export class TableComponent implements OnInit {
       else this.favSongs = this.favSongs.filter((favSong) => favSong._id !== song._id);
     });
 
+    this.queueService.queue$.subscribe((queue) => (this.queueSongs = queue));
     this.socketsService.subscribe('wallIsOpen', (isOpen: boolean) => (this.wallIsOpen = isOpen));
   }
 

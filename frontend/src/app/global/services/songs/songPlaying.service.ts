@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { SongModel } from '../../models';
+import { SongModel } from 'src/app/global/models';
 import { BehaviorSubject } from 'rxjs';
-import { SocketsService } from '../sockets/sockets.service';
+import { SocketsService } from 'src/app/global/services';
 
 @Injectable({
   providedIn: 'root',

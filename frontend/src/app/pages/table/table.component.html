@@ -112,7 +112,11 @@
       </button>
     </div>
     <app-card-wrapper *ngIf="queueSongs.length; else emptyQueue">
-      <app-table-disc *ngFor="let song of queueSongs" [name]="''" [imgUrl]="''"></app-table-disc>
+      <app-table-disc
+        *ngFor="let song of queueSongs"
+        [name]="song.title"
+        [imgUrl]="'assets/images/songs/' + song.image"
+      ></app-table-disc>
     </app-card-wrapper>
     <ng-template #emptyQueue>
       <h2 class="text-2xl text-white/75 font-base">Queue is empty</h2>

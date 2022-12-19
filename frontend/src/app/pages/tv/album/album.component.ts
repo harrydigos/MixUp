@@ -5,6 +5,7 @@ import { AlbumModel, SongModel } from 'src/app/global/models';
 import {
   AlbumsService,
   NavbarStateService,
+  QueueService,
   SocketsService,
   SongPlayingService,
   SongsService,
@@ -17,6 +18,7 @@ import { shuffleArray } from 'src/app/global/utils';
 })
 export class AlbumComponent implements OnInit {
   album: AlbumModel = {} as AlbumModel;
+  queue: SongModel[] = [];
   songs: SongModel[] = [];
   selectedSong: SongModel = {} as SongModel;
   songPlaying: SongModel = {} as SongModel;
@@ -32,6 +34,7 @@ export class AlbumComponent implements OnInit {
     private songsService: SongsService,
     private socketService: SocketsService,
     private songPlayingService: SongPlayingService,
+    private queueService: QueueService,
   ) {
     this.navbarState.setNavState('hide');
   }
@@ -54,6 +57,7 @@ export class AlbumComponent implements OnInit {
 
     this.songPlayingService.songPlaying$.subscribe((song) => (this.songPlaying = song));
     this.songPlayingService.isPlaying$.subscribe((isPlaying) => (this.isPlaying = isPlaying));
+    this.queueService.queue$.subscribe((queue) => (this.queue = queue));
 
     this.socketService.subscribe('wallIsOpen', (isOpen: boolean) => (this.wallIsOpen = isOpen));
   }
@@ -67,6 +71,8 @@ export class AlbumComponent implements OnInit {
   toggleRepeat = () => (this.repeat = !this.repeat);
 
   toggleWall = () => this.socketService.publish('wallIsOpen', !this.wallIsOpen);
+
+  addToQueue = () => this.queueService.append(this.selectedSong);
 
   toggleFavorite = () => {
     this.album.isFavorite = !this.album.isFavorite;

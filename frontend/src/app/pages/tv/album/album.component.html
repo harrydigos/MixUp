@@ -113,12 +113,14 @@
             <button (click)="navigateSong('next')">
               <img class="hover:opacity-75" src="assets/Icons/Next.svg" width="48px" height="48px" />
             </button>
-            <img
-              class="cursor-pointer hover:opacity-75"
-              src="assets/Icons/MusicSquareAdd.svg"
-              width="48px"
-              height="48px"
-            />
+            <button (click)="addToQueue()">
+              <img
+                class="cursor-pointer hover:opacity-75"
+                src="assets/Icons/MusicSquareAdd.svg"
+                width="48px"
+                height="48px"
+              />
+            </button>
           </div>
           <button
             (click)="toggleWall()"
