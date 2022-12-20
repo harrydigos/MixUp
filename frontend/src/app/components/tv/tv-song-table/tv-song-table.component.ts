@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { SongModel } from '../../../global/models';
-import { SocketsService, SongsService } from '../../../global/services';
+import { SongModel } from 'src/app/global/models';
 
 @Component({
   selector: 'app-tv-song-table',
@@ -18,7 +17,7 @@ import { SocketsService, SongsService } from '../../../global/services';
     <tbody>
       <tr
         *ngFor="let song of songs.slice(0, 5)"
-        class="h-full cursor-pointer select-none text-2xl font-medium text-white duration-100 hover:bg-blue/20"
+        class="h-full cursor-pointer select-none text-2xl font-medium text-white delay-75 duration-100 ease-out hover:bg-blue/20"
       >
         <td class="h-full rounded-l-xl">
           <img
@@ -51,17 +50,15 @@ export class TvSongTableComponent implements OnInit {
   @Input() songs: SongModel[] = [];
   @Output() remove = new EventEmitter<SongModel>();
 
-  constructor(private songsService: SongsService, private socketService: SocketsService) {}
+  constructor() {}
 
   ngOnInit(): void {}
 
-  removeSongFromFavorites(song: SongModel): void {
-    this.remove.emit(song);
-  }
+  removeSongFromFavorites = (song: SongModel) => this.remove.emit(song);
 
-  getTimeOfSong(duration: number): string {
+  getTimeOfSong = (duration: number): string => {
     let [minutes, seconds] = duration.toString().split('.');
     seconds.length === 1 ? (seconds += '0') : null;
     return `${minutes}:${seconds}`;
-  }
+  };
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { SongModel } from '../../models';
+import { SongModel } from 'src/app/global/models';
 import { BehaviorSubject } from 'rxjs';
-import { SocketsService } from '../sockets/sockets.service';
+import { SocketsService } from 'src/app/global/services';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +14,7 @@ export class QueueService {
     this.socketsService.subscribe('queue', (queue: SongModel[]) => this.queue.next(queue));
   }
 
-  setQueue = (queue: SongModel[]): void => this.socketsService.publish('queue', queue);
+  setQueue = (queue: SongModel[]) => this.socketsService.publish('queue', queue);
 
   append = (song: SongModel) => {
     if (this.queue.value.find((s) => s._id === song._id)) return;
@@ -22,8 +22,8 @@ export class QueueService {
     this.setQueue(this.queue.getValue());
   };
 
-  pop = () => {
-    this.queue.getValue().shift();
+  remove = (song: SongModel) => {
+    this.queue.next(this.queue.getValue().filter((s) => s._id !== song._id));
     this.setQueue(this.queue.getValue());
   };
 }

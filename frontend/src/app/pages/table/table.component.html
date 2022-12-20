@@ -114,6 +114,7 @@
     <app-card-wrapper *ngIf="queueSongs.length; else emptyQueue">
       <app-table-disc
         *ngFor="let song of queueSongs"
+        (click)="playQueueSong(song)"
         [name]="song.title"
         [imgUrl]="'assets/images/songs/' + song.image"
       ></app-table-disc>

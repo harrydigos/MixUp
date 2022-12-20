@@ -133,6 +133,12 @@ export class TableComponent implements OnInit {
     clearInterval(disc);
   };
 
+  playQueueSong = (song: SongModel) => {
+    this.songPlayingService.setSongPlaying(song);
+    this.songPlayingService.setPlay(true);
+    this.queueService.remove(song);
+  };
+
   toggleMute = () => (this.volume = !this.volume);
 
   toggleWall = () => this.socketsService.publish('wallIsOpen', !this.wallIsOpen);
