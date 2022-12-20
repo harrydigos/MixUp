@@ -18,7 +18,7 @@ export class SongPlayingService {
     this.socketsService.subscribe('play', (play: boolean) => this.isPlaying.next(play));
   }
 
-  setSongPlaying = (song: SongModel): void => this.socketsService.publish('songPlaying', song);
+  setSongPlaying = (song: SongModel) => this.socketsService.publish('songPlaying', song);
 
-  setPlay = (play: boolean): void => this.socketsService.publish('play', play);
+  setPlay = (play: boolean) => this.socketsService.publish('play', play);
 }

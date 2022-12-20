@@ -107,5 +107,6 @@ export class AlbumComponent implements OnInit {
     move();
     if (isOutOfBounds()) this.selectSong(this.songs[0]);
     else this.selectSong(this.songs[index]);
+    this.playSong();
   };
 }

@@ -40,11 +40,10 @@
     <div class="relative z-50">
       <div
         class="relative w-[500px] h-[500px] rounded-full overflow-hidden cursor-grab"
-        [style]="{ transform: styleRotation }"
-        (mousedown)="start($event)"
-        (mousemove)="rotate($event)"
-        (mouseup)="stop()"
-        (mouseleave)="stop()"
+        (mousedown)="startDragDisc($event)"
+        (mousemove)="rotateDisc($event)"
+        (mouseup)="stopDisc()"
+        (mouseleave)="stopDisc()"
         #disc
       >
         <img class="w-[500px] h-[500px]" src="assets/vinyl.png" draggable="false" />
@@ -66,7 +65,7 @@
           />
         </svg>
       </div>
-      <button (click)="toggleMute()">
+      <button *ngIf="songPlaying.title" (click)="toggleMute()">
         <img
           *ngIf="volume; else mute"
           class="absolute -right-1/4 bottom-0"
@@ -86,16 +85,26 @@
     </div>
     <div class="h-[100px]">
       <div *ngIf="songPlaying.title" class="flex gap-16">
-        <button class="hover:opacity-70">
+        <button
+          (click)="navigateSongs('prev')"
+          [disabled]="!queueSongsPlayed.length"
+          [ngStyle]="{ opacity: !queueSongsPlayed.length ? '0.5' : '1' }"
+          class="hover:opacity-70"
+        >
           <img src="assets/Icons/Previous.svg" width="64px" height="64px" />
         </button>
-        <button (click)="togglePlay(); playAnim()" class="hover:opacity-70">
+        <button (click)="togglePlay(); playAnimDisc()" class="hover:opacity-70">
           <img *ngIf="isPlaying; else pause" src="assets/Icons/Pause.svg" width="100px" height="100px" />
           <ng-template #pause>
             <img src="assets/Icons/Table/Play.svg" width="100px" height="100px" />
           </ng-template>
         </button>
-        <button class="hover:opacity-70">
+        <button
+          (click)="navigateSongs('next')"
+          [disabled]="!queueSongs.length"
+          [ngStyle]="{ opacity: !queueSongs.length ? '0.5' : '1' }"
+          class="hover:opacity-70"
+        >
           <img src="assets/Icons/Next.svg" width="64px" height="64px" />
         </button>
       </div>

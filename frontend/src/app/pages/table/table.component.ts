@@ -10,44 +10,36 @@ let disc: any = null;
   styleUrls: ['./table.component.scss'],
 })
 export class TableComponent implements OnInit {
-  favAlbums: AlbumModel[] = [];
-  favSongs: SongModel[] = [];
-  queueSongs: SongModel[] = [];
-  songPlaying: SongModel = {} as SongModel;
-
   @ViewChild('table') table?: ElementRef;
   @ViewChild('menu') menu?: ElementRef;
   @ViewChild('close') close?: ElementRef;
-
   @ViewChild('favorites') favorites?: ElementRef;
   @ViewChild('queue') queue?: ElementRef;
-
   @ViewChild('disc') disc?: ElementRef;
 
-  mouseX: number | undefined;
-  mouseY: number | undefined;
+  favAlbums: AlbumModel[] = [];
+  favSongs: SongModel[] = [];
+  queueSongs: SongModel[] = [];
+  queueSongsPlayed: SongModel[] = [];
+  songPlaying: SongModel = {} as SongModel;
 
+  mouseX?: number;
+  mouseY?: number;
   isPlaying: boolean = false;
   volume: boolean = true;
-
   wallIsOpen: boolean = false;
 
-  // Disc Rotation
-
-  // var init, rotate, start, stop,
+  /* Disc rotation variables */
   active: boolean = false;
   angle: number = 0;
   rotation: number = 0;
-
   startAngle: number = 0;
   center: { x: number; y: number } = {
     x: 0,
     y: 0,
   };
   R2D: number = 180 / Math.PI;
-  styleRotation: string = '';
-
-  state: number = 0;
+  styleRotation: number = 0;
 
   constructor(
     private renderer: Renderer2,
@@ -59,20 +51,9 @@ export class TableComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.songsService.getAll().subscribe((songs) => {
-      this.favSongs = songs.filter((song) => song.isFavorite);
-      console.log(this.favSongs);
-    });
-
+    /* Favorite Songs & Albums */
+    this.songsService.getAll().subscribe((songs) => (this.favSongs = songs.filter((song) => song.isFavorite)));
     this.albumsService.getAll().subscribe((result) => (this.favAlbums = result.filter((album) => album.isFavorite)));
-
-    this.songPlayingService.isPlaying$.subscribe((isPlaying) => {
-      this.isPlaying = isPlaying;
-      clearInterval(disc);
-      this.playAnim();
-    });
-
-    this.songPlayingService.songPlaying$.subscribe((song) => (this.songPlaying = song));
 
     this.socketsService.subscribe('updateFavoriteAlbum', (album: AlbumModel) => {
       if (album.isFavorite) this.favAlbums.push(album);
@@ -84,11 +65,26 @@ export class TableComponent implements OnInit {
       else this.favSongs = this.favSongs.filter((favSong) => favSong._id !== song._id);
     });
 
+    /* Queue & Playing Song & Wall */
+    this.songPlayingService.songPlaying$.subscribe((song) => (this.songPlaying = song));
     this.queueService.queue$.subscribe((queue) => (this.queueSongs = queue));
+
+    this.songPlayingService.isPlaying$.subscribe((isPlaying) => {
+      this.isPlaying = isPlaying;
+      clearInterval(disc);
+      this.playAnimDisc();
+    });
+
     this.socketsService.subscribe('wallIsOpen', (isOpen: boolean) => (this.wallIsOpen = isOpen));
+    this.socketsService.subscribe('mute', (mute: boolean) => (this.volume = mute));
   }
 
-  toggleMenu(event: MouseEvent): void {
+  getMousePosition = (event: MouseEvent) => {
+    this.mouseX = event.clientX;
+    this.mouseY = event.clientY;
+  };
+
+  toggleMenu = (event: MouseEvent) => {
     if (
       event.target === this.close!.nativeElement ||
       event.target !== this.table!.nativeElement ||
@@ -103,11 +99,6 @@ export class TableComponent implements OnInit {
     this.renderer.setStyle(this.menu!.nativeElement, 'top', `${this.mouseY}px`);
     this.renderer.setStyle(this.menu!.nativeElement, 'left', `${this.mouseX}px`);
     this.renderer.addClass(this.menu!.nativeElement, '__show');
-  }
-
-  getMousePosition = (event: MouseEvent) => {
-    this.mouseX = event.clientX;
-    this.mouseY = event.clientY;
   };
 
   closeMenu = () => this.renderer.removeClass(this.menu!.nativeElement, '__show');
@@ -128,22 +119,32 @@ export class TableComponent implements OnInit {
 
   closeQueue = () => this.renderer.removeClass(this.queue!.nativeElement, '__show');
 
-  togglePlay = () => {
-    this.songPlayingService.setPlay(!this.isPlaying);
-    clearInterval(disc);
-  };
-
   playQueueSong = (song: SongModel) => {
     this.songPlayingService.setSongPlaying(song);
     this.songPlayingService.setPlay(true);
     this.queueService.remove(song);
   };
 
-  toggleMute = () => (this.volume = !this.volume);
+  navigateSongs = (direction: 'prev' | 'next') => {
+    if (direction === 'prev') {
+      //TODO: Navigate to previous song
+    } else {
+      this.playQueueSong(this.queueSongs[0]);
+    }
+  };
+
+  togglePlay = () => {
+    this.songPlayingService.setPlay(!this.isPlaying);
+    clearInterval(disc);
+  };
+
+  toggleMute = () => this.socketsService.publish('mute', !this.volume);
 
   toggleWall = () => this.socketsService.publish('wallIsOpen', !this.wallIsOpen);
 
-  start(e: MouseEvent) {
+  /* Disc Animation & Drag */
+
+  startDragDisc = (e: MouseEvent) => {
     if (this.active) return;
     e.preventDefault();
     let b = this.disc!.nativeElement.getBoundingClientRect();
@@ -155,39 +156,43 @@ export class TableComponent implements OnInit {
 
     let x = e.clientX - this.center.x;
     let y = e.clientY - this.center.y;
+
     this.startAngle = this.R2D * Math.atan2(y, x);
     this.active = true;
-  }
+  };
 
-  rotate(e: MouseEvent): void {
+  rotateDisc = (e: MouseEvent) => {
     if (!this.active) return;
     e.preventDefault();
+
     let x = e.clientX - this.center.x;
     let y = e.clientY - this.center.y;
     let d = this.R2D * Math.atan2(y, x);
-    this.rotation = d - this.startAngle;
-    this.state = this.angle + this.rotation;
-    this.styleRotation = `rotate(${this.state}deg)`;
-    this.disc!.nativeElement.style.cursor = 'grabbing';
-  }
 
-  stop(): void {
+    this.rotation = d - this.startAngle;
+    this.styleRotation = this.angle + this.rotation;
+
+    this.disc!.nativeElement.style.transform = `rotate(${this.styleRotation}deg)`;
+    this.disc!.nativeElement.style.cursor = 'grabbing';
+  };
+
+  stopDisc = () => {
     this.angle += this.rotation;
     this.active = false;
     this.disc!.nativeElement.style.cursor = 'grab';
-  }
+  };
 
-  playAnim(): void {
+  playAnimDisc = () => {
     if (!this.isPlaying || this.active) {
       clearInterval(disc);
       return;
     }
     const frame = () => {
       if (this.active) return;
-      this.state++;
-      this.styleRotation = `rotate(${this.state}deg)`;
+      this.styleRotation++;
+      this.disc!.nativeElement.style.transform = `rotate(${this.styleRotation}deg)`;
     };
 
     disc = setInterval(frame, 10);
-  }
+  };
 }
