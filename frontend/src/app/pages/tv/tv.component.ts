@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { SongModel, TvNavbarState } from 'src/app/global/models';
 import { NavbarStateService, SocketsService, SongPlayingService } from 'src/app/global/services';
 
@@ -12,6 +12,7 @@ import { NavbarStateService, SocketsService, SongPlayingService } from 'src/app/
         <div class="truncate w-[340px] text-center font-medium text-white text-[32px]">
           {{ songPlaying.title }}
         </div>
+        <audio #player *ngIf="canPlaySong()" src="assets/songs/{{ song }}.mp3"></audio>
       </div>
     </div>
   `,
@@ -24,9 +25,20 @@ import { NavbarStateService, SocketsService, SongPlayingService } from 'src/app/
   ],
 })
 export class TVComponent implements OnInit {
+  @ViewChild('player') player!: ElementRef<HTMLAudioElement>;
+
   navState: TvNavbarState = 'home';
   songPlaying: SongModel = {} as SongModel;
   isPlaying: boolean = false;
+
+  song: string = '';
+  canPlaySong = () => {
+    if (this.songPlaying.title === 'Waiting For Love') {
+      this.song = 'waiting_for_love';
+      return true;
+    }
+    return false;
+  };
 
   constructor(
     private navbarState: NavbarStateService,
@@ -38,6 +50,12 @@ export class TVComponent implements OnInit {
     this.navbarState.navState$.subscribe((event) => (this.navState = event));
 
     this.songPlayingService.songPlaying$.subscribe((song) => (this.songPlaying = song));
-    this.socketsService.subscribe('play', (isPlaying: boolean) => (this.isPlaying = isPlaying));
+    this.socketsService.subscribe('play', (isPlaying: boolean) => {
+      this.isPlaying = isPlaying;
+      if (this.canPlaySong()) {
+        if (isPlaying) this.player.nativeElement.play();
+        else this.player.nativeElement.pause();
+      }
+    });
   }
 }
