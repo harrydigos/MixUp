@@ -26,7 +26,7 @@ export class TableComponent implements OnInit {
   mouseX?: number;
   mouseY?: number;
   isPlaying: boolean = false;
-  volume: boolean = true;
+  isMuted: boolean = false;
   wallIsOpen: boolean = false;
 
   /* Disc rotation variables */
@@ -76,7 +76,7 @@ export class TableComponent implements OnInit {
     });
 
     this.socketsService.subscribe('wallIsOpen', (isOpen: boolean) => (this.wallIsOpen = isOpen));
-    this.socketsService.subscribe('mute', (mute: boolean) => (this.volume = mute));
+    this.socketsService.subscribe('mute', (mute: boolean) => (this.isMuted = mute));
   }
 
   getMousePosition = (event: MouseEvent) => {
@@ -138,7 +138,7 @@ export class TableComponent implements OnInit {
     clearInterval(disc);
   };
 
-  toggleMute = () => this.socketsService.publish('mute', !this.volume);
+  toggleMute = () => this.socketsService.publish('mute', !this.isMuted);
 
   toggleWall = () => this.socketsService.publish('wallIsOpen', !this.wallIsOpen);
 

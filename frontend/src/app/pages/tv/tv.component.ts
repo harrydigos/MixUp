@@ -57,5 +57,9 @@ export class TVComponent implements OnInit {
         else this.player.nativeElement.pause();
       }
     });
+
+    this.socketsService.subscribe('mute', (isMuted: boolean) =>
+      this.canPlaySong() ? (this.player.nativeElement.muted = isMuted) : null,
+    );
   }
 }

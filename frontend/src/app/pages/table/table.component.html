@@ -67,19 +67,14 @@
       </div>
       <button *ngIf="songPlaying.title" (click)="toggleMute()">
         <img
-          *ngIf="volume; else mute"
+          *ngIf="isMuted; else notMuted"
           class="absolute -right-1/4 bottom-0"
-          src="assets/Icons/VolumeHigh.svg"
+          src="assets/Icons/Table/VolumeMute.svg"
           width="64px"
           height="64px"
         />
-        <ng-template #mute>
-          <img
-            class="absolute -right-1/4 bottom-0"
-            src="assets/Icons/Table/VolumeMute.svg"
-            width="64px"
-            height="64px"
-          />
+        <ng-template #notMuted>
+          <img class="absolute -right-1/4 bottom-0" src="assets/Icons/VolumeHigh.svg" width="64px" height="64px" />
         </ng-template>
       </button>
     </div>
