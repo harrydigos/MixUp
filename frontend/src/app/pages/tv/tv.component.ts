@@ -7,13 +7,17 @@ import { NavbarStateService, SocketsService, SongPlayingService } from 'src/app/
   template: `
     <app-tv-navbar [page]="navState"></app-tv-navbar>
     <router-outlet></router-outlet>
-    <div *ngIf="songPlaying._id" class="fixed bottom-0 w-screen h-[76px] songPlaying select-none">
-      <div class="flex h-full w-full items-center justify-center gap-12">
-        <div class="truncate w-[340px] text-center font-medium text-white text-[32px]">
-          {{ songPlaying.title }}
+    <div *ngIf="songPlaying._id">
+      <div class="songPlaying fixed bottom-1 w-screen h-[76px] select-none">
+        <div class="flex h-full w-full items-center justify-center gap-12">
+          <div class="truncate w-[340px] text-center font-medium text-white text-[32px]">
+            {{ songPlaying.title }}
+          </div>
+          <audio #player *ngIf="canPlaySong()" (timeupdate)="onTimeUpdate()" src="assets/songs/{{ song }}.mp3"></audio>
         </div>
-        <audio #player *ngIf="canPlaySong()" src="assets/songs/{{ song }}.mp3"></audio>
       </div>
+      <div class="fixed bottom-0 w-full h-1 bg-[#294249]"></div>
+      <div class="fixed bottom-0 h-1 bg-blue-light" [ngStyle]="setWidth()"></div>
     </div>
   `,
   styles: [
@@ -29,16 +33,10 @@ export class TVComponent implements OnInit {
 
   navState: TvNavbarState = 'home';
   songPlaying: SongModel = {} as SongModel;
-  isPlaying: boolean = false;
-
   song: string = '';
-  canPlaySong = () => {
-    if (this.songPlaying.title === 'Waiting For Love') {
-      this.song = 'waiting_for_love';
-      return true;
-    }
-    return false;
-  };
+
+  isPlaying: boolean = false;
+  currTime: number = 0;
 
   constructor(
     private navbarState: NavbarStateService,
@@ -50,6 +48,8 @@ export class TVComponent implements OnInit {
     this.navbarState.navState$.subscribe((event) => (this.navState = event));
 
     this.songPlayingService.songPlaying$.subscribe((song) => (this.songPlaying = song));
+    this.songPlayingService.currentTime$.subscribe((time) => (this.currTime = time));
+
     this.socketsService.subscribe('play', (isPlaying: boolean) => {
       this.isPlaying = isPlaying;
       if (this.canPlaySong()) {
@@ -62,4 +62,23 @@ export class TVComponent implements OnInit {
       this.canPlaySong() ? (this.player.nativeElement.muted = isMuted) : null,
     );
   }
+
+  canPlaySong = () => {
+    if (this.songPlaying.title === 'Waiting For Love') {
+      this.song = 'waiting_for_love';
+      return true;
+    }
+    return false;
+  };
+
+  setWidth = (): Record<'width', string> => {
+    if (!this.player) return { width: '0%' };
+    return {
+      width: `${(this.currTime / this.player.nativeElement.duration) * 100}%`,
+    };
+  };
+
+  onTimeUpdate = () => {
+    this.songPlayingService.setCurrentTime(Math.floor(this.player.nativeElement.currentTime));
+  };
 }

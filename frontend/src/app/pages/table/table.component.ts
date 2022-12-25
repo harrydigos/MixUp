@@ -67,6 +67,10 @@ export class TableComponent implements OnInit {
 
     /* Queue & Playing Song & Wall */
     this.songPlayingService.songPlaying$.subscribe((song) => (this.songPlaying = song));
+
+    //TODO: when user drags the disc, currentTime$ is updated
+    this.songPlayingService.currentTime$.subscribe((currentTime) => console.log(currentTime)); // Works
+
     this.queueService.queue$.subscribe((queue) => (this.queueSongs = queue));
 
     this.songPlayingService.isPlaying$.subscribe((isPlaying) => {
