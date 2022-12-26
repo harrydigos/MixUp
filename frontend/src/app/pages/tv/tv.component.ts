@@ -48,7 +48,13 @@ export class TVComponent implements OnInit {
     this.navbarState.navState$.subscribe((event) => (this.navState = event));
 
     this.songPlayingService.songPlaying$.subscribe((song) => (this.songPlaying = song));
-    this.songPlayingService.currentTime$.subscribe((time) => (this.currTime = time));
+    this.songPlayingService.currentTime$.subscribe((time) => {
+      console.log(time);
+      if (this.player) {
+        this.currTime = time;
+        this.player.nativeElement.currentTime = time;
+      }
+    });
 
     this.socketsService.subscribe('play', (isPlaying: boolean) => {
       this.isPlaying = isPlaying;
@@ -79,6 +85,8 @@ export class TVComponent implements OnInit {
   };
 
   onTimeUpdate = () => {
-    this.songPlayingService.setCurrentTime(Math.floor(this.player.nativeElement.currentTime));
+    if (this.currTime !== this.player.nativeElement.currentTime) {
+      this.songPlayingService.setCurrentTime(this.player.nativeElement.currentTime);
+    }
   };
 }

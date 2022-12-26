@@ -27,6 +27,7 @@ export class TableComponent implements OnInit {
   mouseY?: number;
   isPlaying: boolean = false;
   isMuted: boolean = false;
+  currTime: number = 0;
   wallIsOpen: boolean = false;
 
   /* Disc rotation variables */
@@ -68,8 +69,10 @@ export class TableComponent implements OnInit {
     /* Queue & Playing Song & Wall */
     this.songPlayingService.songPlaying$.subscribe((song) => (this.songPlaying = song));
 
-    //TODO: when user drags the disc, currentTime$ is updated
-    this.songPlayingService.currentTime$.subscribe((currentTime) => console.log(currentTime)); // Works
+    this.songPlayingService.currentTime$.subscribe((currentTime) => {
+      console.log(currentTime);
+      this.currTime = currentTime;
+    });
 
     this.queueService.queue$.subscribe((queue) => (this.queueSongs = queue));
 
@@ -163,8 +166,11 @@ export class TableComponent implements OnInit {
 
     this.startAngle = this.R2D * Math.atan2(y, x);
     this.active = true;
+
+    if (this.isPlaying) this.songPlayingService.setPlay(false);
   };
 
+  prevD: number = -Infinity;
   rotateDisc = (e: MouseEvent) => {
     if (!this.active) return;
     e.preventDefault();
@@ -178,6 +184,14 @@ export class TableComponent implements OnInit {
 
     this.disc!.nativeElement.style.transform = `rotate(${this.styleRotation}deg)`;
     this.disc!.nativeElement.style.cursor = 'grabbing';
+
+    // Check the direction of the rotation
+    if (this.prevD > d) {
+      if (this.currTime > 0) this.songPlayingService.setCurrentTime(+(this.currTime - 0.1).toFixed(1));
+    } else {
+      this.songPlayingService.setCurrentTime(+(this.currTime + 0.1).toFixed(1));
+    }
+    this.prevD = d;
   };
 
   stopDisc = () => {
