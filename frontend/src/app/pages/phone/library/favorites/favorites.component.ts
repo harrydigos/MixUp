@@ -3,7 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import { AlbumModel, SongModel } from 'src/app/global/models';
 import { PhoneNavbarState } from 'src/app/global/models/navbar/phoneNavbarState.model';
-import { NavbarStateService, AlbumsService, SongsService, SocketsService } from 'src/app/global/services';
+import { NavbarStateService, AlbumsService, SongsService, SocketsService, QueueService } from 'src/app/global/services';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -13,25 +13,32 @@ import { environment } from 'src/environments/environment';
 })
 export class FavoritesComponent implements OnInit {
   navState: PhoneNavbarState = 'library';
-  songPlaying = environment.songPlaying;
-
+  
   songs: SongModel[] = [];
-
   libraryNavState: 'favorites' | 'playlists' = 'favorites';
   @Input() searchText: string = 'Search in favorites';
 
-  blindingLights: AlbumModel = {} as AlbumModel;
-
+  // blindingLights: AlbumModel = {} as AlbumModel;
+  
   playBlindingLights: boolean = false;
   songPressed: string = '';
   showMessageQueue: boolean = false;
   showMessageRemove: boolean = false;
   surroundWallOpen: boolean = false;
 
+  selectedSong: SongModel = {} as SongModel;
+  songPlaying: SongModel = {} as SongModel;
+  isPlaying: boolean = false;
+  song2queue: SongModel = {} as SongModel;
+  queue: SongModel[] = [];
+
+
   constructor(
     private navbarState: NavbarStateService,
     private songService: SongsService,
     private socketService: SocketsService,
+    private queueService: QueueService,
+
   ) {
     this.navbarState.setLibraryNavState('favorites');
   }
@@ -46,6 +53,8 @@ export class FavoritesComponent implements OnInit {
       else this.songs = this.songs.filter((favSong) => favSong._id !== song._id);
     });
 
+    this.queueService.queue$.subscribe((queue) => (this.queue = queue));
+
     this.navbarState.libraryNavState$.subscribe((event) => (this.libraryNavState = event));
   }
 
@@ -53,17 +62,17 @@ export class FavoritesComponent implements OnInit {
 
   openSong(songname: any) {
     this.songPressed = songname;
-    if (songname === 'Blinding Lights') {
-      console.log('Open blinding lights');
-      this.playBlindingLights = true;
-    }
   }
 
   //TODO Create modals using css classes
 
   songAdd2Queue(songname: string) {
     console.log("Add '" + songname + "' to the queue");
-    this.songPressed = songname;
+
+    this.song2queue = this.songs.find((song) => song.title === songname)!
+
+    this.queueService.append(this.song2queue);
+
     this.showMessageQueue = true;
 
     setTimeout(() => {

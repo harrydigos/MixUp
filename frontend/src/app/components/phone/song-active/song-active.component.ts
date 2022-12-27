@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SongModel } from 'src/app/global/models';
+import { SocketsService, SongPlayingService } from 'src/app/global/services';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -8,15 +10,21 @@ import { environment } from 'src/environments/environment';
 })
 export class SongActiveComponent implements OnInit {
 
-  songPlayingBool = environment.songPlaying;
 
   imgUrl:string = 'assets/images/albums/blinding_lights.jpg';
   song: string = "Blinding Lights";
   artist:string = "The Weeknd";
 
-  constructor() { }
+  isPlaying: boolean = false;
+  songPlaying: SongModel = {} as SongModel;
+
+
+  constructor(private socketsService: SocketsService,private songPlayingService: SongPlayingService,) { }
 
   ngOnInit(): void {
+        
+    this.songPlayingService.songPlaying$.subscribe((song) => (this.songPlaying = song));
+    this.songPlayingService.isPlaying$.subscribe((isPlaying) => (this.isPlaying = isPlaying));
   }
 
 }

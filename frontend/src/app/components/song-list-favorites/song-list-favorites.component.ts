@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-song-list-favorites',
@@ -10,15 +11,18 @@ export class SongListFavoritesComponent implements OnInit {
   @Input() imgUrl: string = '';
   @Input() song: string = '';
 
-  
-
   //Check if song is blinding lights and open it
+  allowSongToPlay = false;
 
   @Output() Song2open = new EventEmitter<string>();
   @Output() Song2queue = new EventEmitter<string>();
 
   openSong(title: string) {
     this.Song2open.emit(title);
+    if(title === "Blinding Lights"){
+      this.allowSongToPlay = true;
+      this._router.navigate(['/phone/play'])
+    }
   }
 
   songQueueAdded(title: string) {
@@ -37,7 +41,7 @@ export class SongListFavoritesComponent implements OnInit {
     this.removeSongFav(title);
   }
 
-  constructor() {}
+  constructor(private _router: Router) {}
 
   ngOnInit(): void {}
 }

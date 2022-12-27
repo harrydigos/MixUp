@@ -11,7 +11,9 @@ import { environment } from 'src/environments/environment';
 })
 export class SearchComponent implements OnInit {
   navState: PhoneNavbarState = 'search';
-  songPlaying = environment.songPlaying;
+  
+  songPlaying: boolean = false;
+
 
   genres = genres;
   recentSearches: AlbumDummyModel[] = recentSearches;

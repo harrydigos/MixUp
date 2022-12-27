@@ -12,7 +12,8 @@ import { environment } from 'src/environments/environment';
 export class PlaylistsComponent implements OnInit {
   navState: PhoneNavbarState = 'library';
   libraryNavState: 'favorites' | 'playlists' = 'favorites';
-  songPlaying = environment.songPlaying;
+  
+  isPlaying: boolean = false;
 
 
   savedPlaylists = playlists.filter((playlist) => playlist.saved);

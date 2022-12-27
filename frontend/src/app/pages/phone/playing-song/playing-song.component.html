@@ -28,23 +28,28 @@
     <!-- MusicTime-->
     <div class="w-full pt-[24px] pb-[24px] flex items-stretch gap-2">
       <div class="text-white text-[12px] font-medium self-center">{{ songTimeStart }}</div>
-      <div class="w-full h-[5px] rounded-full bg-white self-center"></div>
+      
+        <progress class="w-full h-[5px] rounded-full self-center" [value]="songCurrentTime" [max]="204"></progress>
+      
       <div class="text-white text-[12px] font-medium self-center">{{ songTimeEnd }}</div>
     </div>
 
     <!-- Buttons -->
     <div class="w-full h-[10vh] pb-4 flex flex-cols-5 justify-between items-center">
-      <div class="cursor-pointer">
+      <div class="hover:opacity-100">
         <img src="../../../../assets/Icons/RepeatNo.svg" alt="" />
       </div>
-      <div class="cursor-pointer">
+      <div class="hover:opacity-100">
         <img src="assets/Icons/Previous.svg" alt="" />
       </div>
-      <div class="cursor-pointer">
-        <img class="w-[55px] h-[55px]" src="assets/Icons/Pause.svg" alt="" />
+      <div class="hover:opacity-100" (click)="SongPlaying()">
+        <img *ngIf="isPlaying; else pause" class="w-[55px] h-[55px]" src="assets/Icons/Pause.svg" alt="" />
       </div>
-      <div class="cursor-pointer"><img src="assets/Icons/Next.svg" alt="" /></div>
-      <div class="cursor-pointer" (click)="toggleWall()">
+      <ng-template #pause>
+        <img src="assets/Icons/Table/Play.svg" width="55px" height="55px" />
+      </ng-template>
+      <div class="hover:opacity-100"><img src="assets/Icons/Next.svg" alt="" /></div>
+      <div class="hover:opacity-100" (click)="toggleWall()">
         <img src="assets/Icons/MirroringScreen.svg" alt="" />
       </div>
     </div>

@@ -73,9 +73,15 @@ export class TVComponent implements OnInit {
     if (this.songPlaying.title === 'Waiting For Love') {
       this.song = 'waiting_for_love';
       return true;
+      //added this in order to listen blinding lights from tv and not phone
+    } else if (this.songPlaying.title === 'Blinding Lights') {
+      this.song = 'blinding_lights';
+      return true;
+    } else {
+      return false;
     }
-    return false;
   };
+
 
   setWidth = (): Record<'width', string> => {
     if (!this.player) return { width: '0%' };

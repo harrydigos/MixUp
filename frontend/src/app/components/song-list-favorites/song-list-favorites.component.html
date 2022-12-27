@@ -1,6 +1,6 @@
 <div class="pt-1 pb-1 flex items-center">
   <img src="{{ imgUrl }}" class="w-[50px] h-[50px] rounded-[10px] object-fit" />
-  <div class="col-span-5" (click)="openSong(song)" routerLink="/phone/play">
+  <div *ngIf="!allowSongToPlay" class="col-span-5" (click)="openSong(song)" >
     <div class="grid grid-rows-2 h-[40px] justify-items-start gap-1 pl-2">
       <div class="font-normal text-white text-[16px]">{{ song }}</div>
       <div class="font-light text-white text-[12px]">{{ artist }}</div>
