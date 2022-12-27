@@ -187,9 +187,9 @@ export class TableComponent implements OnInit {
 
     // Check the direction of the rotation
     if (this.prevD > d) {
-      if (this.currTime > 0) this.songPlayingService.setCurrentTime(+(this.currTime - 0.1).toFixed(1));
+      if (this.currTime > 0) this.songPlayingService.setTimeFromDevice(+(this.currTime - 0.1).toFixed(1));
     } else {
-      this.songPlayingService.setCurrentTime(+(this.currTime + 0.1).toFixed(1));
+      this.songPlayingService.setTimeFromDevice(+(this.currTime + 0.1).toFixed(1));
     }
     this.prevD = d;
   };
