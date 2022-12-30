@@ -11,6 +11,7 @@ import { SongModel } from 'src/app/global/models';
         <th>Artist</th>
         <th>Album</th>
         <th>Time</th>
+        <th class="h-8 w-14"></th>
         <th class="h-8 w-8"></th>
       </tr>
     </thead>
@@ -32,6 +33,15 @@ import { SongModel } from 'src/app/global/models';
           <div class="w-fit hover:underline">{{ song.album }}</div>
         </td>
         <td>{{ getTimeOfSong(song.duration) }}</td>
+        <td class="px-3">
+          <img
+            (click)="addSongToQueue(song)"
+            class="transition-transform duration-100 hover:scale-110"
+            src="assets/Icons/MusicSquareAdd.svg"
+            width="32px"
+            height="32px"
+          />
+        </td>
         <td class="rounded-r-xl">
           <img
             class="transition-transform duration-100 hover:scale-110"
@@ -49,10 +59,13 @@ import { SongModel } from 'src/app/global/models';
 export class TvSongTableComponent implements OnInit {
   @Input() songs: SongModel[] = [];
   @Output() remove = new EventEmitter<SongModel>();
+  @Output() addToQueue = new EventEmitter<SongModel>();
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  addSongToQueue = (song: SongModel) => this.addToQueue.emit(song);
 
   removeSongFromFavorites = (song: SongModel) => this.remove.emit(song);
 

@@ -37,7 +37,7 @@
       <h1 class="font-semibold text-[64px] text-white">{{ songPlaying.title }}</h1>
       <h2 class="font-medium text-[32px] text-white">{{ songPlaying.artist }}</h2>
     </div>
-    <div class="relative z-50">
+    <div class="relative z-50 h-[500px]">
       <div
         class="relative w-[500px] h-[500px] rounded-full overflow-hidden cursor-grab"
         (mousedown)="startDragDisc($event)"
@@ -46,7 +46,7 @@
         (mouseleave)="stopDisc()"
         #disc
       >
-        <img class="w-[500px] h-[500px]" src="assets/vinyl.png" draggable="false" />
+        <img class="w-full h-full" src="assets/images/vinyl-record.png" draggable="false" />
         <img
           *ngIf="songPlaying.image"
           class="absolute top-1/2 left-1/2 h-48 w-48 -translate-x-1/2 -translate-y-1/2 rounded-full"

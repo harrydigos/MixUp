@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlbumModel, SongModel } from 'src/app/global/models';
-import { AlbumsService, NavbarStateService, SocketsService, SongsService } from 'src/app/global/services';
+import { AlbumsService, NavbarStateService, QueueService, SocketsService, SongsService } from 'src/app/global/services';
 
 @Component({
   selector: 'app-favorites',
@@ -15,7 +15,11 @@ import { AlbumsService, NavbarStateService, SocketsService, SongsService } from 
           </div>
         </div>
         <div class="w-full pr-[100px]">
-          <app-tv-song-table [songs]="songs" (remove)="removeSong($event)"></app-tv-song-table>
+          <app-tv-song-table
+            [songs]="songs"
+            (addToQueue)="addSongToQueue($event)"
+            (remove)="removeSong($event)"
+          ></app-tv-song-table>
         </div>
       </div>
       <div>
@@ -55,6 +59,7 @@ export class FavoritesComponent implements OnInit {
     private albumsService: AlbumsService,
     private songsService: SongsService,
     private socketService: SocketsService,
+    private queueService: QueueService,
   ) {
     this.navbarState.setLibraryNavState('favorites');
   }
@@ -83,6 +88,8 @@ export class FavoritesComponent implements OnInit {
       else this.songs = this.songs.filter((favSong) => favSong._id !== song._id);
     });
   }
+
+  addSongToQueue = (song: SongModel) => this.queueService.append(song);
 
   removeSong(song: SongModel): void {
     song.isFavorite = !song.isFavorite;

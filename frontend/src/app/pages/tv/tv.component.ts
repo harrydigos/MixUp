@@ -19,6 +19,13 @@ import { NavbarStateService, SocketsService, SongPlayingService } from 'src/app/
       <div class="fixed bottom-0 w-full h-1 bg-[#294249]"></div>
       <div class="fixed bottom-0 h-1 bg-blue-light" [ngStyle]="setWidth()"></div>
     </div>
+    <div *ngIf="queueMessage" class="absolute bottom-28 flex w-screen justify-center items-center">
+      <div
+        class="flex justify-center items-center px-8 py-4 bg-blue-extra-light rounded-lg text-2xl font-medium text-blue"
+      >
+        {{ queueMessage }}
+      </div>
+    </div>
   `,
   styles: [
     `
@@ -34,6 +41,7 @@ export class TVComponent implements OnInit {
   navState: TvNavbarState = 'home';
   songPlaying: SongModel = {} as SongModel;
   song: string = '';
+  queueMessage: string = '';
 
   isPlaying: boolean = false;
   currTime: number = 0;
@@ -67,6 +75,8 @@ export class TVComponent implements OnInit {
     this.socketsService.subscribe('mute', (isMuted: boolean) =>
       this.canPlaySong() ? (this.player.nativeElement.muted = isMuted) : null,
     );
+
+    this.socketsService.subscribe('queueMessage', (message: string) => (this.queueMessage = message));
   }
 
   canPlaySong = () => {
@@ -81,7 +91,6 @@ export class TVComponent implements OnInit {
       return false;
     }
   };
-
 
   setWidth = (): Record<'width', string> => {
     if (!this.player) return { width: '0%' };
