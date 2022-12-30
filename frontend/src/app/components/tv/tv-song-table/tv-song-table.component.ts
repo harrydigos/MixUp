@@ -22,12 +22,15 @@ import { SongModel } from 'src/app/global/models';
       >
         <td class="h-full rounded-l-xl">
           <img
+            (click)="playSong(song)"
             draggable="false"
             class="w-20 h-20 rounded-[10px] object-cover"
             src="assets/images/songs/{{ song.image }}"
           />
         </td>
-        <td class="pl-6 duration-100 group-hover:bg-blue/30">{{ song.title }}</td>
+        <td (click)="playSong(song)" class="pl-6 duration-100 group-hover:bg-blue/30 hover:underline">
+          {{ song.title }}
+        </td>
         <td>{{ song.artist }}</td>
         <td>
           <div class="w-fit hover:underline">{{ song.album }}</div>
@@ -58,12 +61,15 @@ import { SongModel } from 'src/app/global/models';
 })
 export class TvSongTableComponent implements OnInit {
   @Input() songs: SongModel[] = [];
-  @Output() remove = new EventEmitter<SongModel>();
+  @Output() play = new EventEmitter<SongModel>();
   @Output() addToQueue = new EventEmitter<SongModel>();
+  @Output() remove = new EventEmitter<SongModel>();
 
   constructor() {}
 
   ngOnInit(): void {}
+
+  playSong = (song: SongModel) => this.play.emit(song);
 
   addSongToQueue = (song: SongModel) => this.addToQueue.emit(song);
 

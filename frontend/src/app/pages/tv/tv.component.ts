@@ -19,7 +19,12 @@ import { NavbarStateService, SocketsService, SongPlayingService } from 'src/app/
       <div class="fixed bottom-0 w-full h-1 bg-[#294249]"></div>
       <div class="fixed bottom-0 h-1 bg-blue-light" [ngStyle]="setWidth()"></div>
     </div>
-    <div *ngIf="queueMessage" class="absolute bottom-28 flex w-screen justify-center items-center">
+
+    <!-- Queue message -->
+    <div
+      class="absolute bottom-28 flex w-screen justify-center items-center transition duration-400"
+      [ngStyle]="{ opacity: showQueueMessage ? 1 : 0 }"
+    >
       <div
         class="flex justify-center items-center px-8 py-4 bg-blue-extra-light rounded-lg text-2xl font-medium text-blue"
       >
@@ -41,7 +46,9 @@ export class TVComponent implements OnInit {
   navState: TvNavbarState = 'home';
   songPlaying: SongModel = {} as SongModel;
   song: string = '';
+
   queueMessage: string = '';
+  showQueueMessage: boolean = false;
 
   isPlaying: boolean = false;
   currTime: number = 0;
@@ -76,7 +83,10 @@ export class TVComponent implements OnInit {
       this.canPlaySong() ? (this.player.nativeElement.muted = isMuted) : null,
     );
 
-    this.socketsService.subscribe('queueMessage', (message: string) => (this.queueMessage = message));
+    this.socketsService.subscribe('queueMessage', (data: { message: string; show: boolean }) => {
+      this.queueMessage = data.message;
+      this.showQueueMessage = data.show;
+    });
   }
 
   canPlaySong = () => {

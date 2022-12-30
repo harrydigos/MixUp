@@ -34,7 +34,7 @@ export class QueueService {
   showMessage = (message: string) => {
     if (this.timeoutId) clearTimeout(this.timeoutId);
 
-    this.socketsService.publish('queueMessage', message);
-    this.timeoutId = setTimeout(() => this.socketsService.publish('queueMessage', ''), 2000);
+    this.socketsService.publish('queueMessage', { message, show: true });
+    this.timeoutId = setTimeout(() => this.socketsService.publish('queueMessage', { message, show: false }), 2000);
   };
 }
