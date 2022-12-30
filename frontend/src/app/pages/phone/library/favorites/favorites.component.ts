@@ -1,10 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { RouterLink } from '@angular/router';
-import { AlbumModel, SongModel } from 'src/app/global/models';
+import { Router } from '@angular/router';
+import { SongModel } from 'src/app/global/models';
 import { PhoneNavbarState } from 'src/app/global/models/navbar/phoneNavbarState.model';
-import { NavbarStateService, AlbumsService, SongsService, SocketsService, QueueService } from 'src/app/global/services';
-import { environment } from 'src/environments/environment';
+import { NavbarStateService, SongsService, SocketsService, QueueService } from 'src/app/global/services';
 
 @Component({
   selector: 'app-favorites',
@@ -13,13 +11,13 @@ import { environment } from 'src/environments/environment';
 })
 export class FavoritesComponent implements OnInit {
   navState: PhoneNavbarState = 'library';
-  
+
   songs: SongModel[] = [];
   libraryNavState: 'favorites' | 'playlists' = 'favorites';
   @Input() searchText: string = 'Search in favorites';
 
   // blindingLights: AlbumModel = {} as AlbumModel;
-  
+
   playBlindingLights: boolean = false;
   songPressed: string = '';
   showMessageQueue: boolean = false;
@@ -32,13 +30,12 @@ export class FavoritesComponent implements OnInit {
   song2queue: SongModel = {} as SongModel;
   queue: SongModel[] = [];
 
-
   constructor(
     private navbarState: NavbarStateService,
     private songService: SongsService,
     private socketService: SocketsService,
     private queueService: QueueService,
-
+    private _router: Router,
   ) {
     this.navbarState.setLibraryNavState('favorites');
   }
@@ -58,37 +55,34 @@ export class FavoritesComponent implements OnInit {
     this.navbarState.libraryNavState$.subscribe((event) => (this.libraryNavState = event));
   }
 
-  //Open song (mostly check about blinding lights)
+  openSong(song: SongModel) {
+    this.songPressed = song.title;
 
-  openSong(songname: any) {
-    this.songPressed = songname;
+    if (song.title === 'Blinding Lights') {
+      this._router.navigate([`/phone/play/${song._id}`]);
+    }
   }
 
   //TODO Create modals using css classes
 
-  songAdd2Queue(songname: string) {
-    console.log("Add '" + songname + "' to the queue");
-
-    this.song2queue = this.songs.find((song) => song.title === songname)!
-
-    this.queueService.append(this.song2queue);
+  songAdd2Queue(song: SongModel) {
+    this.song2queue = song;
+    this.queueService.append(song);
 
     this.showMessageQueue = true;
-
     setTimeout(() => {
       this.showMessageQueue = false;
     }, 2500);
   }
 
-  rmSongFav(songname: string) {
-    let removeSong = this.songs.find((song) => song.title === songname);
-    if (!removeSong) return;
+  rmSongFav(song: SongModel) {
+    this.songPressed = song.title;
 
-    removeSong.isFavorite = false;
-    this.songService.updateSong(removeSong).subscribe();
-    this.socketService.publish('updateFavoriteSong', removeSong);
+    song.isFavorite = !song.isFavorite;
+    this.songService.updateSong(song).subscribe();
+    this.socketService.publish('updateFavoriteSong', song);
+
     this.showMessageRemove = true;
-
     setTimeout(() => {
       this.showMessageRemove = false;
     }, 2500);

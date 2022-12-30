@@ -4,6 +4,7 @@ import { PhoneNavbarState } from 'src/app/global/models/navbar/phoneNavbarState.
 import { AlbumsService, QueueService, SocketsService, SongPlayingService, SongsService } from 'src/app/global/services';
 import { AlbumModel, SongModel } from 'src/app/global/models';
 import { interval } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-playing-song',
@@ -38,6 +39,7 @@ export class PlayingSongComponent implements OnInit {
   isMuted: boolean = false;
 
   constructor(
+    private route: ActivatedRoute,
     private location: Location,
     private socketsService: SocketsService,
     private songPlayingService: SongPlayingService,
@@ -48,7 +50,8 @@ export class PlayingSongComponent implements OnInit {
 
   ngOnInit(): void {
     //Blinding lights id:
-    let songId = '63a5df4295bcc2cb6ee911cf';
+    let songId = this.route.snapshot.paramMap.get('id');
+    if (!songId) this.back();
 
     this.songPlayingService.songPlaying$.subscribe((song) => (this.songPlaying = song));
     this.songPlayingService.isPlaying$.subscribe((isPlaying) => (this.isPlaying = isPlaying));
@@ -57,7 +60,7 @@ export class PlayingSongComponent implements OnInit {
 
     //Make if statement because I can open the song from the preview so not change make the song to start again
     if (!this.isPlaying) {
-      this.songsService.getById(songId).subscribe((result) => {
+      this.songsService.getById(songId!).subscribe((result) => {
         this.songs.push(result);
         this.selectSong(this.songs[0]);
         this.songPlayingService.setSongPlaying(this.songs[0]);
@@ -107,10 +110,10 @@ export class PlayingSongComponent implements OnInit {
     } else text = m + ':' + s;
     return text;
   }
- 
+
   SongPlaying = () => {
     this.selectedSong = this.songPlaying;
-    
+
     if (this.songPlaying._id === this.selectedSong._id) {
       //maybe there is no reason for if statement below
       if (this.isPlaying) {
@@ -124,7 +127,7 @@ export class PlayingSongComponent implements OnInit {
     } else {
       //TODO error here in 2 situations: the below and if waiting for love is playing and then opening new song
       console.log(this.songPlaying._id + this.selectedSong._id);
-      
+
       this.songPlayingService.setPlay(!this.isPlaying);
       this.socketsService.publish('songPlaying', !this.isPlaying);
     }

@@ -75,14 +75,11 @@
   <div class="pt-4 pb-[76px]">
     <app-song-list-favorites
       *ngFor="let song of songs"
-      [song]="song.title"
-      [artist]="song.artist"
-      [imgUrl]="'assets/images/songs/' + song.image"
+      [song]="song"
       (removeSongFromFavorites)="rmSongFav($event)"
       (Song2open)="openSong($event)"
       (Song2queue)="songAdd2Queue($event)"
     ></app-song-list-favorites>
-
   </div>
 
   <!-- /////////////////////// -->
@@ -90,7 +87,7 @@
 
   <div *ngIf="showMessageQueue == true">
     <div class="z-40 fixed bottom-[72px] left-2 rounded-[8px] w-[95%] h-[40px] bg-white flex items-center">
-      <p class="font-normal text-black text-[12px] p-4">' {{ songPressed }} ' added to your queue.</p>
+      <p class="font-normal text-black text-[12px] p-4">' {{ song2queue.title }} ' added to your queue.</p>
     </div>
   </div>
   <div *ngIf="showMessageRemove == true">
@@ -102,6 +99,4 @@
   <div *ngIf="isPlaying" class="h-[60px]"></div>
 </div>
 
-<ng-template #playMusic>
-  
-</ng-template>
+<ng-template #playMusic> </ng-template>

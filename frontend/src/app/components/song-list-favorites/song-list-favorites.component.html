@@ -1,20 +1,13 @@
 <div class="pt-1 pb-1 flex items-center">
-  <img src="{{ imgUrl }}" class="w-[50px] h-[50px] rounded-[10px] object-fit" />
-  <div *ngIf="!allowSongToPlay" class="col-span-5" (click)="openSong(song)" >
+  <img src="assets/images/songs/{{ song.image }}" class="w-[50px] h-[50px] rounded-[10px] object-fit" />
+  <div class="col-span-5" (click)="openSong(song)">
     <div class="grid grid-rows-2 h-[40px] justify-items-start gap-1 pl-2">
-      <div class="font-normal text-white text-[16px]">{{ song }}</div>
-      <div class="font-light text-white text-[12px]">{{ artist }}</div>
+      <div class="font-normal text-white text-[16px]">{{ song.title }}</div>
+      <div class="font-light text-white text-[12px]">{{ song.artist }}</div>
     </div>
   </div>
   <div class="w-[24px] absolute right-12 mt-2" (click)="removefavorites(song)">
-    <svg
-      id="heartsvg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="#A5C9CA"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg id="heartsvg" width="24" height="24" viewBox="0 0 24 24" fill="#A5C9CA" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M16.44 3.10156C14.63 3.10156 13.01 3.98156 12 5.33156C10.99 3.98156 9.37 3.10156 7.56 3.10156C4.49 3.10156 2 5.60156 2 8.69156C2 9.88156 2.19 10.9816 2.52 12.0016C4.1 17.0016 8.97 19.9916 11.38 20.8116C11.72 20.9316 12.28 20.9316 12.62 20.8116C15.03 19.9916 19.9 17.0016 21.48 12.0016C21.81 10.9816 22 9.88156 22 8.69156C22 5.60156 19.51 3.10156 16.44 3.10156Z"
       />

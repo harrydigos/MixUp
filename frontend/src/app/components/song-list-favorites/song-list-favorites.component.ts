@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
+import { SongModel } from 'src/app/global/models';
 
 @Component({
   selector: 'app-song-list-favorites',
@@ -7,41 +7,25 @@ import { Router } from '@angular/router';
   styleUrls: ['./song-list-favorites.component.scss'],
 })
 export class SongListFavoritesComponent implements OnInit {
-  @Input() artist: string = '';
-  @Input() imgUrl: string = '';
-  @Input() song: string = '';
+  @Input() song = {} as SongModel;
 
-  //Check if song is blinding lights and open it
-  allowSongToPlay = false;
+  @Output() Song2open = new EventEmitter<SongModel>();
+  @Output() Song2queue = new EventEmitter<SongModel>();
+  @Output() removeSongFromFavorites = new EventEmitter<SongModel>();
 
-  @Output() Song2open = new EventEmitter<string>();
-  @Output() Song2queue = new EventEmitter<string>();
-
-  openSong(title: string) {
-    this.Song2open.emit(title);
-    if(title === "Blinding Lights"){
-      this.allowSongToPlay = true;
-      this._router.navigate(['/phone/play'])
-    }
+  openSong(song: SongModel) {
+    this.Song2open.emit(song);
   }
 
-  songQueueAdded(title: string) {
-    this.Song2queue.emit(title);
+  songQueueAdded(song: SongModel) {
+    this.Song2queue.emit(song);
   }
 
-  //If we will implement song remove from favorites library
-
-  @Output() removeSongFromFavorites = new EventEmitter<string>();
-
-  removeSongFav(val: string) {
-    this.removeSongFromFavorites.emit(val);
+  removefavorites(song: SongModel) {
+    this.removeSongFromFavorites.emit(song);
   }
 
-  removefavorites(title: string) {
-    this.removeSongFav(title);
-  }
-
-  constructor(private _router: Router) {}
+  constructor() {}
 
   ngOnInit(): void {}
 }

@@ -20,11 +20,11 @@ const routes: Routes = [
       },
       /* --- */
       { path: 'search', component: SearchComponent },
-      { path: 'library', component: LibraryComponent},
+      { path: 'library', component: LibraryComponent },
 
       { path: 'favorites', component: FavoritesComponent },
       { path: 'playlists', component: PlaylistsComponent },
-      { path: 'play', component: PlayingSongComponent},
+      { path: 'play/:id', component: PlayingSongComponent },
 
       { path: '**', redirectTo: 'home', pathMatch: 'full' },
     ],
