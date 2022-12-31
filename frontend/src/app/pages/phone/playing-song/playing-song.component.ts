@@ -14,38 +14,26 @@ import { ActivatedRoute } from '@angular/router';
 export class PlayingSongComponent implements OnInit {
   navState: PhoneNavbarState = 'hide';
 
-  @Input() song: string = 'Blinding Lights';
-  @Input() artist: string = 'The Weeknd';
-  @Input() album: string = 'After Hours';
+  song: SongModel = {} as SongModel;
 
-  @Input() playlistName: string = '';
-  @Input() tracks: number = 0;
-  @Input() imgUrl: string = '';
-
-  songTimeStart: string = this.time_duration(0);
-  songTimeEnd: string = this.time_duration(204);
+  songTimeStart: string = '';
+  songTimeEnd: string = '';
   songCurrentTime: number = 0;
+
   lyricsSmall = true;
   lyricsBig = false;
   showImage = true;
 
-  queue: SongModel[] = [];
-  songs: SongModel[] = [];
-  selectedSong: SongModel = {} as SongModel;
   songPlaying: SongModel = {} as SongModel;
   isPlaying: boolean = false;
   wallIsOpen: boolean = false;
-  repeat: boolean = false;
-  isMuted: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private location: Location,
     private socketsService: SocketsService,
     private songPlayingService: SongPlayingService,
-    private albumsService: AlbumsService,
     private songsService: SongsService,
-    private queueService: QueueService,
   ) {}
 
   ngOnInit(): void {
@@ -53,29 +41,27 @@ export class PlayingSongComponent implements OnInit {
     let songId = this.route.snapshot.paramMap.get('id');
     if (!songId) this.back();
 
+    this.songsService.getById(songId!).subscribe((result) => {
+      this.song = result;
+      this.songTimeStart = this.time_duration(0);
+      this.songTimeEnd = this.time_duration(204);
+    });
+
     this.songPlayingService.songPlaying$.subscribe((song) => (this.songPlaying = song));
     this.songPlayingService.isPlaying$.subscribe((isPlaying) => (this.isPlaying = isPlaying));
+
+    this.songPlayingService.currentTime$.subscribe((time) => {
+      console.log(time);
+      this.songCurrentTime = time;
+      this.songTimeStart = this.time_duration(time);
+    });
+
     this.socketsService.subscribe('wallIsOpen', (isOpen: boolean) => (this.wallIsOpen = isOpen));
-    this.socketsService.subscribe('mute', (mute: boolean) => (this.isMuted = mute));
 
     //Make if statement because I can open the song from the preview so not change make the song to start again
-    if (!this.isPlaying) {
-      this.songsService.getById(songId!).subscribe((result) => {
-        this.songs.push(result);
-        this.selectSong(this.songs[0]);
-        this.songPlayingService.setSongPlaying(this.songs[0]);
-      });
+    if (!Object.keys(this.songPlaying).length) {
+      this.songPlayingService.setSongPlaying(this.song);
     }
-
-    //Every second change the current song time and update it
-    interval(1000).subscribe(() => {
-      if (this.isPlaying && this.selectedSong) {
-        this.songPlayingService.currentTime$.subscribe((currentTime) => {
-          this.songCurrentTime = currentTime;
-        });
-        this.songTimeStart = this.time_duration(this.songCurrentTime);
-      }
-    });
   }
 
   lyricsClose() {
@@ -89,8 +75,6 @@ export class PlayingSongComponent implements OnInit {
     this.lyricsBig = true;
     this.showImage = false;
   }
-
-  selectSong = (song: SongModel) => (this.selectedSong = song);
 
   back(): void {
     this.location.back();
@@ -111,25 +95,17 @@ export class PlayingSongComponent implements OnInit {
     return text;
   }
 
-  SongPlaying = () => {
-    this.selectedSong = this.songPlaying;
+  playSong = () => {
+    if (!Object.keys(this.songPlaying).length) {
+      this.songPlayingService.setSongPlaying(this.song);
+    }
 
-    if (this.songPlaying._id === this.selectedSong._id) {
-      //maybe there is no reason for if statement below
-      if (this.isPlaying) {
-        this.songPlayingService.setPlay(!this.isPlaying);
-        console.log('Song pause from phone!');
-      } else {
-        this.songPlayingService.setPlay(!this.isPlaying);
-        this.selectedSong.duration = 204;
-        console.log('Song play from phone!');
-      }
-    } else {
-      //TODO error here in 2 situations: the below and if waiting for love is playing and then opening new song
-      console.log(this.songPlaying._id + this.selectedSong._id);
-
+    if (this.isPlaying) {
       this.songPlayingService.setPlay(!this.isPlaying);
-      this.socketsService.publish('songPlaying', !this.isPlaying);
+      console.log('Song pause from phone!');
+    } else {
+      this.songPlayingService.setPlay(!this.isPlaying);
+      console.log('Song play from phone!');
     }
   };
 

@@ -20,15 +20,15 @@ export class FavoritesComponent implements OnInit {
 
   playBlindingLights: boolean = false;
   songPressed: string = '';
-  showMessageQueue: boolean = false;
   showMessageRemove: boolean = false;
   surroundWallOpen: boolean = false;
 
   selectedSong: SongModel = {} as SongModel;
   songPlaying: SongModel = {} as SongModel;
   isPlaying: boolean = false;
-  song2queue: SongModel = {} as SongModel;
-  queue: SongModel[] = [];
+
+  queueMessage: string = '';
+  showQueueMessage: boolean = false;
 
   constructor(
     private navbarState: NavbarStateService,
@@ -50,7 +50,10 @@ export class FavoritesComponent implements OnInit {
       else this.songs = this.songs.filter((favSong) => favSong._id !== song._id);
     });
 
-    this.queueService.queue$.subscribe((queue) => (this.queue = queue));
+    this.socketService.subscribe('queueMessage', (data: { message: string; show: boolean }) => {
+      this.queueMessage = data.message;
+      this.showQueueMessage = data.show;
+    });
 
     this.navbarState.libraryNavState$.subscribe((event) => (this.libraryNavState = event));
   }
@@ -65,15 +68,7 @@ export class FavoritesComponent implements OnInit {
 
   //TODO Create modals using css classes
 
-  songAdd2Queue(song: SongModel) {
-    this.song2queue = song;
-    this.queueService.append(song);
-
-    this.showMessageQueue = true;
-    setTimeout(() => {
-      this.showMessageQueue = false;
-    }, 2500);
-  }
+  addSongToQueue = (song: SongModel) => this.queueService.append(song);
 
   rmSongFav(song: SongModel) {
     this.songPressed = song.title;

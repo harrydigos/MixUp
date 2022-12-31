@@ -78,16 +78,16 @@
       [song]="song"
       (removeSongFromFavorites)="rmSongFav($event)"
       (Song2open)="openSong($event)"
-      (Song2queue)="songAdd2Queue($event)"
+      (Song2queue)="addSongToQueue($event)"
     ></app-song-list-favorites>
   </div>
 
   <!-- /////////////////////// -->
   <!-- //TODO I have to fix something here -->
 
-  <div *ngIf="showMessageQueue == true">
+  <div *ngIf="showQueueMessage">
     <div class="z-40 fixed bottom-[72px] left-2 rounded-[8px] w-[95%] h-[40px] bg-white flex items-center">
-      <p class="font-normal text-black text-[12px] p-4">' {{ song2queue.title }} ' added to your queue.</p>
+      <p class="font-normal text-black text-[12px] p-4">{{ queueMessage }}</p>
     </div>
   </div>
   <div *ngIf="showMessageRemove == true">
