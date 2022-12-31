@@ -16,6 +16,7 @@ export class TableComponent implements OnInit {
   @ViewChild('favorites') favorites?: ElementRef;
   @ViewChild('queue') queue?: ElementRef;
   @ViewChild('disc') disc?: ElementRef;
+  @ViewChild('playback') playback!: ElementRef<HTMLAudioElement>;
 
   favAlbums: AlbumModel[] = [];
   favSongs: SongModel[] = [];
@@ -41,6 +42,8 @@ export class TableComponent implements OnInit {
   };
   R2D: number = 180 / Math.PI;
   styleRotation: number = 0;
+
+  wasPlayingBeforeDrag: boolean = false;
 
   constructor(
     private renderer: Renderer2,
@@ -167,6 +170,7 @@ export class TableComponent implements OnInit {
     this.startAngle = this.R2D * Math.atan2(y, x);
     this.active = true;
 
+    this.wasPlayingBeforeDrag = this.isPlaying;
     if (this.isPlaying) this.songPlayingService.setPlay(false);
   };
 
@@ -174,6 +178,8 @@ export class TableComponent implements OnInit {
   rotateDisc = (e: MouseEvent) => {
     if (!this.active) return;
     e.preventDefault();
+
+    if (this.wasPlayingBeforeDrag) this.vinylPlaybackSound();
 
     let x = e.clientX - this.center.x;
     let y = e.clientY - this.center.y;
@@ -187,9 +193,9 @@ export class TableComponent implements OnInit {
 
     // Check the direction of the rotation
     if (this.prevD > d) {
-      if (this.currTime > 0) this.songPlayingService.setTimeFromDevice(+(this.currTime - 0.1).toFixed(1));
+      if (this.currTime > 0) this.songPlayingService.setTimeFromDevice(+(this.currTime - 0.2));
     } else {
-      this.songPlayingService.setTimeFromDevice(+(this.currTime + 0.1).toFixed(1));
+      this.songPlayingService.setTimeFromDevice(+(this.currTime + 0.2));
     }
     this.prevD = d;
   };
@@ -198,6 +204,7 @@ export class TableComponent implements OnInit {
     this.angle += this.rotation;
     this.active = false;
     this.disc!.nativeElement.style.cursor = 'grab';
+    if (this.wasPlayingBeforeDrag) this.songPlayingService.setPlay(true);
   };
 
   playAnimDisc = () => {
@@ -212,5 +219,20 @@ export class TableComponent implements OnInit {
     };
 
     disc = setInterval(frame, 10);
+  };
+
+  vinylPlaybackSound = () => {
+    if (this.playback.nativeElement.currentTime >= this.playback.nativeElement.duration)
+      this.playback.nativeElement.currentTime = 0;
+
+    let playPromise = this.playback.nativeElement.play() as Promise<void>;
+
+    // Catch the promise error
+    if (playPromise !== undefined)
+      playPromise
+        .then((_) => {
+          setTimeout(() => this.playback.nativeElement.pause(), 10);
+        })
+        .catch((error) => {});
   };
 }
