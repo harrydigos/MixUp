@@ -23,12 +23,24 @@ import { NavbarStateService, SocketsService, SongPlayingService } from 'src/app/
     <!-- Queue message -->
     <div
       class="absolute bottom-28 flex w-screen justify-center items-center transition duration-400"
-      [ngStyle]="{ opacity: showQueueMessage ? 1 : 0 }"
+      [ngStyle]="{ opacity: queueMessage.show ? 1 : 0 }"
     >
       <div
         class="flex justify-center items-center px-8 py-4 bg-blue-extra-light rounded-lg text-2xl font-medium text-blue"
       >
-        {{ queueMessage }}
+        {{ queueMessage.message }}
+      </div>
+    </div>
+
+    <!-- Remove message -->
+    <div
+      class="absolute bottom-28 flex w-screen justify-center items-center transition duration-400"
+      [ngStyle]="{ opacity: removeMessage.show ? 1 : 0 }"
+    >
+      <div
+        class="flex justify-center items-center px-8 py-4 bg-blue-extra-light rounded-lg text-2xl font-medium text-blue"
+      >
+        {{ removeMessage.message }}
       </div>
     </div>
   `,
@@ -47,8 +59,9 @@ export class TVComponent implements OnInit {
   songPlaying: SongModel = {} as SongModel;
   song: string = '';
 
-  queueMessage: string = '';
-  showQueueMessage: boolean = false;
+  queueMessage = { message: '', show: false };
+
+  removeMessage = { message: '', show: false };
 
   isPlaying: boolean = false;
   currTime: number = 0;
@@ -83,10 +96,15 @@ export class TVComponent implements OnInit {
       this.canPlaySong() ? (this.player.nativeElement.muted = isMuted) : null,
     );
 
-    this.socketsService.subscribe('queueMessage', (data: { message: string; show: boolean }) => {
-      this.queueMessage = data.message;
-      this.showQueueMessage = data.show;
-    });
+    this.socketsService.subscribe(
+      'queueMessage',
+      (data: { message: string; show: boolean }) => (this.queueMessage = data),
+    );
+
+    this.socketsService.subscribe(
+      'deleteMessage',
+      (data: { message: string; show: boolean }) => (this.removeMessage = data),
+    );
   }
 
   canPlaySong = () => {

@@ -13,7 +13,7 @@ import {
   selector: 'app-favorites',
   template: `
     <div>
-      <div>
+      <div *ngIf="songs.length">
         <div class="mt-10 mb-6 flex w-full select-none items-center justify-between text-white">
           <div class="font-semibold text-[40px]">Favorite Songs</div>
           <div class="flex items-center justify-center gap-2 pr-[100px] hover:opacity-75 cursor-pointer">
@@ -106,5 +106,6 @@ export class FavoritesComponent implements OnInit {
     song.isFavorite = !song.isFavorite;
     this.songsService.updateSong(song).subscribe();
     this.socketService.publish('updateFavoriteSong', song);
+    this.songsService.showDeleteMessage(song.title + ' was removed from favorites');
   }
 }
