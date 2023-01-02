@@ -37,28 +37,27 @@ export class PlayingSongComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    //Blinding lights id:
     let songId = this.route.snapshot.paramMap.get('id');
+
     if (!songId) this.back();
 
     this.songsService.getById(songId!).subscribe((result) => {
       this.song = result;
+      this.songPlayingService.setSongPlaying(this.song);
       this.songTimeStart = this.time_duration(0);
-      this.songTimeEnd = this.time_duration(204);
+      this.songTimeEnd = this.time_duration(this.song.duration);
     });
 
     this.songPlayingService.songPlaying$.subscribe((song) => (this.songPlaying = song));
     this.songPlayingService.isPlaying$.subscribe((isPlaying) => (this.isPlaying = isPlaying));
 
     this.songPlayingService.currentTime$.subscribe((time) => {
-      console.log(time);
       this.songCurrentTime = time;
       this.songTimeStart = this.time_duration(time);
     });
 
     this.socketsService.subscribe('wallIsOpen', (isOpen: boolean) => (this.wallIsOpen = isOpen));
 
-    //Make if statement because I can open the song from the preview so not change make the song to start again
     if (!Object.keys(this.songPlaying).length) {
       this.songPlayingService.setSongPlaying(this.song);
     }
@@ -96,16 +95,17 @@ export class PlayingSongComponent implements OnInit {
   }
 
   playSong = () => {
-    if (!Object.keys(this.songPlaying).length) {
-      this.songPlayingService.setSongPlaying(this.song);
-    }
+    // this.isPlaying = false;
 
     if (this.isPlaying) {
       this.songPlayingService.setPlay(!this.isPlaying);
-      console.log('Song pause from phone!');
+      console.log('Pause phone!');
     } else {
       this.songPlayingService.setPlay(!this.isPlaying);
-      console.log('Song play from phone!');
+      console.log('Play phone!');
+    }
+    if (!Object.keys(this.songPlaying).length) {
+      this.songPlayingService.setSongPlaying(this.song);
     }
   };
 

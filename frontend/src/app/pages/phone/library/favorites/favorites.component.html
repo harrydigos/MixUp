@@ -1,7 +1,7 @@
 <app-ph-navbar [page]="navState"></app-ph-navbar>
 <app-song-active></app-song-active>
 <!-- //// -->
-<div *ngIf="!playBlindingLights; else playMusic" class="h-screen w-screen p-4 hide-scrollbar bg-blue-dark">
+<div  class="h-screen w-screen p-4 hide-scrollbar bg-blue-dark">
   <div class="grid grid-cols-2 pt-3 pb-4">
     <div><p class="font-semibold text-white text-[24px]">Library</p></div>
     <div class="relative">
@@ -82,9 +82,6 @@
     ></app-song-list-favorites>
   </div>
 
-  <!-- /////////////////////// -->
-  <!-- //TODO I have to fix something here -->
-
   <div *ngIf="showQueueMessage">
     <div class="z-40 fixed bottom-[72px] left-2 rounded-[8px] w-[95%] h-[40px] bg-white flex items-center">
       <p class="font-normal text-black text-[12px] p-4">{{ queueMessage }}</p>
@@ -99,4 +96,3 @@
   <div *ngIf="isPlaying" class="h-[60px]"></div>
 </div>
 
-<ng-template #playMusic> </ng-template>

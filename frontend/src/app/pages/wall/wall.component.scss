@@ -1,5 +1,9 @@
 $bgcolor: #2c3333;
 
+.highlight {
+  color: white;
+}
+
 #SurroundWall {
   background-color: $bgcolor;
   height: 655px;
@@ -81,13 +85,13 @@ $bgcolor: #2c3333;
 }
 
 #lyrics {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 0px;
-  gap: 4px;
-
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
+  // align-items: center;
+  // padding: 0px;
+  // gap: 4px;
+  color:#2c3333;
   position: absolute;
   width: 1286px;
   height: 122px;

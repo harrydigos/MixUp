@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { SongModel } from 'src/app/global/models';
 import { PhoneNavbarState } from 'src/app/global/models/navbar/phoneNavbarState.model';
-import { NavbarStateService, SongsService, SocketsService, QueueService } from 'src/app/global/services';
+import { NavbarStateService, SongsService, SocketsService, QueueService, SongPlayingService } from 'src/app/global/services';
 
 @Component({
   selector: 'app-favorites',
@@ -15,10 +15,7 @@ export class FavoritesComponent implements OnInit {
   songs: SongModel[] = [];
   libraryNavState: 'favorites' | 'playlists' = 'favorites';
   @Input() searchText: string = 'Search in favorites';
-
-  // blindingLights: AlbumModel = {} as AlbumModel;
-
-  playBlindingLights: boolean = false;
+ 
   songPressed: string = '';
   showMessageRemove: boolean = false;
   surroundWallOpen: boolean = false;
@@ -36,6 +33,7 @@ export class FavoritesComponent implements OnInit {
     private socketService: SocketsService,
     private queueService: QueueService,
     private _router: Router,
+    private songPlayingService: SongPlayingService
   ) {
     this.navbarState.setLibraryNavState('favorites');
   }
@@ -61,7 +59,12 @@ export class FavoritesComponent implements OnInit {
   openSong(song: SongModel) {
     this.songPressed = song.title;
 
+    console.log("Make the song Pause from 'favorites phone'");
+    this.songPlayingService.setPlay(this.isPlaying);
+
     if (song.title === 'Blinding Lights') {
+      this._router.navigate([`/phone/play/${song._id}`]);
+    }else{
       this._router.navigate([`/phone/play/${song._id}`]);
     }
   }

@@ -1,4 +1,4 @@
-<div *ngIf="isOpen" id="SurroundWall">
+<div *ngIf="wallIsOpen" id="SurroundWall">
   <div id="SurroundWall-Video">
     <div id="vignette-effect"></div>
 
@@ -7,12 +7,17 @@
     </video>
 
     <div id="Video-textup">
-      <p id="song_title">{{ song_title }}</p>
-      <p id="song_artist">{{ song_artist }}</p>
+      <p id="song_title">{{ song.title }}</p>
+      <p id="song_artist">{{ song.artist }}</p>
     </div>
 
     <div id="lyrics">
-      <p *ngFor="let lyric of lyrics">{{ lyric }}</p>
+      <p
+        *ngFor="let lyric of lyrics | slice : lyricStart : lyricEnd"
+        [ngClass]="{ highlight: lyric.start <= songCurrentTime && lyric.end >= songCurrentTime }"
+      >
+        {{ lyric.text }}
+      </p>
     </div>
   </div>
 
