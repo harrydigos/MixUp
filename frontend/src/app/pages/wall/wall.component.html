@@ -1,102 +1,104 @@
-<div *ngIf="wallIsOpen" id="SurroundWall">
-  <div id="SurroundWall-Video">
-    <div id="vignette-effect"></div>
+<div>
+  <div *ngIf="wallIsOpen" id="SurroundWall">
+    <div id="SurroundWall-Video">
+      <div id="vignette-effect"></div>
 
-    <video loop muted autoplay oncanplay="this.play()" onloadedmetadata="this.muted = true" id="VideoClip">
-      <source src="assets/tempPhotos/vd.mp4" type="video/mp4" alt="video" />
-    </video>
+      <video #videoClip loop muted onloadedmetadata="this.muted = true" id="VideoClip">
+        <source src="assets/tempPhotos/vd.mp4" type="video/mp4" alt="video" />
+      </video>
 
-    <div id="Video-textup">
-      <p id="song_title">{{ song.title }}</p>
-      <p id="song_artist">{{ song.artist }}</p>
+      <div id="Video-textup">
+        <p id="song_title">{{ song.title }}</p>
+        <p id="song_artist">{{ song.artist }}</p>
+      </div>
+
+      <div id="lyrics">
+        <p
+          *ngFor="let lyric of lyrics | slice : lyricStart : lyricEnd"
+          [ngClass]="{ highlight: lyric.start <= songCurrentTime && lyric.end >= songCurrentTime }"
+        >
+          {{ lyric.text }}
+        </p>
+      </div>
     </div>
 
-    <div id="lyrics">
-      <p
-        *ngFor="let lyric of lyrics | slice : lyricStart : lyricEnd"
-        [ngClass]="{ highlight: lyric.start <= songCurrentTime && lyric.end >= songCurrentTime }"
-      >
-        {{ lyric.text }}
-      </p>
+    <div id="SurroundWall-Right">
+      <div id="video-right1">
+        <div class="header-icons">
+          <img src="assets/Icons-geo/info-circle.svg" alt="icon" max-width="24px" />
+          <p class="header-right">Did you know?</p>
+        </div>
+
+        <div class="video-right1-text">
+          The Weeknd's most successful single worldwide to date, "Blinding Lights" was the best-performing global single
+          of 2020, earning 2.72 billion subscription stream equivalents globally. It was also the 8th best-performing
+          global single of 2021 with 1.61 billion subscription stream equivalents.
+        </div>
+      </div>
+
+      <div id="video-right2">
+        <div class="header-icons">
+          <img src="assets/Icons-geo/profile-2user.svg" alt="icon" max-width="24px" />
+
+          <div class="header-right">Credits</div>
+        </div>
+
+        <div id="right-text-2">
+          <div class="concerts-layout">
+            <p>Performed by:</p>
+            <p>The Weeknd</p>
+          </div>
+          <div class="concerts-layout">
+            <p>Written by:</p>
+            <p>Ahmad Balshe, Jason “DaHeala” Quenneville</p>
+          </div>
+          <div class="concerts-layout">
+            <p>Album:</p>
+            <p>After Hours</p>
+          </div>
+          <div class="concerts-layout">
+            <p>Produced by:</p>
+            <p>Martin Garix, The Weeknd</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="video-right3">
+        <div class="header-icons">
+          <img src="assets/Icons-geo/calendar.svg" alt="icon" max-width="24px" />
+
+          <div class="header-right">Upcoming Concerts</div>
+        </div>
+
+        <div id="right-text-3">
+          <div id="concert1">
+            <div class="concerts-layout">
+              <p style="width: 120px">Nov 16</p>
+              <p>The O2 - London, UK</p>
+            </div>
+
+            <div class="concerts-layout">
+              <p style="width: 120px">Wen - 19:30</p>
+              <p>The Weeknd - After Hours til Dawn Tour</p>
+            </div>
+          </div>
+
+          <div id="concert2">
+            <div class="concerts-layout">
+              <p style="width: 120px">Nov 27</p>
+              <p>SoFl Stadium - London, UK</p>
+            </div>
+
+            <div class="concerts-layout">
+              <p style="width: 120px">Sat - 18:30</p>
+              <p>The Weeknd - After Hours til Dawn Tour</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div id="SurroundWall-Right">
-    <div id="video-right1">
-      <div class="header-icons">
-        <img src="assets/Icons-geo/info-circle.svg" alt="icon" max-width="24px" />
-        <p class="header-right">Did you know?</p>
-      </div>
-
-      <div class="video-right1-text">
-        The Weeknd's most successful single worldwide to date, "Blinding Lights" was the best-performing global single
-        of 2020, earning 2.72 billion subscription stream equivalents globally. It was also the 8th best-performing
-        global single of 2021 with 1.61 billion subscription stream equivalents.
-      </div>
-    </div>
-
-    <div id="video-right2">
-      <div class="header-icons">
-        <img src="assets/Icons-geo/profile-2user.svg" alt="icon" max-width="24px" />
-
-        <div class="header-right">Credits</div>
-      </div>
-
-      <div id="right-text-2">
-        <div class="concerts-layout">
-          <p>Performed by:</p>
-          <p>The Weeknd</p>
-        </div>
-        <div class="concerts-layout">
-          <p>Written by:</p>
-          <p>Ahmad Balshe, Jason “DaHeala” Quenneville</p>
-        </div>
-        <div class="concerts-layout">
-          <p>Album:</p>
-          <p>After Hours</p>
-        </div>
-        <div class="concerts-layout">
-          <p>Produced by:</p>
-          <p>Martin Garix, The Weeknd</p>
-        </div>
-      </div>
-    </div>
-
-    <div id="video-right3">
-      <div class="header-icons">
-        <img src="assets/Icons-geo/calendar.svg" alt="icon" max-width="24px" />
-
-        <div class="header-right">Upcoming Concerts</div>
-      </div>
-
-      <div id="right-text-3">
-        <div id="concert1">
-          <div class="concerts-layout">
-            <p style="width: 120px">Nov 16</p>
-            <p>The O2 - London, UK</p>
-          </div>
-
-          <div class="concerts-layout">
-            <p style="width: 120px">Wen - 19:30</p>
-            <p>The Weeknd - After Hours til Dawn Tour</p>
-          </div>
-        </div>
-
-        <div id="concert2">
-          <div class="concerts-layout">
-            <p style="width: 120px">Nov 27</p>
-            <p>SoFl Stadium - London, UK</p>
-          </div>
-
-          <div class="concerts-layout">
-            <p style="width: 120px">Sat - 18:30</p>
-            <p>The Weeknd - After Hours til Dawn Tour</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <!-- Used for the surround wall to have black background if needed for demo purposes -->
+  <div class="absolute top-0 -z-10 h-screen w-[1920px] bg-black"></div>
 </div>
-
-<!-- Used for the surround wall to have black background if needed for demo purposes -->
-<div class="absolute top-0 -z-10 h-screen w-screen bg-black"></div>
