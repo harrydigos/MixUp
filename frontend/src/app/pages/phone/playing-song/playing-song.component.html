@@ -1,17 +1,18 @@
 <app-ph-navbar [page]="navState"></app-ph-navbar>
-<!-- //// -->
+
 <div class="h-screen w-screen hide-scrollbar bg-blue-dark">
-  <div class="w-full px-4">
+  <div class="w-full h-screen px-4">
     <div class="flex w-full items-center justify-between pt-8 pb-6 flex-cols-3">
       <div (click)="back()"><img src="assets/Icons-geo/arrow-left-2.svg" alt="" /></div>
       <div class="font-normal text-white text-[16px]">{{ song.album }}</div>
       <div><img src="assets/Icons-geo/more.svg" alt="" /></div>
     </div>
 
-    <!-- Image --> 
-    <div *ngIf="showImage" class="pt-4">
+    <!-- Image -->
+    <div *ngIf="!showLyrics" class="pt-4">
       <img
-        class="object-fit shadow-2xl w-full aspect-square rounded-[40px]"
+        *ngIf="song.image"
+        class="object-fit w-full aspect-square rounded-[40px]"
         src="assets/images/songs/{{ song.image }}"
         alt=""
       />
@@ -28,7 +29,11 @@
     <!-- MusicTime-->
     <div class="w-full py-6 flex items-center justify-between text-white text-xs font-medium">
       <div class="w-10">{{ songTimeStart }}</div>
-      <progress class="w-full h-[5px] self-center" [value]="songCurrentTime" [max]="204"></progress>
+      <progress
+        class="w-full h-[5px] self-center"
+        [value]="songCurrentTime"
+        [max]="song.duration ? song.duration * 60 : 0"
+      ></progress>
       <div class="w-10 text-right">{{ songTimeEnd }}</div>
     </div>
 
@@ -56,20 +61,11 @@
       </div>
     </div>
 
-    <!-- OpenSurroundWall -->
-    <button (click)="toggleWall()" class="flex w-full select-none justify-center">
-      <div class="flex items-center gap-2 text-blue-light/75">
-        <img src="assets/Icons/MirroringScreen.svg" width="32px" />
-        <div *ngIf="wallIsOpen; else openWall">Close surround wall</div>
-        <ng-template #openWall>Open surround wall</ng-template>
-      </div>
-    </button>
-
     <!-- Lyrics -->
     <div
-      *ngIf="lyricsSmall; else lyricsBig"
+      *ngIf="!showLyrics; else lyrics"
       class="hide-scrollbar h-[5vh] fixed bottom-0 left-4 right-4 bg-blue rounded-t-[40px] flex justify-center"
-      (pointerenter)="lyricsOpen()"
+      (pointerenter)="toggleLyrics()"
     >
       <div class="absolute top-4 left-6">
         <p class="text-[16px] text-white font-medium">Lyrics</p>
@@ -77,23 +73,18 @@
       <div>
         <hr class="w-[100px] border-[1px] mt-2 border-white/50 rounded-full" />
       </div>
-      <div class="absolute top-14 left-6">
-        <!-- call lyrics -->
-        <app-lyrics></app-lyrics>
-      </div>
     </div>
 
-    <ng-template #lyricsBig>
+    <ng-template #lyrics>
       <div class="py-4">
         <div class="hide-scrollbar h-[50vh] shadow-lg bg-blue rounded-[40px] relative">
           <div class="absolute top-4 left-6 z-10">
             <p class="text-regular text-[16px] text-white font-medium">Lyrics</p>
           </div>
-          <div class="absolute top-4 right-6 z-10" (click)="lyricsClose()">
+          <div class="absolute top-4 right-6 z-10" (click)="toggleLyrics()">
             <img style="height: 32px" src="assets/Icons/Table/CloseCircle.svg" alt="" />
           </div>
           <div class="absolute top-14 right-6 left-6">
-            <!-- call lyrics -->
             <app-lyrics></app-lyrics>
           </div>
         </div>

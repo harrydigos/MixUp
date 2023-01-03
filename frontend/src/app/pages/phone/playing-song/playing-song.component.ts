@@ -1,10 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
-import { PhoneNavbarState } from 'src/app/global/models/navbar/phoneNavbarState.model';
-import { AlbumsService, QueueService, SocketsService, SongPlayingService, SongsService } from 'src/app/global/services';
-import { AlbumModel, SongModel } from 'src/app/global/models';
-import { interval } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { PhoneNavbarState } from 'src/app/global/models/navbar/phoneNavbarState.model';
+import { SocketsService, SongPlayingService, SongsService } from 'src/app/global/services';
+import { SongModel } from 'src/app/global/models';
 
 @Component({
   selector: 'app-playing-song',
@@ -20,9 +19,7 @@ export class PlayingSongComponent implements OnInit {
   songTimeEnd: string = '';
   songCurrentTime: number = 0;
 
-  lyricsSmall = true;
-  lyricsBig = false;
-  showImage = true;
+  showLyrics: boolean = false;
 
   songPlaying: SongModel = {} as SongModel;
   isPlaying: boolean = false;
@@ -44,16 +41,17 @@ export class PlayingSongComponent implements OnInit {
     this.songsService.getById(songId!).subscribe((result) => {
       this.song = result;
       this.songPlayingService.setSongPlaying(this.song);
-      this.songTimeStart = this.time_duration(0);
-      this.songTimeEnd = this.time_duration(this.song.duration);
+      this.songTimeStart = this.getTimeDuration(0);
+      this.songTimeEnd = this.getTimeDuration(this.song.duration * 60);
     });
 
     this.songPlayingService.songPlaying$.subscribe((song) => (this.songPlaying = song));
     this.songPlayingService.isPlaying$.subscribe((isPlaying) => (this.isPlaying = isPlaying));
 
     this.songPlayingService.currentTime$.subscribe((time) => {
+      console.log(time);
       this.songCurrentTime = time;
-      this.songTimeStart = this.time_duration(time);
+      this.songTimeStart = this.getTimeDuration(time);
     });
 
     this.socketsService.subscribe('wallIsOpen', (isOpen: boolean) => (this.wallIsOpen = isOpen));
@@ -63,50 +61,25 @@ export class PlayingSongComponent implements OnInit {
     }
   }
 
-  lyricsClose() {
-    this.lyricsBig = false;
-    this.lyricsSmall = true;
-    this.showImage = true;
-  }
+  toggleLyrics = () => (this.showLyrics = !this.showLyrics);
 
-  lyricsOpen() {
-    this.lyricsSmall = false;
-    this.lyricsBig = true;
-    this.showImage = false;
-  }
+  back = () => this.location.back();
 
-  back(): void {
-    this.location.back();
-  }
+  getTimeDuration = (value: number) => {
+    let minutes = Math.floor(value / 60.0);
+    let seconds = Math.round(value % 60.0);
+    return `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+  };
 
-  time_duration(value: number) {
-    let time, m, s, text;
-    time = value;
-    if (Number.isNaN(value)) return '0:00';
-    if (time < 0) time = Math.abs(time);
-    m = Math.round(time / 60.0);
-    s = Math.round(time % 60.0);
-    if (s < 10) s = '0' + s;
-    if (s >= 30) {
-      if (m == 0) text = '0:' + s;
-      else text = m - 1 + ':' + s;
-    } else text = m + ':' + s;
-    return text;
-  }
-
+  /**
+   * Select song if it's not already selected
+   * Toggle the play state
+   */
   playSong = () => {
-    // this.isPlaying = false;
-
-    if (this.isPlaying) {
-      this.songPlayingService.setPlay(!this.isPlaying);
-      console.log('Pause phone!');
-    } else {
-      this.songPlayingService.setPlay(!this.isPlaying);
-      console.log('Play phone!');
-    }
     if (!Object.keys(this.songPlaying).length) {
       this.songPlayingService.setSongPlaying(this.song);
     }
+    this.songPlayingService.setPlay(!this.isPlaying);
   };
 
   toggleWall = () => this.socketsService.publish('wallIsOpen', !this.wallIsOpen);
