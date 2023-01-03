@@ -3,7 +3,10 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { PhoneNavbarState } from 'src/app/global/models/navbar/phoneNavbarState.model';
 import { SocketsService, SongPlayingService, SongsService } from 'src/app/global/services';
-import { SongModel } from 'src/app/global/models';
+import { LyricsType, SongModel } from 'src/app/global/models';
+import { blindingLightsLyrics } from 'src/app/global/utils';
+
+type LyricsPhone = LyricsType & { isActive: boolean };
 
 @Component({
   selector: 'app-playing-song',
@@ -19,6 +22,7 @@ export class PlayingSongComponent implements OnInit {
   songTimeEnd: string = '';
   songCurrentTime: number = 0;
 
+  lyrics: LyricsPhone[] = blindingLightsLyrics.map((lyric) => ({ ...lyric, isActive: false } as LyricsPhone));
   showLyrics: boolean = false;
 
   songPlaying: SongModel = {} as SongModel;
@@ -52,6 +56,12 @@ export class PlayingSongComponent implements OnInit {
       console.log(time);
       this.songCurrentTime = time;
       this.songTimeStart = this.getTimeDuration(time);
+
+      this.lyrics.map((lyric) => {
+        if (lyric.start <= time && lyric.end >= time) {
+          lyric.isActive = true;
+        } else lyric.isActive = false;
+      });
     });
 
     this.socketsService.subscribe('wallIsOpen', (isOpen: boolean) => (this.wallIsOpen = isOpen));

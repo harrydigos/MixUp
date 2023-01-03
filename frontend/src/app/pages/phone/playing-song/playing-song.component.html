@@ -63,7 +63,7 @@
 
     <!-- Lyrics -->
     <div
-      *ngIf="!showLyrics; else lyrics"
+      *ngIf="!showLyrics; else lyricsOpen"
       class="hide-scrollbar h-[5vh] fixed bottom-0 left-4 right-4 bg-blue rounded-t-[40px] flex justify-center"
       (pointerenter)="toggleLyrics()"
     >
@@ -75,17 +75,20 @@
       </div>
     </div>
 
-    <ng-template #lyrics>
-      <div class="py-4">
-        <div class="hide-scrollbar h-[50vh] shadow-lg bg-blue rounded-[40px] relative">
-          <div class="absolute top-4 left-6 z-10">
-            <p class="text-regular text-[16px] text-white font-medium">Lyrics</p>
-          </div>
-          <div class="absolute top-4 right-6 z-10" (click)="toggleLyrics()">
-            <img style="height: 32px" src="assets/Icons/Table/CloseCircle.svg" alt="" />
-          </div>
-          <div class="absolute top-14 right-6 left-6">
-            <app-lyrics></app-lyrics>
+    <ng-template #lyricsOpen>
+      <div class="overflow-hidden h-[50vh] bg-blue rounded-[40px] px-6 py-4">
+        <div class="w-full flex justify-between items-center pb-4">
+          <p class="text-white font-medium">Lyrics</p>
+          <img (click)="toggleLyrics()" style="width: 32px" src="assets/Icons/Table/CloseCircle.svg" alt="" />
+        </div>
+        <div class="w-full h-full overflow-scroll">
+          <div *ngFor="let lyric of lyrics" class="w-full">
+            <div
+              [ngStyle]="{ opacity: lyric.isActive ? '1' : '0.4' }"
+              class="py-1 font-semibold text-[18px] leading-relaxed text-white"
+            >
+              {{ lyric.text }}
+            </div>
           </div>
         </div>
       </div>

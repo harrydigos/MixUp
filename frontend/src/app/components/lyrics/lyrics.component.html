@@ -1,7 +1,0 @@
-<div id="lyrics-container"
-*ngFor="let lyric of lyrics | slice:lyricStart:lyricEnd"
-class="font-semibold text-[18px] w-full leading-relaxed"
-[ngClass]="{'highlight': lyric.start <= songCurrentTime && lyric.end >= songCurrentTime}"
->
-{{ lyric.text }}
-</div>
