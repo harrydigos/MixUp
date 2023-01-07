@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LibraryNavState } from 'src/app/global/models';
 import { NavbarStateService } from 'src/app/global/services';
 
 @Component({
@@ -35,7 +36,7 @@ import { NavbarStateService } from 'src/app/global/services';
   styleUrls: ['./library.component.scss'],
 })
 export class LibraryComponent implements OnInit {
-  libraryNavState: 'favorites' | 'playlists' = 'favorites';
+  libraryNavState: LibraryNavState = 'favorites';
 
   constructor(private navbarState: NavbarStateService) {
     this.navbarState.setNavState('library');

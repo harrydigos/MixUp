@@ -1,18 +1,15 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { PhoneNavbarState } from 'src/app/global/models/navbar/phoneNavbarState.model';
+import { NavbarState } from 'src/app/global/models';
 
 @Component({
   selector: 'app-ph-navbar',
   templateUrl: './ph-navbar.component.html',
-  styleUrls: ['./ph-navbar.component.scss']
+  styleUrls: ['./ph-navbar.component.scss'],
 })
 export class PhNavbarComponent implements OnInit {
+  @Input() page: NavbarState = 'home';
 
-  @Input() page: PhoneNavbarState = 'home';
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

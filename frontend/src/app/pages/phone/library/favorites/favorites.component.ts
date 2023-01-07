@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { SongModel } from 'src/app/global/models';
-import { PhoneNavbarState } from 'src/app/global/models/navbar/phoneNavbarState.model';
+import { NavbarState, SongModel } from 'src/app/global/models';
 import {
   NavbarStateService,
   SongsService,
@@ -16,7 +15,7 @@ import {
   styleUrls: ['./favorites.component.scss'],
 })
 export class FavoritesComponent implements OnInit {
-  navState: PhoneNavbarState = 'library';
+  navState: NavbarState = 'library';
 
   songs: SongModel[] = [];
   libraryNavState: 'favorites' | 'playlists' = 'favorites';

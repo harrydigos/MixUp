@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SongModel } from 'src/app/global/models';
-import { PhoneNavbarState } from 'src/app/global/models/navbar/phoneNavbarState.model';
+import { NavbarState, SongModel } from 'src/app/global/models';
 import { AlbumsService, SocketsService, SongPlayingService, SongsService } from 'src/app/global/services';
 import { playlists } from 'src/app/global/utils';
 import { environment } from 'src/environments/environment';
@@ -11,7 +10,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  navState: PhoneNavbarState = 'home';
+  navState: NavbarState = 'home';
   artist: string = '';
   song: string = '';
   imgUrl: string = '';

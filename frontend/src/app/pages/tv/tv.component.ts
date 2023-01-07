@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { SongModel, TvNavbarState } from 'src/app/global/models';
+import { SongModel, NavbarState } from 'src/app/global/models';
 import { NavbarStateService, SocketsService, SongPlayingService } from 'src/app/global/services';
 
 @Component({
@@ -55,7 +55,7 @@ import { NavbarStateService, SocketsService, SongPlayingService } from 'src/app/
 export class TVComponent implements OnInit {
   @ViewChild('player') player!: ElementRef<HTMLAudioElement>;
 
-  navState: TvNavbarState = 'home';
+  navState: NavbarState = 'home';
   songPlaying: SongModel = {} as SongModel;
   song: string = '';
 

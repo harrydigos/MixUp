@@ -1,32 +1,24 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { TvNavbarState } from '../../models';
+import { LibraryNavState, NavbarState } from 'src/app/global/models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class NavbarStateService {
-  navState = new BehaviorSubject<TvNavbarState>('home');
+  navState = new BehaviorSubject<NavbarState>('home');
   readonly navState$ = this.navState.asObservable();
 
-  libraryNavState = new BehaviorSubject<'favorites' | 'playlists'>('favorites');
+  libraryNavState = new BehaviorSubject<LibraryNavState>('favorites');
   readonly libraryNavState$ = this.libraryNavState.asObservable();
 
   constructor() {}
 
-  setNavState(state: TvNavbarState): void {
-    this.navState.next(state);
-  }
+  setNavState = (state: NavbarState) => this.navState.next(state);
 
-  getNavState(): TvNavbarState {
-    return this.navState.getValue();
-  }
+  getNavState = (): NavbarState => this.navState.getValue();
 
-  setLibraryNavState(state: 'favorites' | 'playlists'): void {
-    this.libraryNavState.next(state);
-  }
+  setLibraryNavState = (state: LibraryNavState) => this.libraryNavState.next(state);
 
-  getLibraryNavState(): 'favorites' | 'playlists' {
-    return this.libraryNavState.getValue();
-  }
+  getLibraryNavState = (): LibraryNavState => this.libraryNavState.getValue();
 }

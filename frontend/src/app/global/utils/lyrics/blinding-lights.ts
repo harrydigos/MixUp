@@ -1,4 +1,4 @@
-import { LyricsType } from 'src/app/global/models/lyrics/lyrics.model';
+import { LyricsType } from 'src/app/global/models/lyrics.model';
 
 export const blindingLightsLyrics: LyricsType[] = [
   { start: 27, end: 30, text: "I've been tryna call" },

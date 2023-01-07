@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { PhoneNavbarState } from 'src/app/global/models/navbar/phoneNavbarState.model';
 import { SocketsService, SongPlayingService, SongsService } from 'src/app/global/services';
-import { LyricsType, SongModel } from 'src/app/global/models';
+import { LyricsType, NavbarState, SongModel } from 'src/app/global/models';
 import { blindingLightsLyrics } from 'src/app/global/utils';
 
 type LyricsPhone = LyricsType & { isActive: boolean };
@@ -14,7 +13,7 @@ type LyricsPhone = LyricsType & { isActive: boolean };
   styleUrls: ['./playing-song.component.scss'],
 })
 export class PlayingSongComponent implements OnInit {
-  navState: PhoneNavbarState = 'hide';
+  navState: NavbarState = 'hide';
 
   song: SongModel = {} as SongModel;
 

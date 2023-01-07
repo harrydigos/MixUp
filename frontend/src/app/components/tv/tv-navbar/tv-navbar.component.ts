@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { TvNavbarState } from 'src/app/global/models';
+import { NavbarState } from 'src/app/global/models';
 
 @Component({
   selector: 'app-tv-navbar',
@@ -90,7 +90,7 @@ import { TvNavbarState } from 'src/app/global/models';
   `,
 })
 export class TvNavbarComponent implements OnInit {
-  @Input() page: TvNavbarState = 'home';
+  @Input() page: NavbarState = 'home';
 
   constructor() {}
 

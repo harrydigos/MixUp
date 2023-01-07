@@ -1,112 +1,52 @@
 <nav *ngIf="page !== 'hide'" class="relative h-full w-full top-0 left-0 z-50">
-    
-      <div   class="fixed bottom-0  w-full h-[60px] bg-[#2c3333] border-2 border-r-transparent border-l-transparent border-b-transparent border-t-[#395B64] z-10"
-      >
-
-        <div class="flex flex-cols-3  w-full  gap-[72px] fixed bottom-5 justify-center">
-          
-          <div class="flex flex-col w-[42px] h-[36px] items-center"
-          *ngIf="page === 'home'; else elseHome">
-              <button
-                
-                routerLink="/phone/home"
-                class="group w-10 h-10 flex items-center justify-center pt-1 pb-1"
-              >
-                <img
-                  class="group-hover:rotate-12 duration-100"
-                  src="assets/Icons/HomeBulk.svg"
-                  width="24px"
-                  height="24px"
-                />
-              </button>
-              <p class="font-normal text-[#A5C9CA] text-[12px]">Home</p>
-          </div>
-          <ng-template #elseHome>
-              <div class="flex flex-col w-[42px] h-[36px] items-center">
-                  <button
-                    routerLink="/phone"
-                    class="group w-10 h-10 flex items-center justify-center pt-1 pb-1"
-                  >
-                    <img
-                      class="group-hover:rotate-12 duration-100"
-                      src="assets/Icons/HomeTwotone.svg"
-                      width="24px"
-                      height="24px"
-                    />
-                  </button>
-                  <p class="font-normal text-white text-[12px]">Home</p>
-              </div>
-          </ng-template>
-    
-          <div class="flex flex-col w-[42px] h-[36px] items-center"
-          *ngIf="page === 'search'; else elseSearch">
-              <button
-                
-                routerLink="/phone/search"
-                class="group w-10 h-10 flex items-center justify-center pt-1 pb-1"
-              >
-                <img
-                  class="group-hover:rotate-12 duration-100"
-                  src="assets/Icons/SearchBulk.svg"
-                  width="24px"
-                  height="24px"
-                />
-              </button>
-              <p class="font-normal text-[#A5C9CA] text-[12px]">Search</p>
-          </div>
-          <ng-template #elseSearch>
-              <div class="flex flex-col w-[42px] h-[36px] items-center">
-                  <button
-                    routerLink="/phone/search"
-                    class="group w-10 h-10 flex items-center justify-center pt-1 pb-1"
-                  >
-                    <img
-                      class="group-hover:rotate-12 duration-100"
-                      src="assets/Icons/SearchTwotone.svg"
-                      width="24px"
-                      height="24px"
-                    />
-                  </button>
-                  <p class="font-normal text-white text-[12px]">Search</p>
-              </div>
-          </ng-template>
-  
-          <div class="flex flex-col w-[42px] h-[36px] items-center"
-          *ngIf="page === 'library'; else elseLibrary">
-              <button
-                
-                routerLink="/phone/playlists"
-                class="group w-10 h-10 flex items-center justify-center pt-1 pb-1"
-              >
-                <img
-                  class="group-hover:rotate-12 duration-100"
-                  src="assets/Icons/LibraryBulk.svg"
-                  width="24px"
-                  height="24px"
-                />
-              </button>
-              <p class="font-normal text-[#A5C9CA] text-[12px]">Library</p>
-          </div>
-          <ng-template #elseLibrary>
-              <div class="flex flex-col w-[42px] h-[36px] items-center">
-                  <button
-                    routerLink="/phone/playlists"
-                    class="group w-10 h-10 flex items-center justify-center pt-1 pb-1"
-                  >
-                    <img
-                      class="group-hover:rotate-12 duration-100"
-                      src="assets/Icons/LibraryTwotone.svg"
-                      width="24px"
-                      height="24px"
-                    />
-                  </button>
-                  <p class="font-normal text-white text-[12px]">Library</p>
-              </div>
-          </ng-template>
-        </div>
+  <div
+    class="fixed bottom-0 w-full h-[60px] bg-[#2c3333] border-2 border-r-transparent border-l-transparent border-b-transparent border-t-[#395B64] z-10"
+  >
+    <div class="flex flex-cols-3 w-full gap-[72px] fixed bottom-5 justify-center">
+      <div class="flex flex-col w-[42px] h-[36px] items-center" *ngIf="page === 'home'; else elseHome">
+        <button routerLink="/phone/home" class="group w-10 h-10 flex items-center justify-center pt-1 pb-1">
+          <img src="assets/Icons/HomeBulk.svg" width="24px" height="24px" />
+        </button>
+        <p class="font-normal text-[#A5C9CA] text-[12px]">Home</p>
       </div>
-      
-      
-    
-  </nav>
-  
+      <ng-template #elseHome>
+        <div class="flex flex-col w-[42px] h-[36px] items-center">
+          <button routerLink="/phone" class="group w-10 h-10 flex items-center justify-center pt-1 pb-1">
+            <img src="assets/Icons/HomeTwotone.svg" width="24px" height="24px" />
+          </button>
+          <p class="font-normal text-white text-[12px]">Home</p>
+        </div>
+      </ng-template>
+
+      <div class="flex flex-col w-[42px] h-[36px] items-center" *ngIf="page === 'search'; else elseSearch">
+        <button routerLink="/phone/search" class="group w-10 h-10 flex items-center justify-center pt-1 pb-1">
+          <img src="assets/Icons/SearchBulk.svg" width="24px" height="24px" />
+        </button>
+        <p class="font-normal text-[#A5C9CA] text-[12px]">Search</p>
+      </div>
+      <ng-template #elseSearch>
+        <div class="flex flex-col w-[42px] h-[36px] items-center">
+          <button routerLink="/phone/search" class="group w-10 h-10 flex items-center justify-center pt-1 pb-1">
+            <img src="assets/Icons/SearchTwotone.svg" width="24px" height="24px" />
+          </button>
+          <p class="font-normal text-white text-[12px]">Search</p>
+        </div>
+      </ng-template>
+
+      <div class="flex flex-col w-[42px] h-[36px] items-center" *ngIf="page === 'library'; else elseLibrary">
+        <button routerLink="/phone/favorites" class="group w-10 h-10 flex items-center justify-center pt-1 pb-1">
+          <img src="assets/Icons/LibraryBulk.svg" width="24px" height="24px" />
+        </button>
+        <p class="font-normal text-[#A5C9CA] text-[12px]">Library</p>
+      </div>
+      <ng-template #elseLibrary>
+        <div class="flex flex-col w-[42px] h-[36px] items-center">
+          <button routerLink="/phone/favorites" class="group w-10 h-10 flex items-center justify-center pt-1 pb-1">
+            <img src="assets/Icons/LibraryTwotone.svg" width="24px" height="24px" />
+          </button>
+          <p class="font-normal text-white text-[12px]">Library</p>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</nav>

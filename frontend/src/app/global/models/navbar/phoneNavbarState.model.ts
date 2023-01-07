@@ -1,1 +1,0 @@
-export type PhoneNavbarState = 'home' | 'search' | 'library' | 'hide';
