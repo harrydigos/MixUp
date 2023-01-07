@@ -16,9 +16,9 @@ export const recentSearches: AlbumDummyModel[] = [
     noTracks: 0,
   },
   {
-    name: 'Blinding Lights',
-    artist: 'The Weeknd',
-    image: 'blinding_lights.jpg',
+    name: 'Are You Mine',
+    artist: 'Arctic Monkeys',
+    image: 'am.jpg',
     isFavorite: false,
     noTracks: 0,
   },

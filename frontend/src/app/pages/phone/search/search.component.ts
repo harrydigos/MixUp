@@ -1,7 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { genres, recentSearches } from 'src/app/global/utils';
+import { Component, OnInit } from '@angular/core';
+import { GENRES, recentSearches } from 'src/app/global/utils';
 import { AlbumDummyModel, NavbarState } from 'src/app/global/models';
-import { environment } from 'src/environments/environment';
+import { SmartSpeakerService, SongPlayingService } from 'src/app/global/services';
 
 @Component({
   selector: 'app-search',
@@ -11,13 +11,25 @@ import { environment } from 'src/environments/environment';
 export class SearchComponent implements OnInit {
   navState: NavbarState = 'search';
 
-  songPlaying: boolean = false;
+  isPlaying: boolean = false;
+  musicGenres = GENRES.slice(0, 6);
 
-  genres = genres;
   recentSearches: AlbumDummyModel[] = recentSearches;
-
-  @Input() searchText: string = 'Albums, songs or playlists';
   displaySearchValue: string = 'blank';
+
+  searchSong: string[] = [
+    'the weeknd blinding lights',
+    'weeknd blinding lights',
+    'blinding lights',
+    'blinding',
+    'lights',
+  ];
+
+  constructor(private songPlayingService: SongPlayingService, private smartSpeakerService: SmartSpeakerService) {}
+
+  ngOnInit(): void {
+    this.songPlayingService.isPlaying$.subscribe((isPlaying) => (this.isPlaying = isPlaying));
+  }
 
   getvalue(val: string) {
     this.displaySearchValue = val;
@@ -38,7 +50,13 @@ export class SearchComponent implements OnInit {
     }
   }
 
-  constructor() {}
+  searchVoice = () => {
+    if (this.smartSpeakerService.isListening) return;
 
-  ngOnInit(): void {}
+    this.smartSpeakerService.initialize();
+    this.smartSpeakerService.addCommand(this.searchSong, (result: string) => {
+      this.smartSpeakerService.speak('Searching for ' + result);
+    });
+    this.smartSpeakerService.start();
+  };
 }

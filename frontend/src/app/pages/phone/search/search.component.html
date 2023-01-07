@@ -2,27 +2,23 @@
 <app-song-active></app-song-active>
 
 <!-- //// -->
-<div class="w-screen h-full hide-scrollbar bg-blue-dark">
+<div class="hide-scrollbar h-full w-screen bg-blue-dark">
   <div class="grid grid-cols-2 p-4 pt-7">
-    <p class="font-semibold text-white text-[24px]">Explore</p>
+    <p class="text-[24px] font-semibold text-white">Explore</p>
   </div>
 
   <!-- Search input-->
 
   <div class="relative block p-4">
     <span class="absolute inset-y-0 left-3 flex items-center pl-4">
-      <img
-        src="assets/Icons-geo/search-normal-1.svg"
-        class="h-5 w-5 fill-slate-300"
-        viewBox="0 0 20 20"
-      />
+      <img src="assets/Icons-geo/search-normal-1.svg" class="h-5 w-5 fill-slate-300" viewBox="0 0 20 20" />
     </span>
     <input
       #box
       (change)="getvalue(box.value)"
       type="text"
-      placeholder="{{ searchText }}"
-      class="w-full rounded-lg h-[40px] placeholder:text-blue-dark text-[14px] block border border-slate-300 pl-12 pr-3 shadow-sm focus:outline-none focus:border-sky"
+      placeholder="Albums, songs or playlists"
+      class="focus:border-sky block h-[40px] w-full rounded-lg border border-slate-300 pl-12 pr-3 text-[14px] shadow-sm placeholder:text-blue-dark focus:outline-none"
     />
   </div>
 
@@ -30,14 +26,12 @@
 
   <div *ngIf="displaySearchValue === 'blank'; else showInputResults">
     <!-- Recent Searches -->
-    <div class="grid grid-cols-2 p-4 pb-3 w-auto">
+    <div class="grid w-auto grid-cols-2 p-4 pb-3">
       <div>
-        <p class="font-medium text-white text-[20px] w-[220px]">
-          Recent Searches
-        </p>
+        <p class="w-[220px] text-[20px] font-medium text-white">Recent Searches</p>
       </div>
 
-      <div class="flex justify-end items-center">
+      <div class="flex items-center justify-end">
         <p class="view-all-text">View all</p>
         <img class="w-[20px]" src="assets/Icons-geo/arrow-right-2.svg" alt="" />
       </div>
@@ -55,126 +49,27 @@
 
     <!-- Genres -->
 
-    <div class="p-4 pb-3 w-auto">
-      <div>
-        <p class="font-medium text-white text-[20px] w-[220px]">Genres</p>
-      </div>
-    </div>
-
-    <div class="grid grid-rows-2 pb-[80px] pt-[0px]">
-      <div class="flex items-stretch gap-2 p-4 pb-2 pt-0">
-        <div
-          class="w-full h-full relative cursor-pointer hover:bg-slate-500/5 duration-100"
-        >
-          <img
-            class="w-full h-full rounded-[8px] object-right"
-            src="assets/images/genres/rock.jpg"
-            alt=""
-          />
-          <div
-            class="font-normal text-white text-[14px] z-10 absolute bottom-3 left-3"
-          >
-            <p>Rock</p>
-          </div>
-        </div>
-        <div
-          class="w-full h-full relative cursor-pointer hover:bg-slate-500/5 duration-100"
-        >
-          <img
-            class="w-full h-full rounded-[8px] object-cover"
-            src="assets/images/genres/pop.jpg"
-            alt=""
-          />
-          <div
-            class="font-normal text-white text-[14px] z-10 absolute bottom-3 left-3"
-          >
-            <p>Pop</p>
-          </div>
-        </div>
-        <div
-          class="w-full h-full relative cursor-pointer hover:bg-slate-500/5 duration-100"
-        >
-          <img
-            class="w-full h-full rounded-[8px] object-cover"
-            src="assets/images/genres/hip-hop.jpg"
-            alt=""
-          />
-          <div
-            class="font-normal text-white text-[14px] z-10 absolute bottom-3 left-3"
-          >
-            <p>Hip-Hop</p>
-          </div>
-        </div>
-      </div>
-      <div class="flex items-stretch gap-2 gap-2 pt-2 pr-4 pl-4">
-        <div
-          class="w-full h-full relative cursor-pointer hover:bg-slate-500/5 duration-100"
-        >
-          <img
-            class="w-full h-full rounded-[8px] object-right"
-            src="assets/images/genres/classic.jpg"
-            alt=""
-          />
-          <div
-            class="font-normal text-white text-[14px] z-10 absolute bottom-3 left-3"
-          >
-            <p>Classic</p>
-          </div>
-        </div>
-        <div
-          class="w-full h-full relative cursor-pointer hover:bg-slate-500/5 duration-100"
-        >
-          <img
-            class="w-full h-full rounded-[8px] object-cover"
-            src="assets/images/genres/edm.jpg"
-            alt=""
-          />
-          <div
-            class="font-normal text-white text-[14px] z-10 absolute bottom-3 left-3"
-          >
-            <p>EDM</p>
-          </div>
-        </div>
-        <div
-          class="w-full h-full relative cursor-pointer hover:bg-slate-500/5 duration-100"
-        >
-          <img
-            class="w-full h-full rounded-[8px] object-fit"
-            src="assets/images/genres/jazz.jpg"
-            alt=""
-          />
-          <div
-            class="font-normal text-white text-[14px] z-10 absolute bottom-3 left-3"
-          >
-            <p>Jazz</p>
-          </div>
-        </div>
+    <div class="w-full p-4 text-xl font-medium text-white">Genres</div>
+    <div class="grid grid-cols-3 gap-3 px-4 pb-[80px]">
+      <div class="relative h-full w-full" *ngFor="let genre of musicGenres">
+        <img class="h-full w-full rounded-[8px] object-right" src="assets/images/genres/{{ genre.image }}" alt="" />
+        <div class="absolute bottom-2 left-[10px] z-10 text-sm font-medium text-white">{{ genre.name }}</div>
       </div>
     </div>
 
     <!-- Search button -->
 
     <button
-      *ngIf="songPlaying; else searchDown"
-      class="w-[60px] h-[60px] shadow-[0px_22px_70px_4px_rgba(0,0,0,0.56)] rounded-full bg-[#E7F6F2] fixed bottom-[135px] right-2 flex align-center justify-center transition hover:bg-blue focus:outline-none focus:ring focus:ring-blue-light"
+      (click)="searchVoice()"
+      [ngClass]="isPlaying ? 'bottom-36' : 'bottom-24'"
+      class="fixed right-3 h-16 rounded-full bg-[#E7F6F2] shadow-[0px_22px_70px_4px_rgba(0,0,0,0.56)] focus:outline-none focus:ring focus:ring-blue-light"
     >
-      <img
-        class="w-[100%] h-[100%] p-3 cursor-pointer hover:bg-slate-500/5 duration-100"
-        src="assets/Icons-geo/microphone-2.svg"
-      />
+      <img class="h-full w-full p-3" src="assets/Icons-geo/microphone-2.svg" />
     </button>
-    <ng-template #searchDown>
-      <button
-        class="w-[60px] h-[60px] shadow-[0px_22px_70px_4px_rgba(0,0,0,0.56)] rounded-full bg-[#E7F6F2] fixed bottom-[85px] right-2 flex align-center justify-center transition hover:bg-blue focus:outline-none focus:ring focus:ring-blue-light"
-      >
-        <img
-          class="w-[100%] h-[100%] p-3 cursor-pointer hover:bg-slate-500/5 duration-100"
-          src="assets/Icons-geo/microphone-2.svg"
-        />
-      </button>
-    </ng-template>
-  </div>
 
+    <!-- if song is playing add padding to bottom -->
+    <div *ngIf="isPlaying" class="h-[60px]"></div>
+  </div>
   <ng-template #showInputResults>
     <div class="w-full pl-4 pr-4 pb-4 text-white">{{ displaySearchValue }}</div>
     <!-- //TODO temp results -->
@@ -195,7 +90,4 @@
       </app-song-list>
     </div>
   </ng-template>
-
-  <!-- if song is playing add padding to bottom -->
-  <div *ngIf="songPlaying" class="h-[60px]"></div>
 </div>

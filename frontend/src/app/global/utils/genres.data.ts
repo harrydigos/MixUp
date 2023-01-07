@@ -1,30 +1,30 @@
-export const genres = [
+export const GENRES = [
   {
-    gerne: 'Pop',
+    name: 'Pop',
     image: 'pop.jpg',
   },
   {
-    gerne: 'Hip-Hop',
+    name: 'Hip-Hop',
     image: 'hip-hop.jpg',
   },
   {
-    gerne: 'Rock',
+    name: 'Rock',
     image: 'rock.jpg',
   },
   {
-    gerne: 'Jazz',
+    name: 'Jazz',
     image: 'jazz.jpg',
   },
   {
-    gerne: 'Classic',
+    name: 'Classic',
     image: 'classic.jpg',
   },
   {
-    gerne: 'EDM',
+    name: 'EDM',
     image: 'edm.jpg',
   },
   {
-    gerne: 'Blues',
+    name: 'Blues',
     image: 'blues.jpg',
   },
 ];

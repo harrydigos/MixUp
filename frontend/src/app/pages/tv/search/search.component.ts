@@ -1,30 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { AlbumDummyModel } from 'src/app/global/models';
 import { NavbarStateService } from 'src/app/global/services';
-import { genres, recentSearches } from 'src/app/global/utils';
+import { GENRES, recentSearches } from 'src/app/global/utils';
 
 @Component({
   selector: 'app-search',
   template: `
-    <div class="relative h-screen w-screen overflow-x-hidden bg-blue-dark hide-scrollbar">
+    <div class="hide-scrollbar relative h-screen w-screen overflow-x-hidden bg-blue-dark">
       <button
-        class="fixed top-14 left-1/2 z-10 flex -translate-x-1/2 select-none items-center justify-center gap-4 rounded-full px-8 py-3 transition bg-blue/60 hover:bg-blue focus:ring-blue-light focus:outline-none focus:ring"
+        class="fixed top-14 left-1/2 z-10 flex -translate-x-1/2 select-none items-center justify-center gap-4 rounded-full bg-blue/60 px-8 py-3 transition hover:bg-blue focus:outline-none focus:ring focus:ring-blue-light"
       >
         <img src="assets/Icons/Microphone.svg" width="48px" height="48px" />
         <div class="text-2xl font-medium text-white">Search</div>
       </button>
 
-      <div class="relative w-full pl-[280px] py-[100px]">
-        <div class="font-semibold text-[40px] text-white select-none">Genres</div>
+      <div class="relative w-full py-[100px] pl-[280px]">
+        <div class="select-none text-[40px] font-semibold text-white">Genres</div>
         <app-card-wrapper>
           <app-tv-genre-card
             *ngFor="let card of genres"
-            [genre]="card.gerne"
+            [genre]="card.name"
             [imgUrl]="'assets/images/genres/' + card.image"
           ></app-tv-genre-card>
         </app-card-wrapper>
         <div>
-          <div class="font-semibold text-[40px] text-white mt-10 select-none">Recent Searches</div>
+          <div class="mt-10 select-none text-[40px] font-semibold text-white">Recent Searches</div>
           <app-card-wrapper>
             <app-tv-card
               *ngFor="let card of recentSearches"
@@ -39,7 +39,7 @@ import { genres, recentSearches } from 'src/app/global/utils';
   `,
 })
 export class SearchComponent implements OnInit {
-  genres = genres;
+  genres = GENRES;
   recentSearches: AlbumDummyModel[] = recentSearches;
 
   constructor(private navbarState: NavbarStateService) {
