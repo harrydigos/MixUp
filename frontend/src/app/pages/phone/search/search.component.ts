@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { GENRES, recentSearches } from 'src/app/global/utils';
-import { AlbumDummyModel, NavbarState } from 'src/app/global/models';
-import { SmartSpeakerService, SongPlayingService } from 'src/app/global/services';
+import { AlbumDummyModel, AlbumModel, NavbarState, SongModel } from 'src/app/global/models';
+import { AlbumsService, SmartSpeakerService, SongPlayingService, SongsService } from 'src/app/global/services';
+
+type SearchResults = {
+  albums: AlbumModel[];
+  songs: SongModel[];
+};
 
 @Component({
   selector: 'app-search',
@@ -15,7 +20,17 @@ export class SearchComponent implements OnInit {
   musicGenres = GENRES.slice(0, 6);
 
   recentSearches: AlbumDummyModel[] = recentSearches;
-  displaySearchValue: string = 'blank';
+  searchResult: string = '';
+
+  searchResults: SearchResults = {
+    albums: [],
+    songs: [],
+  };
+
+  allSearchResults: SearchResults = {
+    albums: [],
+    songs: [],
+  };
 
   searchSong: string[] = [
     'the weeknd blinding lights',
@@ -25,30 +40,51 @@ export class SearchComponent implements OnInit {
     'lights',
   ];
 
-  constructor(private songPlayingService: SongPlayingService, private smartSpeakerService: SmartSpeakerService) {}
+  constructor(
+    private songPlayingService: SongPlayingService,
+    private smartSpeakerService: SmartSpeakerService,
+    private songsService: SongsService,
+    private albumsService: AlbumsService,
+  ) {}
 
   ngOnInit(): void {
     this.songPlayingService.isPlaying$.subscribe((isPlaying) => (this.isPlaying = isPlaying));
+
+    this.songsService.getAll().subscribe((songs) => (this.allSearchResults.songs = songs));
+    this.albumsService.getAll().subscribe((albums) => (this.allSearchResults.albums = albums));
   }
 
-  getvalue(val: string) {
-    this.displaySearchValue = val;
-    this.checksearch(val);
-  }
+  onInputSearch = (event: Event) => {
+    this.searchResult = (event.target as HTMLInputElement).value;
+    this.fetchSearchResult();
+  };
 
-  checksearch(displaySearchValue: string) {
-    if (
-      displaySearchValue == 'the weeknd' ||
-      displaySearchValue == 'The Weeknd' ||
-      displaySearchValue == 'Weeknd' ||
-      displaySearchValue == 'weeknd'
-    ) {
-      //only in the weeknd results
-      this.displaySearchValue = "Showing results for '" + displaySearchValue + "'";
-    } else {
-      this.displaySearchValue = "Showing results for '" + displaySearchValue + "'";
-    }
-  }
+  fetchSearchResult = () => {
+    this.searchResults.songs = this.allSearchResults.songs.filter(
+      (song) =>
+        song.title.toLowerCase().includes(this.searchResult.toLowerCase()) ||
+        song.artist.toLowerCase().includes(this.searchResult.toLowerCase()),
+    );
+    this.searchResults.albums = this.allSearchResults.albums.filter(
+      (album) =>
+        album.name.toLowerCase().includes(this.searchResult.toLowerCase()) ||
+        album.artist.toLowerCase().includes(this.searchResult.toLowerCase()),
+    );
+  };
+
+  // checksearch(displaySearchValue: string) {
+  //   if (
+  //     displaySearchValue == 'the weeknd' ||
+  //     displaySearchValue == 'The Weeknd' ||
+  //     displaySearchValue == 'Weeknd' ||
+  //     displaySearchValue == 'weeknd'
+  //   ) {
+  //     //only in the weeknd results
+  //     this.displaySearchValue = "Showing results for '" + displaySearchValue + "'";
+  //   } else {
+  //     this.displaySearchValue = "Showing results for '" + displaySearchValue + "'";
+  //   }
+  // }
 
   searchVoice = () => {
     if (this.smartSpeakerService.isListening) return;

@@ -1,30 +1,24 @@
 <app-ph-navbar [page]="navState"></app-ph-navbar>
 <app-song-active></app-song-active>
-
-<!-- //// -->
-<div class="hide-scrollbar h-full w-screen bg-blue-dark">
+<div class="h-full min-h-screen w-screen bg-blue-dark">
   <div class="grid grid-cols-2 p-4 pt-7">
     <p class="text-[24px] font-semibold text-white">Explore</p>
   </div>
 
   <!-- Search input-->
-
   <div class="relative block p-4">
     <span class="absolute inset-y-0 left-3 flex items-center pl-4">
       <img src="assets/Icons-geo/search-normal-1.svg" class="h-5 w-5 fill-slate-300" viewBox="0 0 20 20" />
     </span>
     <input
-      #box
-      (change)="getvalue(box.value)"
+      (input)="onInputSearch($event)"
       type="text"
       placeholder="Albums, songs or playlists"
-      class="focus:border-sky block h-[40px] w-full rounded-lg border border-slate-300 pl-12 pr-3 text-[14px] shadow-sm placeholder:text-blue-dark focus:outline-none"
+      class="focus:border-sky block h-[40px] w-full rounded-lg border border-slate-300 pl-10 pr-3 text-[14px] shadow-sm placeholder:text-blue-dark focus:outline-none"
     />
   </div>
 
-  <!-- This div changes dynamic with search input -->
-
-  <div *ngIf="displaySearchValue === 'blank'; else showInputResults">
+  <div *ngIf="!searchResult; else showResults">
     <!-- Recent Searches -->
     <div class="grid w-auto grid-cols-2 p-4 pb-3">
       <div>
@@ -37,18 +31,15 @@
       </div>
     </div>
 
-    <div>
-      <app-song-list
-        *ngFor="let card of recentSearches"
-        [album]="card.name"
-        [artist]="card.artist"
-        [imgUrl]="'assets/images/albums/' + card.image"
-      >
-      </app-song-list>
-    </div>
+    <app-song-list
+      *ngFor="let card of recentSearches"
+      [album]="card.name"
+      [artist]="card.artist"
+      [imgUrl]="'assets/images/albums/' + card.image"
+    >
+    </app-song-list>
 
     <!-- Genres -->
-
     <div class="w-full p-4 text-xl font-medium text-white">Genres</div>
     <div class="grid grid-cols-3 gap-3 px-4 pb-[80px]">
       <div class="relative h-full w-full" *ngFor="let genre of musicGenres">
@@ -58,7 +49,6 @@
     </div>
 
     <!-- Search button -->
-
     <button
       (click)="searchVoice()"
       [ngClass]="isPlaying ? 'bottom-36' : 'bottom-24'"
@@ -70,24 +60,23 @@
     <!-- if song is playing add padding to bottom -->
     <div *ngIf="isPlaying" class="h-[60px]"></div>
   </div>
-  <ng-template #showInputResults>
-    <div class="w-full pl-4 pr-4 pb-4 text-white">{{ displaySearchValue }}</div>
-    <!-- //TODO temp results -->
-    <div class="pb-[80px]">
-      <app-song-list
-        *ngFor="let card of recentSearches"
-        [album]="'Blinding Lights'"
-        [artist]="'The Weeknd'"
-        [imgUrl]="'assets/images/albums/blinding_lights.jpg'"
-      >
-      </app-song-list>
-      <app-song-list
-        *ngFor="let card of recentSearches"
-        [album]="'Blinding Lights'"
-        [artist]="'The Weeknd'"
-        [imgUrl]="'assets/images/albums/blinding_lights.jpg'"
-      >
-      </app-song-list>
-    </div>
+  <ng-template #showResults class="pb-[80px]">
+    <div *ngIf="searchResults.albums.length" class="p-4 pb-2 text-xs font-semibold text-blue-extra-light">ALBUMS</div>
+    <app-song-list
+      *ngFor="let album of searchResults.albums"
+      [album]="album.name"
+      [artist]="album.artist"
+      [imgUrl]="'assets/images/albums/' + album.image"
+    >
+    </app-song-list>
+    <div *ngIf="searchResults.songs.length" class="p-4 pb-2 text-xs font-semibold text-blue-extra-light">SONGS</div>
+    <app-song-list
+      *ngFor="let song of searchResults.songs"
+      routerLink="/phone/play/{{ song._id }}"
+      [album]="song.title"
+      [artist]="song.artist"
+      [imgUrl]="'assets/images/songs/' + song.image"
+    >
+    </app-song-list>
   </ng-template>
 </div>
