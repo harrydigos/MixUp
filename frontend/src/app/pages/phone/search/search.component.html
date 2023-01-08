@@ -51,14 +51,14 @@
     <!-- Search button -->
     <button
       (click)="searchVoice()"
-      [ngClass]="isPlaying ? 'bottom-36' : 'bottom-24'"
+      [ngClass]="songPlaying._id ? 'bottom-36' : 'bottom-24'"
       class="fixed right-3 h-16 rounded-full bg-[#E7F6F2] shadow-[0px_22px_70px_4px_rgba(0,0,0,0.56)] focus:outline-none focus:ring focus:ring-blue-light"
     >
       <img class="h-full w-full p-3" src="assets/Icons-geo/microphone-2.svg" />
     </button>
 
     <!-- if song is playing add padding to bottom -->
-    <div *ngIf="isPlaying" class="h-[60px]"></div>
+    <div *ngIf="songPlaying._id" class="h-[60px]"></div>
   </div>
   <ng-template #showResults class="pb-[80px]">
     <div *ngIf="searchResults.albums.length" class="p-4 pb-2 text-xs font-semibold text-blue-extra-light">ALBUMS</div>

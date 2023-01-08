@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GENRES, recentSearches } from 'src/app/global/utils';
 import { AlbumDummyModel, AlbumModel, NavbarState, SongModel } from 'src/app/global/models';
 import { AlbumsService, SmartSpeakerService, SongPlayingService, SongsService } from 'src/app/global/services';
@@ -16,7 +16,7 @@ type SearchResults = {
 export class SearchComponent implements OnInit {
   navState: NavbarState = 'search';
 
-  isPlaying: boolean = false;
+  songPlaying: SongModel = {} as SongModel;
   musicGenres = GENRES.slice(0, 6);
 
   recentSearches: AlbumDummyModel[] = recentSearches;
@@ -48,7 +48,7 @@ export class SearchComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.songPlayingService.isPlaying$.subscribe((isPlaying) => (this.isPlaying = isPlaying));
+    this.songPlayingService.songPlaying$.subscribe((isPlaying) => (this.songPlaying = isPlaying));
 
     this.songsService.getAll().subscribe((songs) => (this.allSearchResults.songs = songs));
     this.albumsService.getAll().subscribe((albums) => (this.allSearchResults.albums = albums));
@@ -71,20 +71,6 @@ export class SearchComponent implements OnInit {
         album.artist.toLowerCase().includes(this.searchResult.toLowerCase()),
     );
   };
-
-  // checksearch(displaySearchValue: string) {
-  //   if (
-  //     displaySearchValue == 'the weeknd' ||
-  //     displaySearchValue == 'The Weeknd' ||
-  //     displaySearchValue == 'Weeknd' ||
-  //     displaySearchValue == 'weeknd'
-  //   ) {
-  //     //only in the weeknd results
-  //     this.displaySearchValue = "Showing results for '" + displaySearchValue + "'";
-  //   } else {
-  //     this.displaySearchValue = "Showing results for '" + displaySearchValue + "'";
-  //   }
-  // }
 
   searchVoice = () => {
     if (this.smartSpeakerService.isListening) return;
