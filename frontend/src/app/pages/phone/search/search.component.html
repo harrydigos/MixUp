@@ -12,6 +12,7 @@
     </span>
     <input
       (input)="onInputSearch($event)"
+      [value]="valueForSearch"
       type="text"
       placeholder="Albums, songs or playlists"
       class="focus:border-sky block h-[40px] w-full rounded-lg border border-slate-300 pl-10 pr-3 text-[14px] shadow-sm placeholder:text-blue-dark focus:outline-none"

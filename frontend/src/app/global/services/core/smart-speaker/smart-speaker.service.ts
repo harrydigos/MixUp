@@ -12,6 +12,8 @@ export class SmartSpeakerService {
   private commands: any = {};
   private grammar: string = '';
 
+  public retValue:string ='';
+
   public isListening: boolean = false;
 
   constructor() {
@@ -28,16 +30,21 @@ export class SmartSpeakerService {
     this.recognition.lang = 'en-US';
   }
 
+  public returnValue(): string{
+    return this.retValue;
+  }
+
   public start() {
     this.recognition.start();
     this.recognition.onresult = (event: any) => {
       let command = event.results[0][0].transcript;
+      this.retValue = command;
       console.log('Command given: ' + command);
       if (this.commands[command]) {
         this.commands[command](command);
       }
     };
-
+   
     // this.recognition.onend = () => {
     //   this.recognition.start();
     // };
@@ -46,6 +53,7 @@ export class SmartSpeakerService {
 
   public stop() {
     this.recognition.stop();
+    console.log('Stop listening');
     this.isListening = false;
   }
 

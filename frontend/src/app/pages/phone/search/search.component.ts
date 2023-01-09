@@ -16,6 +16,8 @@ type SearchResults = {
 export class SearchComponent implements OnInit {
   navState: NavbarState = 'search';
 
+  valueForSearch: string = '';
+
   songPlaying: SongModel = {} as SongModel;
   musicGenres = GENRES.slice(0, 6);
 
@@ -80,5 +82,12 @@ export class SearchComponent implements OnInit {
       this.smartSpeakerService.speak('Searching for ' + result);
     });
     this.smartSpeakerService.start();
+    setTimeout(() => {
+      this.smartSpeakerService.stop();
+      this.valueForSearch = this.smartSpeakerService.retValue;
+      this.searchResult = this.valueForSearch;
+      this.fetchSearchResult();
+    }, 3500);
+   
   };
 }
