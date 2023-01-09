@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LibraryNavState, NavbarState } from 'src/app/global/models';
+import { LibraryNavState, NavbarState, SongModel } from 'src/app/global/models';
 import { NavbarStateService } from 'src/app/global/services';
 import { playlists } from 'src/app/global/utils';
 import { environment } from 'src/environments/environment';
@@ -14,6 +14,7 @@ export class PlaylistsComponent implements OnInit {
   libraryNavState: LibraryNavState = 'playlists';
 
   isPlaying: boolean = false;
+  songPlaying: SongModel = {} as SongModel;
 
   savedPlaylists = playlists.filter((playlist) => playlist.saved);
   youMayLikePlaylists = playlists.filter((playlist) => !playlist.saved);

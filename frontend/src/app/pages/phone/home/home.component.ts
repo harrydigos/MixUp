@@ -29,8 +29,6 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.socketsService.subscribe('songPlaying', (songPlaying: boolean) => (this.isPlaying = songPlaying));
-
     this.songPlayingService.songPlaying$.subscribe((song) => (this.songPlaying = song));
     this.songPlayingService.isPlaying$.subscribe((isPlaying) => (this.isPlaying = isPlaying));
     this.socketsService.subscribe('mute', (mute: boolean) => (this.isMuted = mute));
