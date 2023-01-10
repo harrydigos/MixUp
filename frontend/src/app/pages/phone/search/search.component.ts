@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GENRES, recentSearches } from 'src/app/global/utils';
 import { AlbumDummyModel, AlbumModel, NavbarState, SongModel } from 'src/app/global/models';
 import { AlbumsService, SmartSpeakerService, SongPlayingService, SongsService } from 'src/app/global/services';
+import { Router } from '@angular/router';
 
 type SearchResults = {
   albums: AlbumModel[];
@@ -38,6 +39,9 @@ export class SearchComponent implements OnInit {
     'the weeknd blinding lights',
     'weeknd blinding lights',
     'blinding lights',
+    'the weeknd',
+    'waiting for love',
+    'die for you',
     'blinding',
     'lights',
   ];
@@ -47,6 +51,7 @@ export class SearchComponent implements OnInit {
     private smartSpeakerService: SmartSpeakerService,
     private songsService: SongsService,
     private albumsService: AlbumsService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -80,6 +85,13 @@ export class SearchComponent implements OnInit {
     this.smartSpeakerService.initialize();
     this.smartSpeakerService.addCommand(this.searchSong, (result: string) => {
       this.smartSpeakerService.speak('Searching for ' + result);
+      //If we want to navigate to blinding lights or Waiting for love with search
+      // if(result === 'blinding lights'){
+      //   this.router.navigate(['/phone/play/63b5bf03ca7e5953eb4c825e']);
+      // }else if(result === 'waiting for love'){
+      //   this.router.navigate(['/phone/play/63b5bf03ca7e5953eb4c824a']);
+      // }
+      
     });
     this.smartSpeakerService.start();
     setTimeout(() => {
@@ -88,6 +100,5 @@ export class SearchComponent implements OnInit {
       this.searchResult = this.valueForSearch;
       this.fetchSearchResult();
     }, 3500);
-   
   };
 }
