@@ -12,8 +12,7 @@ export class SmartSpeakerService {
   private commands: any = {};
   private grammar: string = '';
 
-  public retValue:string ='';
-
+  public retValue: string = '';
   public isListening: boolean = false;
 
   constructor() {
@@ -30,10 +29,6 @@ export class SmartSpeakerService {
     this.recognition.lang = 'en-US';
   }
 
-  public returnValue(): string{
-    return this.retValue;
-  }
-
   public start() {
     this.recognition.start();
     this.recognition.onresult = (event: any) => {
@@ -44,7 +39,7 @@ export class SmartSpeakerService {
         this.commands[command](command);
       }
     };
-   
+
     // this.recognition.onend = () => {
     //   this.recognition.start();
     // };

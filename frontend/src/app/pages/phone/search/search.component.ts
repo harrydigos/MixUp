@@ -35,16 +35,7 @@ export class SearchComponent implements OnInit {
     songs: [],
   };
 
-  searchSong: string[] = [
-    'the weeknd blinding lights',
-    'weeknd blinding lights',
-    'blinding lights',
-    'the weeknd',
-    'waiting for love',
-    'die for you',
-    'blinding',
-    'lights',
-  ];
+  searchSong: string[] = ['blinding lights'];
 
   constructor(
     private songPlayingService: SongPlayingService,
@@ -63,10 +54,11 @@ export class SearchComponent implements OnInit {
 
   onInputSearch = (event: Event) => {
     this.searchResult = (event.target as HTMLInputElement).value;
-    this.fetchSearchResult();
+    this.fetchSearchResult((event.target as HTMLInputElement).value);
   };
 
-  fetchSearchResult = () => {
+  fetchSearchResult = (input: string) => {
+    this.searchResult = input;
     this.searchResults.songs = this.allSearchResults.songs.filter(
       (song) =>
         song.title.toLowerCase().includes(this.searchResult.toLowerCase()) ||
@@ -82,23 +74,24 @@ export class SearchComponent implements OnInit {
   searchVoice = () => {
     if (this.smartSpeakerService.isListening) return;
 
+    // Use instant navigation or results in search?
+
     this.smartSpeakerService.initialize();
     this.smartSpeakerService.addCommand(this.searchSong, (result: string) => {
       this.smartSpeakerService.speak('Searching for ' + result);
-      //If we want to navigate to blinding lights or Waiting for love with search
-      // if(result === 'blinding lights'){
-      //   this.router.navigate(['/phone/play/63b5bf03ca7e5953eb4c825e']);
-      // }else if(result === 'waiting for love'){
-      //   this.router.navigate(['/phone/play/63b5bf03ca7e5953eb4c824a']);
-      // }
-      
+
+      // Navigate to song instatly
+      let songId = this.allSearchResults.songs.find((song) => song.title.toLowerCase() === result)?._id;
+      if (songId) this.router.navigate(['/phone/play/' + songId]);
     });
     this.smartSpeakerService.start();
     setTimeout(() => {
       this.smartSpeakerService.stop();
-      this.valueForSearch = this.smartSpeakerService.retValue;
-      this.searchResult = this.valueForSearch;
-      this.fetchSearchResult();
+
+      // Show results in search
+      console.log(this.smartSpeakerService.retValue);
+      // this.valueForSearch = this.smartSpeakerService.retValue;
+      // this.fetchSearchResult(this.smartSpeakerService.retValue);
     }, 3500);
   };
 }
