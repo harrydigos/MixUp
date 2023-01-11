@@ -14,8 +14,7 @@ const routes: Routes = [
       { path: 'search', component: SearchComponent },
       {
         path: 'library',
-        loadChildren: () =>
-          import('./library/library.module').then((m) => m.LibraryModule),
+        loadChildren: () => import('./library/library.module').then((m) => m.LibraryModule),
       },
       {
         path: 'album/:id',
