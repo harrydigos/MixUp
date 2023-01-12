@@ -17,8 +17,6 @@ type SearchResults = {
 export class SearchComponent implements OnInit {
   navState: NavbarState = 'search';
 
-  valueForSearch: string = '';
-
   songPlaying: SongModel = {} as SongModel;
   musicGenres = GENRES.slice(0, 6);
 
@@ -34,8 +32,6 @@ export class SearchComponent implements OnInit {
     albums: [],
     songs: [],
   };
-
-  searchSong: string[] = ['blinding lights'];
 
   constructor(
     private songPlayingService: SongPlayingService,
@@ -74,24 +70,16 @@ export class SearchComponent implements OnInit {
   searchVoice = () => {
     if (this.smartSpeakerService.isListening) return;
 
-    // Use instant navigation or results in search?
-
     this.smartSpeakerService.initialize();
-    this.smartSpeakerService.addCommand(this.searchSong, (result: string) => {
-      this.smartSpeakerService.speak('Searching for ' + result);
-
-      // Navigate to song instatly
-      let songId = this.allSearchResults.songs.find((song) => song.title.toLowerCase() === result)?._id;
-      if (songId) this.router.navigate(['/phone/play/' + songId]);
-    });
     this.smartSpeakerService.start();
     setTimeout(() => {
       this.smartSpeakerService.stop();
 
       // Show results in search
       console.log(this.smartSpeakerService.retValue);
-      // this.valueForSearch = this.smartSpeakerService.retValue;
-      // this.fetchSearchResult(this.smartSpeakerService.retValue);
+      this.fetchSearchResult(this.smartSpeakerService.retValue);
     }, 3500);
   };
+
+  resetSearch = () => (this.searchResult = '');
 }

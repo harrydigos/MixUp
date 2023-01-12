@@ -1,13 +1,13 @@
 <div
   #table
-  class="relative h-screen w-screen select-none overflow-hidden bg-blue-dark hide-scrollbar"
+  class="hide-scrollbar relative h-screen w-screen select-none overflow-hidden bg-blue-dark"
   (click)="toggleMenu($event)"
   (mousemove)="getMousePosition($event)"
 >
   <div class="menu" #menu>
     <div class="bubble-wrapper">
       <img
-        class="absolute bottom-0 left-1/2 -translate-x-1/2 cursor-pointer z-5"
+        class="z-5 absolute bottom-0 left-1/2 -translate-x-1/2 cursor-pointer"
         src="assets/Icons/Table/CloseCircle.svg"
         width="150px"
         height="150px"
@@ -24,7 +24,7 @@
         <img src="assets/Icons/Table/FolderFavorite.svg" width="48px" height="48px" />
       </button>
       <button class="bubble" (click)="toggleWall()">
-        <div *ngIf="wallIsOpen" class="absolute top-8 right-5 w-6 h-[3px] rounded-full bg-[#E7F6F2] -rotate-45"></div>
+        <div *ngIf="wallIsOpen" class="absolute top-8 right-5 h-[3px] w-6 -rotate-45 rounded-full bg-[#E7F6F2]"></div>
         <img src="assets/Icons/Table/MirroringScreen.svg" width="48px" height="48px" />
       </button>
       <button class="bubble" (click)="showQueue()">
@@ -33,20 +33,20 @@
     </div>
   </div>
   <div class="relative mx-auto flex h-full w-1/2 flex-col items-center justify-between py-20">
-    <div class="text-center h-[150px]">
-      <h1 class="font-semibold text-[64px] text-white">{{ songPlaying.title }}</h1>
-      <h2 class="font-medium text-[32px] text-white">{{ songPlaying.artist }}</h2>
+    <div class="h-[150px] text-center">
+      <h1 class="text-[64px] font-semibold text-white">{{ songPlaying.title }}</h1>
+      <h2 class="text-[32px] font-medium text-white">{{ songPlaying.artist }}</h2>
     </div>
     <div class="relative z-50 h-[500px]">
       <div
-        class="relative w-[500px] h-[500px] rounded-full overflow-hidden cursor-grab"
+        class="relative h-[500px] w-[500px] cursor-grab overflow-hidden rounded-full"
         (mousedown)="startDragDisc($event)"
         (mousemove)="rotateDisc($event)"
         (mouseup)="stopDisc()"
         (mouseleave)="stopDisc()"
         #disc
       >
-        <img class="w-full h-full" src="assets/images/vinyl-record.png" draggable="false" />
+        <img class="h-full w-full" src="assets/images/vinyl-record.png" draggable="false" />
         <img
           *ngIf="songPlaying.image"
           class="absolute top-1/2 left-1/2 h-48 w-48 -translate-x-1/2 -translate-y-1/2 rounded-full"
@@ -105,11 +105,14 @@
       </div>
     </div>
   </div>
-  <div class="queue w-[600px] rounded-2xl flex flex-col p-4 pr-0 gap-4 shadow-md overflow-hidden bg-blue-dark" #queue>
+  <div
+    class="queue flex w-[600px] flex-col gap-4 overflow-hidden rounded-2xl bg-blue-dark p-4 pr-0 shadow-[0_0_13px_7px_rgba(0,0,0,0.1)]"
+    #queue
+  >
     <div class="flex w-full items-center justify-between">
       <div class="flex items-center gap-2">
         <img src="assets/Icons/Table/Queue.svg" width="48px" height="48px" />
-        <h1 class="font-medium text-[48px] text-white">Queue</h1>
+        <h1 class="text-[48px] font-medium text-white">Queue</h1>
       </div>
       <button class="hover:opacity-70" (click)="closeQueue()">
         <img src="assets/Icons/Table/CloseCircle.svg" width="64px" height="64px" />
@@ -124,25 +127,25 @@
       ></app-table-disc>
     </app-card-wrapper>
     <ng-template #emptyQueue>
-      <h2 class="text-2xl text-white/75 font-base">Queue is empty</h2>
+      <h2 class="font-base text-2xl text-white/75">Queue is empty</h2>
     </ng-template>
   </div>
 
   <div
-    class="favorites w-[600px] rounded-2xl flex flex-col p-4 pr-0 gap-4 shadow-md overflow-hidden bg-blue-dark"
+    class="favorites flex w-[600px] flex-col gap-4 overflow-hidden rounded-2xl bg-blue-dark p-4 pr-0 shadow-[0_0_13px_7px_rgba(0,0,0,0.1)]"
     #favorites
   >
     <div class="flex w-full items-center justify-between">
       <div class="flex items-center gap-2">
         <img src="assets/Icons/Table/FolderFavorite.svg" width="48px" height="48px" />
-        <h1 class="font-medium text-[48px] text-white">Favorites</h1>
+        <h1 class="text-[48px] font-medium text-white">Favorites</h1>
       </div>
       <button class="hover:opacity-70" (click)="closeFavorites()">
         <img src="assets/Icons/Table/CloseCircle.svg" width="64px" height="64px" />
       </button>
     </div>
     <div *ngIf="favSongs.length" class="flex flex-col gap-4">
-      <h2 class="font-medium text-[32px] text-white">Songs</h2>
+      <h2 class="text-[32px] font-medium text-white">Songs</h2>
       <app-card-wrapper>
         <app-table-disc
           *ngFor="let song of favSongs"
@@ -152,7 +155,7 @@
       </app-card-wrapper>
     </div>
     <div *ngIf="favAlbums.length" class="flex flex-col gap-4">
-      <h2 class="font-medium text-[32px] text-white">Albums</h2>
+      <h2 class="text-[32px] font-medium text-white">Albums</h2>
       <app-card-wrapper>
         <app-table-disc
           *ngFor="let album of favAlbums"
@@ -162,7 +165,7 @@
       </app-card-wrapper>
     </div>
     <div *ngIf="!favAlbums.length && !favSongs.length">
-      <h2 class="text-2xl text-white/75 font-base">No favorites yet</h2>
+      <h2 class="font-base text-2xl text-white/75">No favorites yet</h2>
     </div>
   </div>
   <audio #playback src="assets/playbackSound.mp3" loop></audio>

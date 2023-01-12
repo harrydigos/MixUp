@@ -12,11 +12,14 @@
     </span>
     <input
       (input)="onInputSearch($event)"
-      [value]="valueForSearch"
+      [value]="searchResult"
       type="text"
       placeholder="Albums, songs or playlists"
       class="focus:border-sky block h-[40px] w-full rounded-lg border border-slate-300 pl-10 pr-3 text-[14px] shadow-sm placeholder:text-blue-dark focus:outline-none"
     />
+    <button (click)="resetSearch()" *ngIf="searchResult" class="absolute right-6 top-1/2 -translate-y-1/2">
+      <img src="assets/Icons/Close.svg" class="h-6 w-6 opacity-50" />
+    </button>
   </div>
 
   <div *ngIf="!searchResult; else showResults">

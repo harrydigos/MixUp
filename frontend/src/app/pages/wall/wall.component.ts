@@ -27,7 +27,11 @@ export class WallComponent implements OnInit {
   constructor(private socketsService: SocketsService, private songPlayingService: SongPlayingService) {}
 
   ngOnInit(): void {
-    this.socketsService.subscribe('wallIsOpen', (isOpen: boolean) => (this.wallIsOpen = isOpen));
+    this.socketsService.subscribe('wallIsOpen', (isOpen: boolean) => {
+      this.wallIsOpen = isOpen;
+      setTimeout(() => this.setVideoClip(isOpen), 300);
+    });
+
     this.songPlayingService.songPlaying$.subscribe((song) => {
       this.songPlaying = song;
       this.resetLyrics();
