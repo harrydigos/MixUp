@@ -1,7 +1,7 @@
-<div *ngIf="album.name" class="relative h-screen w-screen overflow-x-hidden bg-blue-dark hide-scrollbar">
+<div *ngIf="album.name" class="hide-scrollbar relative h-screen w-screen overflow-x-hidden bg-blue-dark">
   <div class="flex w-full">
     <div class="w-1/2">
-      <div class="w-full h-full p-[100px] flex flex-col gap-6">
+      <div class="flex h-full w-full flex-col gap-6 p-[100px]">
         <div>
           <button
             (click)="back()"
@@ -19,7 +19,7 @@
           <div class="flex select-none gap-8">
             <button
               (click)="shuffle()"
-              class="hover:opacity-75 flex gap-2 justify-center items-center py-[6px] px-5 bg-blue-light rounded-2xl text-blue-dark font-semibold text-2xl"
+              class="flex items-center justify-center gap-2 rounded-2xl bg-blue-light py-[6px] px-5 text-2xl font-semibold text-blue-dark hover:opacity-75"
             >
               <img src="assets/Icons/Shuffle.svg" width="40px" height="40px" />
               Shuffle
@@ -36,20 +36,20 @@
           <img
             draggable="false"
             src="assets/images/artists/{{ album.artistImage }}"
-            class="w-[64px] h-[64px] rounded-full object-cover"
+            class="h-[64px] w-[64px] rounded-full object-cover"
           />
-          <div class="text-white text-[40px] font-medium">
+          <div class="text-[40px] font-medium text-white">
             {{ album.artist }}
           </div>
         </div>
         <div class="flex select-none items-center gap-6">
           <div
-            class="flex items-center justify-center rounded-full px-4 py-2 text-xl font-medium bg-blue text-blue-extra-light"
+            class="flex items-center justify-center rounded-full bg-blue px-4 py-2 text-xl font-medium text-blue-extra-light"
           >
             {{ album.noTracks }} Tracks
           </div>
           <div
-            class="flex items-center justify-center rounded-full px-4 py-2 text-xl font-medium bg-blue text-blue-extra-light"
+            class="flex items-center justify-center rounded-full bg-blue px-4 py-2 text-xl font-medium text-blue-extra-light"
           >
             {{ album.duration }} Minutes
           </div>
@@ -77,56 +77,85 @@
         </div>
       </div>
       <div class="fixed top-0 right-0 h-full w-1/2">
-        <div class="w-[600px] h-full mx-auto flex flex-col gap-12 justify-center items-center">
+        <div class="mx-auto flex h-full w-[600px] flex-col items-center justify-center gap-12">
           <img
             draggable="false"
-            class="w-full h-[600px] rounded-3xl select-none"
+            class="h-[600px] w-full select-none rounded-3xl"
             src="assets/images/albums/{{ album.image }}"
           />
-          <h1 class="font-semibold text-5xl w-[580px] h-14 truncate text-white text-center align-middle select-none">
+          <h1 class="h-14 w-[580px] select-none truncate text-center align-middle text-5xl font-semibold text-white">
             {{ selectedSong.title }}
           </h1>
           <div class="flex w-full select-none items-center justify-between">
-            <button class="hover:opacity-75" (click)="toggleRepeat()">
-              <img *ngIf="repeat; else noRepeat" src="assets/Icons/RepeatYes.svg" width="48px" height="48px" />
-              <ng-template #noRepeat>
-                <img src="assets/Icons/RepeatNo.svg" width="48px" height="48px" />
-              </ng-template>
-            </button>
-
-            <button (click)="navigateSong('prev')">
-              <img class="hover:opacity-75" src="assets/Icons/Previous.svg" width="48px" height="48px" />
-            </button>
-
-            <button (click)="playSong()" class="hover:opacity-70">
+            <img
+              class="cursor-pointer hover:opacity-70"
+              *ngIf="repeat; else noRepeat"
+              (click)="toggleRepeat()"
+              src="assets/Icons/RepeatYes.svg"
+              width="48px"
+              height="48px"
+            />
+            <ng-template #noRepeat>
               <img
-                *ngIf="selectedSong._id === songPlaying._id && isPlaying; else pause"
-                src="assets/Icons/Pause.svg"
-                width="80px"
-                height="80px"
-              />
-              <ng-template #pause>
-                <img src="assets/Icons/Table/Play.svg" width="80px" height="80px" />
-              </ng-template>
-            </button>
-
-            <button (click)="navigateSong('next')">
-              <img class="hover:opacity-75" src="assets/Icons/Next.svg" width="48px" height="48px" />
-            </button>
-            <button (click)="addToQueue()">
-              <img
-                class="cursor-pointer hover:opacity-75"
-                src="assets/Icons/MusicSquareAdd.svg"
+                class="cursor-pointer hover:opacity-70"
+                (click)="toggleRepeat()"
+                src="assets/Icons/RepeatNo.svg"
                 width="48px"
                 height="48px"
               />
-            </button>
+            </ng-template>
+
+            <img
+              (click)="navigateSong('prev')"
+              class="cursor-pointer hover:opacity-70"
+              src="assets/Icons/Previous.svg"
+              width="48px"
+              height="48px"
+            />
+            <img
+              class="cursor-pointer hover:opacity-70"
+              *ngIf="selectedSong._id === songPlaying._id && isPlaying; else pause"
+              (click)="playSong()"
+              src="assets/Icons/Pause.svg"
+              width="80px"
+              height="80px"
+            />
+            <ng-template #pause>
+              <img
+                class="cursor-pointer hover:opacity-70"
+                (click)="playSong()"
+                src="assets/Icons/Table/Play.svg"
+                width="80px"
+                height="80px"
+              />
+            </ng-template>
+            <img
+              (click)="navigateSong('next')"
+              class="cursor-pointer hover:opacity-70"
+              src="assets/Icons/Next.svg"
+              width="48px"
+              height="48px"
+            />
+            <img
+              (click)="addToQueue()"
+              class="cursor-pointer hover:opacity-75"
+              src="assets/Icons/MusicSquareAdd.svg"
+              width="48px"
+              height="48px"
+            />
           </div>
+
           <button
             (click)="toggleWall()"
             class="flex select-none items-center gap-3 text-2xl text-blue-light/75 hover:opacity-75"
           >
-            <img src="assets/Icons/MirroringScreen.svg" width="48px" height="48px" />
+            <div class="relative">
+              <div
+                *ngIf="wallIsOpen"
+                class="absolute top-4 right-[1px] h-[3px] w-7 -rotate-45 rounded-full bg-blue-light"
+              ></div>
+              <img src="assets/Icons/MirroringScreen.svg" width="48px" height="48px" />
+            </div>
             <div *ngIf="wallIsOpen; else openWall">Close surround wall</div>
             <ng-template #openWall>Open surround wall</ng-template>
           </button>
