@@ -1,31 +1,24 @@
-<app-ph-navbar [page]="navState"></app-ph-navbar>
 <app-song-active></app-song-active>
-<!-- //// -->
-<div class="w-screen h-full hide-scrollbar bg-blue-dark">
-  <div class="grid grid-cols-2 p-4 pt-7">
+
+<div class="hide-scrollbar h-full w-screen bg-blue-dark">
+  <div class="flex justify-between p-4 pt-7">
     <img src="assets/Icons-geo/MIXUP-logo.svg" alt="logo" />
-    <div class="flex justify-end">
-      <img
-        src="assets/Icons-geo/profile-pic.svg"
-        class=""
-        alt="profile photo"
-      />
-    </div>
+    <img src="assets/images/profile.jpg" class="h-10 w-10 rounded-full object-cover object-center" />
   </div>
 
   <!-- Mixes for you div -->
-  
-  <div>
-    <div class="grid grid-cols-2 p-4 pb-3 w-auto">
-      <div><p class="font-medium text-white text-[20px]">Mixes for you</p></div>
 
-      <div class="flex justify-end items-center">
+  <div>
+    <div class="grid w-auto grid-cols-2 p-4 pb-3">
+      <div><p class="text-[20px] font-medium text-white">Mixes for you</p></div>
+
+      <div class="flex items-center justify-end">
         <p class="view-all-text flex justify-center">View all</p>
         <img class="w-[20px]" src="assets/Icons-geo/arrow-right-2.svg" alt="" />
       </div>
     </div>
 
-    <div class="w-full pl-2 pr-4 overflow-x-auto flex hide-scrollbar">
+    <div class="hide-scrollbar flex w-full overflow-x-auto pl-2 pr-4">
       <app-phone-card
         class="cursor-pointer"
         *ngFor="let playlist of savedPlaylists"
@@ -39,12 +32,12 @@
   <!-- New Tracks div -->
 
   <div>
-    <div class="grid grid-cols-2 p-4 pb-2 w-auto">
+    <div class="grid w-auto grid-cols-2 p-4 pb-2">
       <div>
-        <p class="font-medium text-white text-[20px] w-[220px]">New Tracks</p>
+        <p class="w-[220px] text-[20px] font-medium text-white">New Tracks</p>
       </div>
 
-      <div class="flex justify-end items-center">
+      <div class="flex items-center justify-end">
         <p class="view-all-text">View all</p>
         <img class="w-[20px]" src="assets/Icons-geo/arrow-right-2.svg" alt="" />
       </div>
@@ -75,20 +68,18 @@
   <!-- Recently Listened (may want to change) -->
 
   <div>
-    <div class="grid grid-cols-2 p-4 pb-3 w-auto">
+    <div class="grid w-auto grid-cols-2 p-4 pb-3">
       <div>
-        <p class="font-medium text-white text-[20px] w-[220px]">
-          Recently Listened
-        </p>
+        <p class="w-[220px] text-[20px] font-medium text-white">Recently Listened</p>
       </div>
 
-      <div class="flex justify-end items-center">
+      <div class="flex items-center justify-end">
         <p class="view-all-text">View all</p>
         <img class="w-[20px]" src="assets/Icons-geo/arrow-right-2.svg" alt="" />
       </div>
     </div>
 
-    <div class="w-full pl-2 pr-5 pb-[76px] overflow-x-auto flex hide-scrollbar">
+    <div class="hide-scrollbar flex w-full overflow-x-auto pl-2 pr-5 pb-[76px]">
       <app-phone-card
         *ngFor="let playlist of savedPlaylists"
         [playlistName]="playlist.name"

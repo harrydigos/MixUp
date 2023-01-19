@@ -1,5 +1,5 @@
 import { SongModel, NavbarState } from 'src/app/global/models';
-import { LeapService, NavbarStateService, SocketsService, SongPlayingService } from 'src/app/global/services';
+import { LeapService, TvNavbarStateService, SocketsService, SongPlayingService } from 'src/app/global/services';
 import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
 import * as $ from 'jquery';
 
@@ -121,7 +121,7 @@ export class TVComponent implements OnInit {
   private cursorCounter = 0;
 
   constructor(
-    private navbarState: NavbarStateService,
+    private navbarState: TvNavbarStateService,
     private socketsService: SocketsService,
     private songPlayingService: SongPlayingService,
     public leap: LeapService,

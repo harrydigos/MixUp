@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlbumModel, SongModel } from 'src/app/global/models';
 import {
   AlbumsService,
-  NavbarStateService,
+  TvNavbarStateService,
   QueueService,
   SocketsService,
   SongPlayingService,
@@ -15,8 +15,8 @@ import {
     <div>
       <div *ngIf="songs.length">
         <div class="mt-10 mb-6 flex w-full select-none items-center justify-between text-white">
-          <div class="font-semibold text-[40px]">Favorite Songs</div>
-          <div class="flex items-center justify-center gap-2 pr-[100px] hover:opacity-75 cursor-pointer">
+          <div class="text-[40px] font-semibold">Favorite Songs</div>
+          <div class="flex cursor-pointer items-center justify-center gap-2 pr-[100px] hover:opacity-75">
             <div class="font-base text-[28px] text-blue-extra-light/75">View all</div>
             <img src="assets/Icons/ArrowRight.svg" width="28px" height="28px" />
           </div>
@@ -31,7 +31,7 @@ import {
         </div>
       </div>
       <div>
-        <div class="font-semibold text-[40px] text-white mt-10 select-none">Favorite Albums</div>
+        <div class="mt-10 select-none text-[40px] font-semibold text-white">Favorite Albums</div>
 
         <div class="flex w-full select-none gap-8 pt-4 pr-5">
           <!-- We only want to navigate to only 1 album, others are just for decoration -->
@@ -63,7 +63,7 @@ export class FavoritesComponent implements OnInit {
   songs: SongModel[] = [];
 
   constructor(
-    private navbarState: NavbarStateService,
+    private navbarState: TvNavbarStateService,
     private albumsService: AlbumsService,
     private songsService: SongsService,
     private socketService: SocketsService,

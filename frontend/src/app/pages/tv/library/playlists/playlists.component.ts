@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavbarStateService } from 'src/app/global/services';
+import { TvNavbarStateService } from 'src/app/global/services';
 import { playlists } from 'src/app/global/utils';
 
 @Component({
@@ -8,9 +8,9 @@ import { playlists } from 'src/app/global/utils';
     <div>
       <div>
         <div class="mt-10 flex w-full select-none items-center justify-between text-white">
-          <div class="font-semibold text-[40px]">Saved Playlists</div>
-          <div class="flex items-center justify-center gap-4 pr-[100px] hover:opacity-75 cursor-pointer">
-            <div class="font-medium text-[28px]">Sort by</div>
+          <div class="text-[40px] font-semibold">Saved Playlists</div>
+          <div class="flex cursor-pointer items-center justify-center gap-4 pr-[100px] hover:opacity-75">
+            <div class="text-[28px] font-medium">Sort by</div>
             <img src="assets/Icons/Sort.svg" width="48px" height="48px" />
           </div>
         </div>
@@ -25,7 +25,7 @@ import { playlists } from 'src/app/global/utils';
         </div>
       </div>
       <div>
-        <div class="font-semibold text-[40px] text-white mt-10 select-none">Playlists that you may like</div>
+        <div class="mt-10 select-none text-[40px] font-semibold text-white">Playlists that you may like</div>
         <app-card-wrapper>
           <app-tv-lib-card
             *ngFor="let playlist of youMayLikePlaylists"
@@ -42,7 +42,7 @@ export class PlaylistsComponent implements OnInit {
   savedPlaylists = playlists.filter((playlist) => playlist.saved);
   youMayLikePlaylists = playlists.filter((playlist) => !playlist.saved);
 
-  constructor(private navbarState: NavbarStateService) {
+  constructor(private navbarState: TvNavbarStateService) {
     this.navbarState.setLibraryNavState('playlists');
   }
 

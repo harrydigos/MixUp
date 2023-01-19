@@ -1,27 +1,20 @@
-<app-ph-navbar [page]="navState"></app-ph-navbar>
 <app-song-active></app-song-active>
 
-<!-- //// -->
-<div class="w-screen h-screen hide-scrollbar bg-blue-dark">
+<div class="hide-scrollbar h-screen w-screen bg-blue-dark">
   <div class="grid grid-cols-2 p-4 pt-7">
-    <div><p class="font-semibold text-white text-[24px]">Library</p></div>
+    <div><p class="text-[24px] font-semibold text-white">Library</p></div>
     <div class="relative">
-      <div
-        class="toggleSelector"
-        [ngClass]="libraryNavState === 'favorites' ? 'favorites' : 'playlists'"
-      ></div>
-      <div
-        class="flex items-center w-full h-full rounded-full bg-blue/25 text-[14px] font-normal overflow-hidden"
-      >
+      <div class="toggleSelector" [ngClass]="libraryNavState === 'favorites' ? 'favorites' : 'playlists'"></div>
+      <div class="flex h-full w-full items-center overflow-hidden rounded-full bg-blue/25 text-[14px] font-normal">
         <button
           routerLink="/phone/favorites"
-          class="z-10 w-1/2 h-full flex items-center justify-center rounded-full text-blue-extra-light"
+          class="z-10 flex h-full w-1/2 items-center justify-center rounded-full text-blue-extra-light"
         >
           Favorites
         </button>
         <button
           routerLink="/phone/playlists"
-          class="z-10 w-1/2 h-full flex items-center justify-center rounded-full text-blue-extra-light"
+          class="z-10 flex h-full w-1/2 items-center justify-center rounded-full text-blue-extra-light"
         >
           Playlists
         </button>
@@ -32,11 +25,11 @@
   <!-- My Playlists -->
 
   <div>
-    <div class="p-4 pb-3 w-auto">
-      <div><p class="font-medium text-white text-[20px]">My Playlists</p></div>
+    <div class="w-auto p-4 pb-3">
+      <div><p class="text-[20px] font-medium text-white">My Playlists</p></div>
     </div>
 
-    <div class="w-full pl-2 pr-5 overflow-x-auto flex hide-scrollbar">
+    <div class="hide-scrollbar flex w-full overflow-x-auto pl-2 pr-5">
       <app-phone-card
         *ngFor="let playlist of savedPlaylists"
         [playlistName]="playlist.name"
@@ -50,35 +43,30 @@
   <!-- Add new playlist -->
 
   <div class="p-6 pl-4 pb-2">
-    <button
-      class="w-[140px] rounded-lg h-[32px] bg-[#395B64] block shadow-sm focus:outline-none focus:border-sky"
-    >
-      <p class="font-regular text-white text-[16px]">+ New Playlist</p>
+    <button class="focus:border-sky block h-[32px] w-[140px] rounded-lg bg-[#395B64] shadow-sm focus:outline-none">
+      <p class="font-regular text-[16px] text-white">+ New Playlist</p>
     </button>
   </div>
 
   <!-- Recently Listened div -->
 
   <div>
-    <div class="grid grid-cols-2 p-4 pb-3 w-auto">
+    <div class="grid w-auto grid-cols-2 p-4 pb-3">
       <div>
-        <p class="font-medium text-white text-[20px] w-[220px]">
-          Trending Playlists
-        </p>
+        <p class="w-[220px] text-[20px] font-medium text-white">Trending Playlists</p>
       </div>
     </div>
 
-    <div class="w-full pl-2 pr-5 pb-[76px] overflow-x-auto flex hide-scrollbar">
+    <div class="hide-scrollbar flex w-full overflow-x-auto pl-2 pr-5 pb-[76px]">
       <app-phone-card
         *ngFor="let playlist of youMayLikePlaylists"
         [playlistName]="playlist.name"
         [tracks]="playlist.noTracks"
         [imgUrl]="'assets/images/playlists/' + playlist.image"
       >
-      </app-phone-card
-      >
+      </app-phone-card>
     </div>
   </div>
-   <!-- if song is playing add padding to bottom -->
-   <div *ngIf="songPlaying._id" class="h-[60px]"></div>
+  <!-- if song is playing add padding to bottom -->
+  <div *ngIf="songPlaying._id" class="h-[60px]"></div>
 </div>

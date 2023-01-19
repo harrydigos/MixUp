@@ -7,7 +7,6 @@ import { SearchComponent } from './search/search.component';
 
 import { PhoneCardComponent } from 'src/app/components/phone/phone-card/phone-card.component';
 import { NewTracksComponent } from 'src/app/components/phone/new-tracks/new-tracks.component';
-import { PhNavbarComponent } from 'src/app/components/phone/ph-navbar/ph-navbar.component';
 import { SongListComponent } from 'src/app/components/phone/song-list/song-list.component';
 import { PlaylistsComponent } from './library/playlists/playlists.component';
 import { LibraryComponent } from './library/library.component';
@@ -20,14 +19,13 @@ import { SongActiveComponent } from 'src/app/components/phone/song-active/song-a
   declarations: [
     HomeComponent,
     SearchComponent,
+    LibraryComponent,
 
     SongListComponent,
     SongListFavoritesComponent,
     PhoneCardComponent,
     NewTracksComponent,
-    PhNavbarComponent,
     PlaylistsComponent,
-    LibraryComponent,
     FavoritesComponent,
     PlayingSongComponent,
     SongActiveComponent,

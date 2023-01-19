@@ -5,7 +5,7 @@ import { LibraryNavState, NavbarState } from 'src/app/global/models';
 @Injectable({
   providedIn: 'root',
 })
-export class NavbarStateService {
+export class TvNavbarStateService {
   navState = new BehaviorSubject<NavbarState>('home');
   readonly navState$ = this.navState.asObservable();
 

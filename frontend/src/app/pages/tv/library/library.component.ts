@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { LibraryNavState } from 'src/app/global/models';
-import { NavbarStateService } from 'src/app/global/services';
+import { TvNavbarStateService } from 'src/app/global/services';
 
 @Component({
   selector: 'app-library',
   template: `
-    <div class="relative h-screen w-screen overflow-x-hidden bg-blue-dark hide-scrollbar">
-      <div class="relative w-full pl-[280px] py-[100px]">
+    <div class="hide-scrollbar relative h-screen w-screen overflow-x-hidden bg-blue-dark">
+      <div class="relative w-full py-[100px] pl-[280px]">
         <div class="flex items-center gap-[100px]">
-          <div class="font-semibold text-[56px] text-white select-none">Library</div>
+          <div class="select-none text-[56px] font-semibold text-white">Library</div>
           <div class="relative">
             <div class="toggleSelector" [ngClass]="libraryNavState === 'favorites' ? 'favorites' : 'playlists'"></div>
             <div
-              class="flex items-center w-[400px] h-[60px] rounded-full bg-blue/25 text-[32px] font-medium select-none overflow-hidden"
+              class="flex h-[60px] w-[400px] select-none items-center overflow-hidden rounded-full bg-blue/25 text-[32px] font-medium"
             >
               <button
                 routerLink="/tv/library/favorites"
@@ -38,7 +38,7 @@ import { NavbarStateService } from 'src/app/global/services';
 export class LibraryComponent implements OnInit {
   libraryNavState: LibraryNavState = 'favorites';
 
-  constructor(private navbarState: NavbarStateService) {
+  constructor(private navbarState: TvNavbarStateService) {
     this.navbarState.setNavState('library');
   }
 

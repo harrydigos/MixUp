@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LibraryNavState } from 'src/app/global/models';
-import { NavbarStateService } from 'src/app/global/services';
+import { PhoneNavbarStateService } from 'src/app/global/services';
 
 @Component({
   selector: 'app-library',
@@ -10,7 +10,7 @@ import { NavbarStateService } from 'src/app/global/services';
 export class LibraryComponent implements OnInit {
   libraryNavState: LibraryNavState = 'favorites';
 
-  constructor(private navbarState: NavbarStateService) {
+  constructor(private navbarState: PhoneNavbarStateService) {
     this.navbarState.setNavState('library');
   }
 

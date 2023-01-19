@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AlbumModel, SongModel } from 'src/app/global/models';
 import {
   AlbumsService,
-  NavbarStateService,
+  TvNavbarStateService,
   QueueService,
   SocketsService,
   SongPlayingService,
@@ -27,7 +27,7 @@ export class AlbumComponent implements OnInit {
   repeat: boolean = false;
 
   constructor(
-    private navbarState: NavbarStateService,
+    private navbarState: TvNavbarStateService,
     private location: Location,
     private route: ActivatedRoute,
     private albumsService: AlbumsService,
