@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarState, SongModel } from 'src/app/global/models';
-import { AlbumsService, SocketsService, SongPlayingService, SongsService } from 'src/app/global/services';
+import { PhoneNavbarStateService, SocketsService, SongPlayingService } from 'src/app/global/services';
 import { playlists } from 'src/app/global/utils';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-home',
@@ -11,9 +10,6 @@ import { environment } from 'src/environments/environment';
 })
 export class HomeComponent implements OnInit {
   navState: NavbarState = 'home';
-  artist: string = '';
-  song: string = '';
-  imgUrl: string = '';
 
   isPlaying: boolean = false;
   songPlaying: SongModel = {} as SongModel;
@@ -23,10 +19,12 @@ export class HomeComponent implements OnInit {
   youMayLikePlaylists = playlists.filter((playlist) => !playlist.saved);
 
   constructor(
+    private navbarState: PhoneNavbarStateService,
     private socketsService: SocketsService,
     private songPlayingService: SongPlayingService,
-    private songsService: SongsService,
-  ) {}
+  ) {
+    this.navbarState.setNavState('home');
+  }
 
   ngOnInit(): void {
     this.songPlayingService.songPlaying$.subscribe((song) => (this.songPlaying = song));

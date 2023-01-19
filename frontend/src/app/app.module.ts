@@ -15,6 +15,7 @@ import { TVComponent } from './pages/tv/tv.component';
 
 import { TvNavbarComponent } from './components/tv/tv-navbar/tv-navbar.component';
 import { TableDiscComponent } from './components/table/table-disc/table-disc.component';
+import { PhNavbarComponent } from './components/phone/ph-navbar/ph-navbar.component';
 
 const socketIoConfig: SocketIoConfig = { url: environment.host, options: {} };
 @NgModule({
@@ -27,6 +28,7 @@ const socketIoConfig: SocketIoConfig = { url: environment.host, options: {} };
     PhoneComponent,
 
     TvNavbarComponent,
+    PhNavbarComponent,
     TableDiscComponent,
   ],
   providers: [],

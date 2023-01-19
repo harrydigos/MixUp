@@ -1,12 +1,11 @@
-<app-ph-navbar [page]="navState"></app-ph-navbar>
 <app-song-active></app-song-active>
-<!-- //// -->
-<div  class="h-screen w-screen p-4 hide-scrollbar bg-blue-dark">
+
+<div class="hide-scrollbar h-screen w-screen bg-blue-dark p-4">
   <div class="grid grid-cols-2 pt-3 pb-4">
-    <div><p class="font-semibold text-white text-[24px]">Library</p></div>
+    <div><p class="text-[24px] font-semibold text-white">Library</p></div>
     <div class="relative">
       <div class="toggleSelector" [ngClass]="libraryNavState === 'favorites' ? 'favorites' : 'playlists'"></div>
-      <div class="flex items-center w-full h-full rounded-full bg-blue/25 text-[14px] font-normal overflow-hidden">
+      <div class="flex h-full w-full items-center overflow-hidden rounded-full bg-blue/25 text-[14px] font-normal">
         <button
           routerLink="/phone/favorites"
           class="z-10 flex h-full w-1/2 items-center justify-center rounded-full text-blue-extra-light"
@@ -32,7 +31,7 @@
       #box
       type="text"
       placeholder="{{ searchText }}"
-      class="w-full rounded-lg h-[40px] placeholder:text-blue-dark text-[14px] block border border-slate-300 pl-12 pr-3 shadow-sm focus:outline-none focus:border-sky"
+      class="focus:border-sky block h-[40px] w-full rounded-lg border border-slate-300 pl-12 pr-3 text-[14px] shadow-sm placeholder:text-blue-dark focus:outline-none"
     />
   </div>
 
@@ -40,13 +39,13 @@
 
   <div class="pt-7 pb-4">
     <div class="grid grid-cols-2">
-      <p class="font-medium text-white text-[20px]">Liked Songs</p>
+      <p class="text-[20px] font-medium text-white">Liked Songs</p>
 
       <button
         id="dropdownBottomButton"
         data-dropdown-toggle="dropdownBottom"
         data-dropdown-placement="bottom"
-        class="inline-flex items-center justify-end rounded-lg text-center text-sm font-medium text-white bg-none md:mb-0"
+        class="inline-flex items-center justify-end rounded-lg bg-none text-center text-sm font-medium text-white md:mb-0"
         type="button"
       >
         Date added
@@ -65,7 +64,7 @@
         </svg>
       </button>
     </div>
-    <p class="font-normal text-[#A5C9CA] text-[14px]">{{ songs.length }} songs</p>
+    <p class="text-[14px] font-normal text-[#A5C9CA]">{{ songs.length }} songs</p>
   </div>
 
   <hr id="horizontal-line" />
@@ -83,16 +82,15 @@
   </div>
 
   <div *ngIf="showQueueMessage">
-    <div class="z-40 fixed bottom-[72px] left-2 rounded-[8px] w-[95%] h-[40px] bg-white flex items-center">
-      <p class="font-normal text-black text-[12px] p-4">{{ queueMessage }}</p>
+    <div class="fixed bottom-[72px] left-2 z-40 flex h-[40px] w-[95%] items-center rounded-[8px] bg-white">
+      <p class="p-4 text-[12px] font-normal text-black">{{ queueMessage }}</p>
     </div>
   </div>
   <div *ngIf="showMessageRemove == true">
-    <div class="fixed bottom-[72px] left-2 rounded-[8px] w-[95%] h-[40px] bg-white flex items-center">
-      <p class="font-normal text-black text-[12px] p-4">' {{ songPressed }} ' removed from favorites.</p>
+    <div class="fixed bottom-[72px] left-2 flex h-[40px] w-[95%] items-center rounded-[8px] bg-white">
+      <p class="p-4 text-[12px] font-normal text-black">' {{ songPressed }} ' removed from favorites.</p>
     </div>
   </div>
   <!-- if song is playing add padding to bottom -->
   <div *ngIf="songPlaying._id" class="h-[60px]"></div>
 </div>
-

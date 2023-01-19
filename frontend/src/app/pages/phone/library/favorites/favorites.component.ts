@@ -2,11 +2,11 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavbarState, SongModel } from 'src/app/global/models';
 import {
-  NavbarStateService,
   SongsService,
   SocketsService,
   QueueService,
   SongPlayingService,
+  PhoneNavbarStateService,
 } from 'src/app/global/services';
 
 @Component({
@@ -15,8 +15,6 @@ import {
   styleUrls: ['./favorites.component.scss'],
 })
 export class FavoritesComponent implements OnInit {
-  navState: NavbarState = 'library';
-
   songs: SongModel[] = [];
   libraryNavState: 'favorites' | 'playlists' = 'favorites';
   @Input() searchText: string = 'Search in favorites';
@@ -33,13 +31,14 @@ export class FavoritesComponent implements OnInit {
   showQueueMessage: boolean = false;
 
   constructor(
-    private navbarState: NavbarStateService,
+    private navbarState: PhoneNavbarStateService,
     private songService: SongsService,
     private socketService: SocketsService,
     private queueService: QueueService,
     private _router: Router,
     private songPlayingService: SongPlayingService,
   ) {
+    this.navbarState.setNavState('library');
     this.navbarState.setLibraryNavState('favorites');
   }
 

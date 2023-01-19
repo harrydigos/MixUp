@@ -1,10 +1,8 @@
-<app-ph-navbar [page]="navState"></app-ph-navbar>
-
-<div class="h-screen w-screen hide-scrollbar bg-blue-dark">
-  <div class="w-full h-screen px-4">
-    <div class="flex w-full items-center justify-between pt-8 pb-6 flex-cols-3">
+<div class="hide-scrollbar h-screen w-screen bg-blue-dark">
+  <div class="h-screen w-full px-4">
+    <div class="flex-cols-3 flex w-full items-center justify-between pt-8 pb-6">
       <div (click)="back()"><img src="assets/Icons-geo/arrow-left-2.svg" alt="" /></div>
-      <div class="font-normal text-white text-[16px]">{{ song.album }}</div>
+      <div class="text-[16px] font-normal text-white">{{ song.album }}</div>
       <div><img src="assets/Icons-geo/more.svg" alt="" /></div>
     </div>
 
@@ -12,7 +10,7 @@
     <div *ngIf="!showLyrics" class="pt-4">
       <img
         *ngIf="song.image"
-        class="object-fit w-full aspect-square rounded-[40px]"
+        class="object-fit aspect-square w-full rounded-[40px]"
         src="assets/images/songs/{{ song.image }}"
         alt=""
       />
@@ -20,17 +18,17 @@
 
     <!-- Music info-->
     <div class="flex w-full justify-center pt-4">
-      <div class="font-semibold text-white text-[24px] pb-2">{{ song.title }}</div>
+      <div class="pb-2 text-[24px] font-semibold text-white">{{ song.title }}</div>
     </div>
     <div class="flex w-full justify-center">
-      <div class="font-regular text-white text-[16px]">{{ song.artist }}</div>
+      <div class="font-regular text-[16px] text-white">{{ song.artist }}</div>
     </div>
 
     <!-- MusicTime-->
-    <div class="w-full py-6 flex items-center justify-between text-white text-xs font-medium">
+    <div class="flex w-full items-center justify-between py-6 text-xs font-medium text-white">
       <div class="w-10">{{ songTimeStart }}</div>
       <progress
-        class="w-full h-[5px] self-center"
+        class="h-[5px] w-full self-center"
         [value]="songCurrentTime"
         [max]="song.duration ? song.duration * 60 : 0"
       ></progress>
@@ -38,7 +36,7 @@
     </div>
 
     <!-- Buttons -->
-    <div class="w-full h-[10vh] pb-4 flex flex-cols-5 justify-between items-center">
+    <div class="flex-cols-5 flex h-[10vh] w-full items-center justify-between pb-4">
       <div>
         <img src="assets/Icons/RepeatNo.svg" alt="" />
       </div>
@@ -46,7 +44,7 @@
         <img src="assets/Icons/Previous.svg" alt="" />
       </div>
       <div (click)="playSong()">
-        <img *ngIf="isPlaying; else pause" class="w-[55px] h-[55px]" src="assets/Icons/Pause.svg" alt="" />
+        <img *ngIf="isPlaying; else pause" class="h-[55px] w-[55px]" src="assets/Icons/Pause.svg" alt="" />
         <ng-template #pause>
           <img src="assets/Icons/Table/Play.svg" width="55px" height="55px" />
         </ng-template>
@@ -55,7 +53,7 @@
       <div class="relative" (click)="toggleWall()">
         <div
           *ngIf="wallIsOpen"
-          class="absolute top-2 right-[2px] w-3 h-[1.5px] rounded-full bg-blue-light -rotate-45"
+          class="absolute top-2 right-[2px] h-[1.5px] w-3 -rotate-45 rounded-full bg-blue-light"
         ></div>
         <img src="assets/Icons/MirroringScreen.svg" alt="" />
       </div>
@@ -64,28 +62,28 @@
     <!-- Lyrics -->
     <div
       *ngIf="!showLyrics; else lyricsOpen"
-      class="hide-scrollbar h-[5vh] fixed bottom-0 left-4 right-4 bg-blue rounded-t-[40px] flex justify-center"
+      class="hide-scrollbar fixed bottom-0 left-4 right-4 flex h-[5vh] justify-center rounded-t-[40px] bg-blue"
       (pointerenter)="toggleLyrics()"
     >
       <div class="absolute top-4 left-6">
-        <p class="text-[16px] text-white font-medium">Lyrics</p>
+        <p class="text-[16px] font-medium text-white">Lyrics</p>
       </div>
       <div>
-        <hr class="w-[100px] border-[1px] mt-2 border-white/50 rounded-full" />
+        <hr class="mt-2 w-[100px] rounded-full border-[1px] border-white/50" />
       </div>
     </div>
 
     <ng-template #lyricsOpen>
-      <div class="overflow-hidden h-[50vh] bg-blue rounded-[40px] px-6 py-4">
-        <div class="w-full flex justify-between items-center pb-4">
-          <p class="text-white font-medium">Lyrics</p>
+      <div class="h-[50vh] overflow-hidden rounded-[40px] bg-blue px-6 py-4">
+        <div class="flex w-full items-center justify-between pb-4">
+          <p class="font-medium text-white">Lyrics</p>
           <img (click)="toggleLyrics()" style="width: 32px" src="assets/Icons/Table/CloseCircle.svg" alt="" />
         </div>
-        <div class="w-full h-full overflow-scroll">
+        <div class="h-full w-full overflow-scroll">
           <div *ngFor="let lyric of lyrics" class="w-full">
             <div
               [ngStyle]="{ opacity: lyric.isActive ? '1' : '0.4' }"
-              class="py-1 font-semibold text-[18px] leading-relaxed text-white"
+              class="py-1 text-[18px] font-semibold leading-relaxed text-white"
             >
               {{ lyric.text }}
             </div>

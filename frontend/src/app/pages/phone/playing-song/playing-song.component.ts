@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { SocketsService, SongPlayingService, SongsService } from 'src/app/global/services';
-import { LyricsType, NavbarState, SongModel } from 'src/app/global/models';
+import { PhoneNavbarStateService, SocketsService, SongPlayingService, SongsService } from 'src/app/global/services';
+import { LyricsType, SongModel } from 'src/app/global/models';
 import { blindingLightsLyrics } from 'src/app/global/utils';
 
 type LyricsPhone = LyricsType & { isActive: boolean };
@@ -13,8 +13,6 @@ type LyricsPhone = LyricsType & { isActive: boolean };
   styleUrls: ['./playing-song.component.scss'],
 })
 export class PlayingSongComponent implements OnInit {
-  navState: NavbarState = 'hide';
-
   song: SongModel = {} as SongModel;
 
   songTimeStart: string = '';
@@ -29,12 +27,15 @@ export class PlayingSongComponent implements OnInit {
   wallIsOpen: boolean = false;
 
   constructor(
+    private navbarState: PhoneNavbarStateService,
     private route: ActivatedRoute,
     private location: Location,
     private socketsService: SocketsService,
     private songPlayingService: SongPlayingService,
     private songsService: SongsService,
-  ) {}
+  ) {
+    this.navbarState.setNavState('hide');
+  }
 
   ngOnInit(): void {
     let songId = this.route.snapshot.paramMap.get('id');

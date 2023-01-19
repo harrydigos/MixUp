@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { GENRES, recentSearches } from 'src/app/global/utils';
-import { AlbumDummyModel, AlbumModel, NavbarState, SongModel } from 'src/app/global/models';
-import { AlbumsService, SmartSpeakerService, SongPlayingService, SongsService } from 'src/app/global/services';
-import { Router } from '@angular/router';
+import { AlbumDummyModel, AlbumModel, SongModel } from 'src/app/global/models';
+import {
+  AlbumsService,
+  PhoneNavbarStateService,
+  SmartSpeakerService,
+  SongPlayingService,
+  SongsService,
+} from 'src/app/global/services';
 
 type SearchResults = {
   albums: AlbumModel[];
@@ -15,8 +20,6 @@ type SearchResults = {
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit {
-  navState: NavbarState = 'search';
-
   songPlaying: SongModel = {} as SongModel;
   musicGenres = GENRES.slice(0, 6);
 
@@ -34,12 +37,14 @@ export class SearchComponent implements OnInit {
   };
 
   constructor(
+    private navbarState: PhoneNavbarStateService,
     private songPlayingService: SongPlayingService,
     private smartSpeakerService: SmartSpeakerService,
     private songsService: SongsService,
     private albumsService: AlbumsService,
-    private router: Router,
-  ) {}
+  ) {
+    this.navbarState.setNavState('search');
+  }
 
   ngOnInit(): void {
     this.songPlayingService.songPlaying$.subscribe((isPlaying) => (this.songPlaying = isPlaying));
