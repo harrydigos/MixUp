@@ -201,10 +201,10 @@ export class TableComponent implements OnInit {
   };
 
   stopDisc = () => {
+    if (this.wasPlayingBeforeDrag && this.active) this.songPlayingService.setPlay(true);
     this.angle += this.rotation;
     this.active = false;
     this.disc!.nativeElement.style.cursor = 'grab';
-    if (this.wasPlayingBeforeDrag) this.songPlayingService.setPlay(true);
   };
 
   playAnimDisc = () => {

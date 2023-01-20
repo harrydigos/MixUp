@@ -74,16 +74,19 @@
     </div>
 
     <ng-template #lyricsOpen>
-      <div class="h-[50vh] overflow-hidden rounded-[40px] bg-blue px-6 py-4">
+      <div class="h-[50vh] overflow-hidden rounded-[40px] bg-blue px-6 py-4 text-white">
         <div class="flex w-full items-center justify-between pb-4">
-          <p class="font-medium text-white">Lyrics</p>
+          <p class="font-medium">Lyrics</p>
           <img (click)="toggleLyrics()" style="width: 32px" src="assets/Icons/Table/CloseCircle.svg" alt="" />
         </div>
-        <div class="h-full w-full overflow-scroll">
+
+        <div *ngIf="song.title !== 'Blinding Lights'">Lyrics are not supported for this song</div>
+
+        <div *ngIf="song.title === 'Blinding Lights'" class="h-full w-full overflow-scroll">
           <div *ngFor="let lyric of lyrics" class="w-full">
             <div
               [ngStyle]="{ opacity: lyric.isActive ? '1' : '0.4' }"
-              class="py-1 text-[18px] font-semibold leading-relaxed text-white"
+              class="py-1 text-lg font-semibold leading-relaxed"
             >
               {{ lyric.text }}
             </div>

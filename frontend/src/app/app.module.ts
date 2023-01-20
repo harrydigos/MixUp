@@ -16,12 +16,12 @@ import { TVComponent } from './pages/tv/tv.component';
 import { TvNavbarComponent } from './components/tv/tv-navbar/tv-navbar.component';
 import { TableDiscComponent } from './components/table/table-disc/table-disc.component';
 import { PhNavbarComponent } from './components/phone/ph-navbar/ph-navbar.component';
+import { SongActiveComponent } from './components/phone/song-active/song-active.component';
 
 const socketIoConfig: SocketIoConfig = { url: environment.host, options: {} };
 @NgModule({
   declarations: [
     AppComponent,
-
     TVComponent,
     TableComponent,
     WallComponent,
@@ -29,6 +29,7 @@ const socketIoConfig: SocketIoConfig = { url: environment.host, options: {} };
 
     TvNavbarComponent,
     PhNavbarComponent,
+    SongActiveComponent,
     TableDiscComponent,
   ],
   providers: [],

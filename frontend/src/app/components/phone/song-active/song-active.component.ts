@@ -1,46 +1,47 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { SongModel } from 'src/app/global/models';
-import { SocketsService, SongPlayingService } from 'src/app/global/services';
-import { environment } from 'src/environments/environment';
+import { SongPlayingService } from 'src/app/global/services';
 
 @Component({
   selector: 'app-song-active',
-  templateUrl: './song-active.component.html',
-  styleUrls: ['./song-active.component.scss'],
+  template: `
+    <div *ngIf="active">
+      <button
+        *ngIf="songPlaying._id"
+        class="fixed bottom-[60px] z-50 flex w-full items-center rounded-t-2xl bg-blue py-2 px-4"
+      >
+        <img src="assets/images/songs/{{ songPlaying.image }}" class="h-12 w-12 rounded-[10px] object-cover" />
+
+        <div
+          class="grid h-10 w-full grid-rows-2 justify-items-start gap-1 pl-3"
+          routerLink="/phone/play/{{ songPlaying._id }}"
+        >
+          <div class="text-[16px] font-normal text-white">{{ songPlaying.title }}</div>
+          <div class="text-[12px] font-light text-white">{{ songPlaying.artist }}</div>
+        </div>
+
+        <div class="absolute bottom-0 left-0 h-1 w-full bg-[#294249]"></div>
+        <div class="absolute bottom-0 left-0 h-1 bg-blue-light" [ngStyle]="setWidth()"></div>
+      </button>
+    </div>
+  `,
 })
 export class SongActiveComponent implements OnInit {
+  @Input() active: boolean = false;
 
-  imgUrl: string = '';
-  song: string = '';
-  artist: string = '';
-
-  isPlaying: boolean = false;
   songPlaying: SongModel = {} as SongModel;
-
-  songTimeStart: string = '';
-  songTimeEnd: string = '';
   songCurrentTime: number = 0;
-  //If I use the normal songtimeEnd then there is a problem with the value 3.14 for example
-  songTimeDurationForBlinding = 204;
 
-  constructor(
-    private socketService: SocketsService,
-    private songPlayingService: SongPlayingService,
-  ) {}
+  constructor(private songPlayingService: SongPlayingService) {}
 
   ngOnInit(): void {
-    this.songPlayingService.currentTime$.subscribe((time) => {
-      this.songCurrentTime = time;
-    });
-
+    this.songPlayingService.currentTime$.subscribe((time) => (this.songCurrentTime = time));
     this.songPlayingService.songPlaying$.subscribe((song) => (this.songPlaying = song));
-    this.songPlayingService.isPlaying$.subscribe((isPlaying) => (this.isPlaying = isPlaying));
   }
 
   setWidth = (): Record<'width', string> => {
-    if (this.songPlaying) return { width: '0%' };
     return {
-      width: `${(this.songCurrentTime / this.songTimeDurationForBlinding) * 100}%`,
+      width: `${(this.songCurrentTime / (this.songPlaying.duration * 60)) * 100}%`,
     };
   };
 }

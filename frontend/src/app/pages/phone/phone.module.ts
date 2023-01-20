@@ -28,7 +28,6 @@ import { SongActiveComponent } from 'src/app/components/phone/song-active/song-a
     PlaylistsComponent,
     FavoritesComponent,
     PlayingSongComponent,
-    SongActiveComponent,
   ],
   imports: [CommonModule, PhoneRoutingModule],
 })
